@@ -1,15 +1,12 @@
 import React from 'react'
 import styled from 'react-emotion'
+import Pill from './Pill';
 
-
-interface IVariableDescriptor {
-
-}
 
 interface IVariableToolbarProps {
-  variables: IVariableDescriptor[]
   onAddVariableClicked: () => void
   onExistingVariableClicked: (id: Number) => void
+  variableIds: string[]
 }
 
 const Container = styled('div')({
@@ -29,7 +26,7 @@ const VariableToolbar = (props: IVariableToolbarProps) => (
     <Button onClick={props.onAddVariableClicked}>
       Nueva Variable
     </Button>
-    {props.variables.map(v => <span>{v}</span>)}
+    {props.variableIds.map(v => <Pill focused={false}>{v}</Pill>)}
   </Container>
 )
 

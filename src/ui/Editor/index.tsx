@@ -38,7 +38,6 @@ export default class SlateEditor extends React.Component {
     this.editor = editor
   }
   
-  // Render the editor.
   render() {    
     return (
       <div>
@@ -51,9 +50,10 @@ export default class SlateEditor extends React.Component {
           onToggleVariablesClicked={this.toggleVariableToolbar}
         />
         {this.state.showingVariableToolbar && <VariableToolbar 
+          variableIds={[]}
           onAddVariableClicked={this.addVariable}
           onExistingVariableClicked={() => { throw Error('todo') }}
-          variables={[]} />}
+          />}
         <Editor 
         schema={SlateEditor.schema}
         ref={this.ref}
@@ -63,7 +63,7 @@ export default class SlateEditor extends React.Component {
       </div>      
     )
   }
-  // On change, update the app's React state with the new editor value.
+
   private onChange = ({ value }) => {
     this.setState({ value })
   }
