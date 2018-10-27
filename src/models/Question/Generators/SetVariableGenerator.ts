@@ -1,18 +1,17 @@
 import { VariableGenerator } from './index'
 import { GeneratorType } from './index';
 
-export interface RangeVariableGeneratorParams {
-  start: number,
-  end: number,
-}
+export interface SetVariableGeneratorParams {
+  set: number[],
 
-class RangeVariableGenerator implements VariableGenerator {
+
+class SetVariableGenerator implements VariableGenerator {
   constructor(
     public requiredIterations: number,
     private params: RangeVariableGeneratorParams
   ) {}
 
-  type = GeneratorType.RANGE
+  type = GeneratorType.SET
 
   compute = () => {
     const values: number[] = []
