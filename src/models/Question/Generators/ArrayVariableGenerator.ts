@@ -1,14 +1,14 @@
 import { VariableGenerator } from './index'
 import { GeneratorType } from './index';
 
-export interface SetVariableGeneratorParams {
-  set: number[],
+export interface ArrayVariableGeneratorParams {
+  array: number[],
+}
 
-
-class SetVariableGenerator implements VariableGenerator {
+class ArrayVariableGenerator implements VariableGenerator {
   constructor(
     public requiredIterations: number,
-    private params: RangeVariableGeneratorParams
+    private params: ArrayVariableGeneratorParams
   ) {}
 
   type = GeneratorType.SET
@@ -18,14 +18,12 @@ class SetVariableGenerator implements VariableGenerator {
     const { params, requiredIterations } = this
 
     for (let i = 0; i < requiredIterations; i++) {
-      const generatedValue = Math.floor(
-        Math.random() * params.end) + params.start
-
-      values.push(generatedValue)
+      const generatedPosition=Math.random()*params.array.length+1
+      values.push(params.array[generatedPosition])
     }
 
     return values
   }
 }
 
-export default RangeVariableGenerator
+export default ArrayVariableGenerator

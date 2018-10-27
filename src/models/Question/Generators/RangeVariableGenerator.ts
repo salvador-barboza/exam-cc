@@ -19,9 +19,10 @@ class RangeVariableGenerator implements VariableGenerator {
     const { params, requiredIterations } = this
 
     for (let i = 0; i < requiredIterations; i++) {
+      const diference =params.end-params.start
       const generatedValue = Math.floor(
-        Math.random() * params.end) + params.start
-
+        Math.random() * (diference+1)) + params.start
+      
       values.push(generatedValue)
     }
 
