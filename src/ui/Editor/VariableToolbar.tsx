@@ -5,7 +5,7 @@ import Pill from './Pill';
 
 interface IVariableToolbarProps {
   onAddVariableClicked: () => void
-  onExistingVariableClicked: (id: Number) => void
+  onExistingVariableClicked: (id: string) => void
   variableIds: string[]
 }
 
@@ -26,7 +26,12 @@ const VariableToolbar = (props: IVariableToolbarProps) => (
     <Button onClick={props.onAddVariableClicked}>
       Nueva Variable
     </Button>
-    {props.variableIds.map(v => <Pill focused={false}>{v}</Pill>)}
+    {props.variableIds.map(variableTag => (
+      <Pill 
+        key={variableTag}
+        onClick={() => props.onExistingVariableClicked(variableTag)}
+        focused={false}>{variableTag}</Pill>
+      ))}
   </Container>
 )
 

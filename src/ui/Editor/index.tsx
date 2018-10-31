@@ -1,17 +1,186 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Value } from 'slate'
 import { Editor } from 'slate-react'
+import styled from 'react-emotion';
 
 import Toolbar from './Toolbar'
 import VariableToolbar from './VariableToolbar'
 import { BlockTypes } from './shared'
-import EditorNodeRenderer from './EditorNodeRenderer';
+import EditorNodeRenderer from './Rendering/EditorNodeRenderer';
+import QuestionVariableMap from '../../models/Question/QuestionVariableMap'
+import AnswerEditor, { FormValues } from './AnswerEditor'
+import Question from 'src/models/Question/Question';
 
-export default class SlateEditor extends React.Component {
-  public state = {
-    value: SlateEditor.initialValue,
-    showingVariableToolbar: false
+interface QuestionEditorProps {
+  editable?: boolean,
+  question?: Question,
+  onSaveQuestion?: (question: Question) => void
+}
+
+interface QuestionEditorState {
+  value: Value,
+  showingVariableToolbar: boolean,
+  variables: QuestionVariableMap,
+  answers: FormValues
+}
+
+
+export interface ContainerProps {
+  editable?: Boolean
+}
+
+const Container = styled('div')((props: ContainerProps) => ({
+  width: '100%',
+  minHeight: props.editable ? 300 : 'auto',
+  border: '1px solid #E0E0E0',
+}))
+
+export default class QuestionEditor extends 
+  React.Component<QuestionEditorProps, QuestionEditorState> {
+  public props: QuestionEditorProps
+  public state : QuestionEditorState = {
+    value: Value.fromJSON({
+      document: { nodes: [{ object: 'block', type: 'paragraph' }] } 
+    }),
+    showingVariableToolbar: false,
+    variables: new QuestionVariableMap(),
+    answers: {
+      distractors: undefined,
+      formula: undefined
+    }
   }
+
+  private editor: Editor
+​  private ref = editor => {
+    this.editor = editor
+  }
+
+  constructor(props: QuestionEditorProps) {
+    super(props)
+    if (props.question) {
+      this.state.value = props.question.structure
+      this.state.variables = props.question.variableMap
+    }    
+  }
+  
+  render() {    
+    return (
+      <Fragment>
+      <Container editable={this.props.editable}>
+        {this.props.editable && <Toolbar 
+          onAddImageClicked={this.addImage}
+          onBoldClicked={this.toggleBold}
+          onUnderlineClicked={this.toggleUnderline}
+          onItalicsClicked={this.toggleItalics}
+          magicTime={this.swapVariablesForValues}
+          onToggleVariablesClicked={this.toggleVariableToolbar}
+        />}
+        {this.state.showingVariableToolbar && 
+          <VariableToolbar 
+            variableIds={this.state.variables.variableKeys}
+            onAddVariableClicked={this.addVariable}
+            onExistingVariableClicked={this.insertVariableBlock}
+          />
+        }
+        <Editor 
+          readOnly={!this.props.editable}
+          autoFocus={false}
+          schema={QuestionEditor.schema}
+          ref={this.ref}
+          value={this.state.value} 
+          onChange={this.onChange}
+          renderNode={EditorNodeRenderer.render} />         
+      </Container>      
+    {this.props.editable && 
+        <AnswerEditor
+          answer={this.props.question && this.props.question.answer}
+          distractors={this.props.question && this.props.question.choices}
+          valueChanged={this.handleAnswerChange}
+          variableQuestionRenameMe={false}
+          availableVariables={[...this.state.variables.variableKeys]} />
+      }
+     </Fragment>
+    )
+  }
+
+  private onChange = ({ value }) => 
+    this.setState({ value })
+
+  private swapVariablesForValues = () => {
+    if (this.props.onSaveQuestion) {
+      const { variables, value, answers } = this.state
+      const { formula, distractors } = answers
+      if (!formula) {
+        return
+      }
+
+      const q = new Question(
+        1, 
+        1, 
+        value, 
+        false, 
+        formula, 
+        variables, 
+        distractors)
+      console.log(q)
+      this.props.onSaveQuestion(q)
+    }
+  }
+
+  private addVariable = () => {
+    const tag = window.prompt('tag?') || 'x'
+    const start = Number(window.prompt('start?'))
+    const end = Number(window.prompt('end?'))
+
+    this.state.variables.addRangeVariable(tag, { start, end })
+    this.insertVariableBlock(tag)    
+  }
+
+  private addImage = () => {
+
+  }
+
+  private toggleBold = () => {
+
+  }
+
+  private toggleUnderline = () => {
+
+  }
+  
+  private toggleItalics = () => {
+
+  }
+
+  private insertVariableBlock = (tag: string) => {
+    this.editor.change((change) =>  
+      change.insertInline({
+        type: BlockTypes.VARIABLE,
+        data: { variableTag: tag },
+        nodes: []
+      })
+      .focus()
+      .moveForward()
+    )
+  }
+  
+  private toggleVariableToolbar = () => 
+    this.setState({ 
+      ...this.state, 
+      showingVariableToolbar: !this.state.showingVariableToolbar 
+    }) 
+
+  private handleAnswerChange = (answers: any) => {
+    this.setState({ 
+      ...this.state, 
+      answers
+    }) 
+
+  }
+  
+  static defaultProps : QuestionEditorProps = {
+    editable: true,    
+  } 
 
   private static schema = {
     inlines: {
@@ -19,109 +188,5 @@ export default class SlateEditor extends React.Component {
         isVoid: true,
       },
     },
-  }
-
-  private static initialValue = Value.fromJSON({
-    document: {
-      nodes: [
-        {
-          object: 'block',
-          type: 'paragraph',        
-        }
-      ],
-    }
-  })
-
-  private editor: Editor
-
-​  private ref = editor => {
-    this.editor = editor
-  }
-  
-  render() {    
-    return (
-      <div>
-        <Toolbar 
-          onAddImageClicked={this.addImage}
-          onBoldClicked={this.toggleBold}
-          onUnderlineClicked={this.toggleUnderline}
-          onItalicsClicked={this.toggleItalics}
-          magicTime={this.swapVariablesForValues}
-          onToggleVariablesClicked={this.toggleVariableToolbar}
-        />
-        {this.state.showingVariableToolbar && <VariableToolbar 
-          variableIds={[]}
-          onAddVariableClicked={this.addVariable}
-          onExistingVariableClicked={() => { throw Error('todo') }}
-          />}
-        <Editor 
-        schema={SlateEditor.schema}
-        ref={this.ref}
-        value={this.state.value} 
-        onChange={this.onChange}
-        renderNode={EditorNodeRenderer.render} />
-      </div>      
-    )
-  }
-
-  private onChange = ({ value }) => {
-    this.setState({ value })
-  }
-
-  private swapVariablesForValues = () => {
-    const varMapping = {
-      a: 1,
-      b: 2,
-      c: 14,
-      x: 3,
-    }
-
-    const doc = this.state.value.document 
-    doc
-      .getInlinesByTypeAsArray(BlockTypes.VARIABLE)      
-      .map(n => {
-        console.log(n.data.toObject())
-        return n
-      })
-      .forEach(n => {
-        this.editor.change(change => change.replaceNodeByKey(n.key, 
-          { object: 'text',   
-            leaves: [
-            {
-              text: varMapping[n.data.get('variableTag')]
-            },
-          ]}
-        ))
-      })
-  }
-
-  private addImage = () => {
-
-  }
-  private toggleBold = () => {
-
-  }
-  private toggleUnderline = () => {
-
-  }
-  private toggleItalics = () => {
-
-  }
-
-  private addVariable = () => {
-    this.editor.change((change, src, target) =>  
-      change.insertInline({
-        type: BlockTypes.VARIABLE,
-        data: { variableTag: window.prompt('tag?') },
-        nodes: []
-      })
-      .focus()
-      .moveForward()
-    )
-  }
-  private toggleVariableToolbar = () => 
-    this.setState({ 
-      ...this.state, 
-      showingVariableToolbar: !this.state.showingVariableToolbar 
-    })  
+  }  
 }

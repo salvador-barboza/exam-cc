@@ -1,19 +1,16 @@
-import { GeneratorType } from './Generators'
+import { IQuestionVariableMap } from './QuestionVariableMap';
+import { Value } from 'slate';
 
 export interface IQuestion {
   id: Number
-  difficulty: Difficulty
-  structure: QuestionStructure
-}
+  difficulty: Difficulty    
+  structure: Value
 
-export interface QuestionStructure {
-  variables: Map<string, VariableDescriptor>
-  serializedValue: JSON
-}
+  variableQuestion: boolean
 
-export interface VariableDescriptor {
-  params: any  
-  generator: GeneratorType
+  variableMap?: IQuestionVariableMap
+  choices?: string[]  
+  answer: string
 }
 
 export enum Difficulty {

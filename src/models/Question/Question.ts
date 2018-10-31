@@ -1,31 +1,17 @@
-import { IQuestion, VariableDescriptor } from "./IQuestion";
-import { GeneratorType } from './Generators';
-import { RangeVariableGeneratorParams } from './Generators/RangeVariableGenerator';
+import { IQuestion, Difficulty } from "./IQuestion";
+import { Value } from 'slate';
+import QuestionVariableMap from './QuestionVariableMap';
 
 class Question implements IQuestion {
-  public difficulty
-  public id
-  public structure  
-
-  private variableMap: Map<string, VariableDescriptor> = new Map()
-
-  public get variables() {
-    return Array.from(this.variableMap.keys())
-  }
-
-  public addRangeVariable = (id: string, params: RangeVariableGeneratorParams) => 
-    this.addVariable(id, GeneratorType.RANGE, params)
-  
-  private addVariable (id: string, generator: GeneratorType, params: object) {
-    if (this.variableMap.get(id)) {
-      throw Error('Duplicate key entry not allowed')
-    }    
-
-    this.variableMap.set(id, {
-      generator,
-      params
-    })
-  }
+  constructor(
+  public id: number,
+  public difficulty: Difficulty,
+  public structure: Value,
+  public variableQuestion: boolean,  
+  public answer: string,
+  public variableMap: QuestionVariableMap = new QuestionVariableMap(),
+  public choices?: string[]  
+  ) {}
 }
 
 export default Question

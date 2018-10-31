@@ -1,6 +1,6 @@
 import React from 'react'
-import { BlockTypes } from './shared'
-import Pill from './Pill'
+import { BlockTypes } from '../shared'
+import Pill from '../Pill'
 
 export default class EditorNodeRenderer {
   static render(props, next) {

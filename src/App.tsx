@@ -1,13 +1,11 @@
 import * as React from 'react';
 import './App.css';
-import SlateEditor from './ui/Editor'
-// import QuestionView from './ui/Question/QuestionView'
-
+import QuestionBankEditor from './ui/QuestionBank/QuestionBankEditor';
 
 class App extends React.Component {
   public render() {
     return (
-      <SlateEditor />
+      <QuestionBankEditor />
     );
   }
 }
