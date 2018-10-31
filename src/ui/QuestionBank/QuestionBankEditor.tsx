@@ -1,54 +1,9 @@
 import React, { Component } from 'react'
-import styled from 'react-emotion'
 import QuestionEditor from '../Editor';
 import Question from 'src/models/Question/Question';
-import Html from 'slate-html-serializer'
-import { BlockTypes } from '../Editor/shared';
-import Pill from '../Editor/Pill';
+import QuestionPreview from './QuestionPreview';
+import { Container, TitleInput, AddButton } from './Components';
 
-
-const rules = [
-  {   
-    serialize(obj, children) {
-      if (obj.object == 'block') {
-        switch (obj.type) {
-          case 'code':
-            return (
-              <pre>
-                <code>{children}</code>
-              </pre>
-            )
-          case 'paragraph':
-            return <span className={obj.data.get('className')}>{children}</span>
-          case 'quote':
-            return <blockquote>{children}</blockquote>
-          }
-      } else {
-        switch(obj.type) {
-          case BlockTypes.VARIABLE:
-          return (<Pill focused={false}>
-              {obj.data.get('variableTag')}
-          </Pill>)
-        }
-      }       
-      return null
-    },
-  }
-]
-
-const html = new Html({ rules })
-
-const Container = styled('div')({
-  padding: 16
-})
-
-const TitleInput = styled('input')({
-  fontSize: 30,
-  marginBottom: 24,
-  width: '100%',
-  '::placeholder': {    
-  }
-})
 
 interface QuestionBankEditorProps {}
 interface QuestionBankEditorState {
@@ -63,15 +18,7 @@ class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBan
     questions: [],
     editingIndex: -1,
     addingQuestion: false
-  } 
-
-  private renderStatic = (q: Question, index) => {
-    return  (<div>
-      <h1>Pregunta {index+1}</h1>
-      <div dangerouslySetInnerHTML={{'__html': html.serialize(q.structure)}} />
-      <button onClick={() => this.onEditQuestion(index)}>edit</button>
-    </div>)
-  }
+  }   
 
   private onEditQuestion = (index: number) => {
     this.setState({ ...this.state, editingIndex: index })
@@ -108,11 +55,16 @@ class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBan
           ? <QuestionEditor 
             question={q} 
             onSaveQuestion={(updatedQuestion) => this.updateQuestion(updatedQuestion, index)}/> 
-          : this.renderStatic(q, index)
+          : 
+          <QuestionPreview 
+            question={q}
+            questionIndex={index} 
+            onEditQuestionClicked={() => this.onEditQuestion(index)} />
          )}       
          {this.state.addingQuestion && 
           <QuestionEditor onSaveQuestion={this.addQuestion} />}
-         <button onClick={this.onAddQuestion}></button> 
+         {!this.state.addingQuestion && this.state.editingIndex === -1 && 
+         <AddButton onClick={this.onAddQuestion}>Agregar Pregunta</AddButton> }
       </Container>
     )
   }  

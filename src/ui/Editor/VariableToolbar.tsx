@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'react-emotion'
-import Pill from './Pill';
+import { Pill } from './Components';
 
 
 interface IVariableToolbarProps {

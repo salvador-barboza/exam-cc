@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react'
 import { Value } from 'slate'
 import { Editor } from 'slate-react'
-import styled from 'react-emotion';
 
 import Toolbar from './Toolbar'
 import VariableToolbar from './VariableToolbar'
-import { BlockTypes } from './shared'
+import { BlockTypes } from './BlockTypes'
 import EditorNodeRenderer from './Rendering/EditorNodeRenderer';
 import QuestionVariableMap from '../../models/Question/QuestionVariableMap'
 import AnswerEditor, { FormValues } from './AnswerEditor'
 import Question from 'src/models/Question/Question';
+import { Container } from './Components';
 
 interface QuestionEditorProps {
   editable?: boolean,
@@ -23,17 +23,6 @@ interface QuestionEditorState {
   variables: QuestionVariableMap,
   answers: FormValues
 }
-
-
-export interface ContainerProps {
-  editable?: Boolean
-}
-
-const Container = styled('div')((props: ContainerProps) => ({
-  width: '100%',
-  minHeight: props.editable ? 300 : 'auto',
-  border: '1px solid #E0E0E0',
-}))
 
 export default class QuestionEditor extends 
   React.Component<QuestionEditorProps, QuestionEditorState> {
@@ -122,7 +111,6 @@ export default class QuestionEditor extends
         formula, 
         variables, 
         distractors)
-      console.log(q)
       this.props.onSaveQuestion(q)
     }
   }

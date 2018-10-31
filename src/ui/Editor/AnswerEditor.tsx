@@ -5,7 +5,14 @@ import styled, { css } from 'react-emotion';
 import AnswerFormulaValidator from 'src/models/AnswerFormulaValidator';
 
 const Label = styled('label')({
-  display: 'block'
+  paddingRight: 16,
+  color: '#636363'
+})
+
+const Title = styled('h2')({
+  fontSize: 24,
+  fontWeight: 500,
+  color: '#808080'
 })
 
 namespace R {
@@ -68,36 +75,48 @@ class AnswerEditor extends Component<AnswerEditorProps> {
     }
    
 
-    this.props.valueChanged(values)
-// 
-    // if () {
-    //   errors.formula = 'Required';
-    // }
-
-    console.log(errors)
-
+    this.props.valueChanged(values)  
+    console.log(errors);
     return errors
   }
 
+
   private staticTest = () => {
+    const AnswerTextFieldStyle = css({
+      fontSize: 17,
+      padding: 4,
+      borderRadius: 2,
+      border: '1px solid #e7bdff'
+    })
+
+
     return (      
         <Formik
           validate={this.validate}
           onSubmit={console.log}
           isInitialValid={true}
-          initialValues={{ formula: this.props.answer, distractors: this.props.distractors || [undefined] }}
+          initialValues={{ 
+            formula: this.props.answer, distractors: this.props.distractors || [undefined] 
+          }}
           render={({ values, errors } : FormikProps<FormValues>) => (
             <Form>
+              <Title>Respuesta</Title>
               <button onClick={this.toggleMultipleChoice}>
                 Opcion Multiple? {this.state.multipleChoice ? 'si' : 'no'}
               </button>              
-              <Label>{this.props.variableQuestionRenameMe ? R.Text.CORRECT_ANSWER_INPUT_LABEL : R.Text.CORRECT_ANSWER_FORMULA_INPUT_LABEL}</Label>
-              <Field placeholder="formula" type="text" name="formula" />          
+              <div className={(css({ display: 'flex'}))}>
+                <Label>
+                {this.props.variableQuestionRenameMe 
+                  ? R.Text.CORRECT_ANSWER_INPUT_LABEL 
+                  : R.Text.CORRECT_ANSWER_FORMULA_INPUT_LABEL}
+                </Label>
+                <Field className={AnswerTextFieldStyle} placeholder="formula" type="text" name="formula" />          
+              </div>              
               {JSON.stringify(errors)}
               {this.state.multipleChoice && 
               <Fragment>
                 <Label>{R.Text.DISTRACTOR_INPUT_LABEL}</Label>
-                <FieldArray 
+                <FieldArray                 
                   name="distractors"
                   render={({ insert, remove }) => (
                       <Fragment>
@@ -105,10 +124,7 @@ class AnswerEditor extends Component<AnswerEditorProps> {
                             <div className={css({ display: 'flex' })}>
                               <Field 
                                 placeholder="formula" 
-                                className={css({
-                                  display: 'block',
-                                  backgroundColor: errors.distractors && errors.distractors[i] ? 'none' : 'red'
-                                })} 
+                                className={AnswerTextFieldStyle} 
                                 name={`distractors.${i}`} 
                                 type="text" />
                               <button onClick={() => remove(i)}>delete</button>
