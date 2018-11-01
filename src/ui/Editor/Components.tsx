@@ -16,7 +16,7 @@ export interface PillStyleProps {
 }
 
 export const Pill = styled('div')((props: PillStyleProps) => ({ 
-  backgroundColor:  'red',
+  backgroundColor:  '#6200EE',
   borderRadius: '12px', 
   display: 'inline-block', 
   padding: '0 12px', 
