@@ -11,14 +11,14 @@ class ArrayVariableGenerator implements VariableGenerator {
     private params: ArrayVariableGeneratorParams
   ) {}
 
-  type = GeneratorType.SET
+  type = GeneratorType.ARRAY
 
   compute = () => {
     const values: number[] = []
     const { params, requiredIterations } = this
 
     for (let i = 0; i < requiredIterations; i++) {
-      const generatedPosition=Math.random()*params.array.length+1
+      const generatedPosition=Math.random()*params.array.length
       values.push(params.array[generatedPosition])
     }
 

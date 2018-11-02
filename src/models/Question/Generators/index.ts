@@ -1,6 +1,6 @@
 export enum GeneratorType {
-  RANGE
-  SET
+  RANGE,
+  ARRAY
 }
 
 export interface VariableGenerator {
