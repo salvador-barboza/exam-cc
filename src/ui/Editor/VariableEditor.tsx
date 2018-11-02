@@ -2,9 +2,11 @@ import React from 'react'
 import { Formik, Field, Form }  from 'formik' 
 import { css } from 'emotion'
 
+
 interface VariableEditorProps{
     show: boolean;
     type: number;
+    //valueChanged: (values) => void
 }
 
 interface VariableEditorState{
@@ -15,8 +17,6 @@ interface VariableEditorState{
     MultipleNums?: number[];
     MultipleString?: string;
 }
-
-
 
 class VariableEditor extends React.Component <VariableEditorProps> {
 
@@ -91,6 +91,7 @@ private multipleSplitter(){
 }
 */
 
+
 private setRange = () => {
     this.setState({type:1})
 }
@@ -98,7 +99,6 @@ private setRange = () => {
 private setMultiple = () => {
     this.setState({type:2})
 }
-
 
 render(){
     // Render nothing if the "show" prop is false
@@ -139,9 +139,5 @@ render(){
         </div>
       );
 }
-
-
-
 }
-
 export default VariableEditor
