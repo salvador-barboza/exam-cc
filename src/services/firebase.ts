@@ -1,16 +1,8 @@
 import firebase from 'firebase/app';
-import config from 'firebase_config'
+import config from 'src/firebase.config'
 import 'firebase/firestore';
-import { question_banks } from 'rxfire/firestore';
-import { tap } from 'rxjs/operators';
 
-// dummy data 
-const app = firebase.initializeApp({  config });
-const citiesRef = app.firestore().collection('cities');
-citiesRef.where('state', '==', 'CO');
+const app = firebase.initializeApp(config);
 
-collectionData(citiesRef, 'id')
-  .pipe(
-    tap(cities => console.log('This is just an observable!'))
-  )
-  .subscribe(cities => { /* update UI */ })
+export default app
+console.log(app)

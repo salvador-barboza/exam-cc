@@ -23,6 +23,7 @@ interface QuestionEditorState {
   showingVariableToolbar: boolean,
   variables: QuestionVariableMap,
   answers: FormValues
+  id?: string
 }
 
 export default class QuestionEditor extends 
@@ -48,6 +49,7 @@ export default class QuestionEditor extends
   constructor(props: QuestionEditorProps) {
     super(props)
     if (props.question) {
+      this.state.id = props.question.id
       this.state.value = props.question.structure
       this.state.variables = props.question.variableMap
       this.state.answers = { answer: props.question.answer, distractors: props.question.distractors }
@@ -99,7 +101,7 @@ export default class QuestionEditor extends
 
   private swapVariablesForValues = () => {
     if (this.props.onSaveQuestion) {
-      const { variables, value, answers } = this.state
+      const { variables, value, answers, id } = this.state
       const { answer, distractors } = answers
 
       if (!answer) {
@@ -108,12 +110,11 @@ export default class QuestionEditor extends
 
       const q = new Question(
         1, 
-        1, 
         value, 
-        false, 
         answer, 
         variables, 
-        distractors)
+        distractors,
+        id)
       this.props.onSaveQuestion(q)
     }
   }
