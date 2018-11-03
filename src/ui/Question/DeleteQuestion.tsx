@@ -1,16 +1,14 @@
 import React from 'react'
-import { Formik, Field, Form }  from 'formik' 
 import { css } from 'emotion'
 import styled from 'react-emotion';
 
-interface MateriaNameProps{
+interface DeleteQuestionProps{
     show: boolean;
     //valueChanged: (values) => void
 }
 
-interface MateriaNameState{
+interface DeleteQuestionState{
     show: boolean;
-    MateriaName: string;
 }
 
 const Background = styled('div')({
@@ -34,13 +32,11 @@ const Background = styled('div')({
         position: 'relative',
     });
 
-class MateriaName extends React.Component <MateriaNameProps> {
+class DeleteQuestion extends React.Component <DeleteQuestionProps> {
+    public state : DeleteQuestionState = {
+        show: this.props.show
+    }
 
-    public state : MateriaNameState = {
-        show: this.props.show,
-        MateriaName: ""
-    } 
-    
     constructor(props){
         super(props)
     }
@@ -48,7 +44,11 @@ class MateriaName extends React.Component <MateriaNameProps> {
     public hide = () => {
         this.setState({show:false})
     }
+/*
+    public delete = () => {
 
+    }
+*/
     render(){
         // Render nothing if the "show" prop is false
         
@@ -62,22 +62,14 @@ class MateriaName extends React.Component <MateriaNameProps> {
                     {this.props.children}
                     <div className="footer">
                     <button onClick={this.hide} className={css({position:'absolute', right:10,top:10})}>Close</button>
-                    <Formik
-                    onSubmit={console.log}
-                    initialValues={{}}
-                    render={() => ( 
-                    <Form>
-                    <p>Nombre de la materia</p>
-                    <Field placeholder="Nombre" type="text" name="MateriaName"></Field>
-                    <br></br>
-                    <button type="submit">Agregar</button>
-                    </Form>
-                    )}
-                    />
+                    <h2>Estas seguro de que quieres borrar la pregunta?</h2>
+                    <p>Una vez borrada la preugnta no se podra recuperar</p>
+                    <button onClick={this.hide}>No</button>
+                    <button>Si</button>
                     </div>
                 </Popup>
             </Background>
           );
     }
 }
-export default MateriaName
+export default DeleteQuestion
