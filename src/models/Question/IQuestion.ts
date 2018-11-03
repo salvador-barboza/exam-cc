@@ -6,16 +6,13 @@ export interface IAnswer {
   static: boolean
 }
 
-export interface IQuestion {
-  id: Number
+export interface IQuestion {  
   difficulty: Difficulty    
   structure: Value
-
-  variableQuestion: boolean
-
   variableMap?: IQuestionVariableMap
   distractors?: IAnswer[]  
   answer: IAnswer
+  id?: string
 }
 
 export enum Difficulty {

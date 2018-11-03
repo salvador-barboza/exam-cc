@@ -15,6 +15,7 @@ interface QuestionPreviewProps {
   questionIndex: number
   question: Question
   onEditQuestionClicked: () => void
+  onEraseQuestionClicked: () => void
 }
 
 const QuestionPreview = (props: QuestionPreviewProps) => {
@@ -23,6 +24,7 @@ const QuestionPreview = (props: QuestionPreviewProps) => {
       <HeaderContainer>
         <h1>Pregunta {props.questionIndex+1}</h1>
         <EditButton onClick={() => props.onEditQuestionClicked()}>edit</EditButton>
+        <EditButton onClick={() => props.onEraseQuestionClicked()}>erase</EditButton>
       </HeaderContainer>      
       <div 
         dangerouslySetInnerHTML={{'__html': StaticPreviewRenderer.serialize(props.question.structure)}} />      

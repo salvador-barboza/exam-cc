@@ -3,6 +3,7 @@ import QuestionEditor from '../Editor';
 import Question from 'src/models/Question/Question';
 import QuestionPreview from './QuestionPreview';
 import { Container, TitleInput, AddButton } from './Components';
+import QuestionBankService from '../../services/QuestionBankService'
 
 
 interface QuestionBankEditorProps {}
@@ -19,6 +20,16 @@ class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBan
     addingQuestion: false
   }   
 
+  private service = new QuestionBankService('123')
+       
+  constructor(props) {
+    super(props)
+  
+    this.service.data.subscribe(questions => {
+      this.setState({...this.state, questions })
+    })
+  }
+
   private onEditQuestion = (index: number) => {
     this.setState({ ...this.state, editingIndex: index })
   }
@@ -28,21 +39,26 @@ class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBan
   }
 
   private addQuestion = (q: Question) => {
-    this.state.questions.push(q)
     this.setState({
       ...this.state,
-      questions: this.state.questions,
       addingQuestion: false,
     })  
+
+    this.service.addQuestion(q)
   }
 
-  private updateQuestion = (q: Question, index: number) => {
-    this.state.questions[index] = q
+  private updateQuestion = (q: Question) => {
     this.setState({
       ...this.state,
-      questions: this.state.questions,
       editingIndex: -1
     })  
+
+    this.service.editQuestion(q)
+  }
+
+  private onEraseQuestion = (q: Question) => {
+    // TODO(salvador-barboza): SHOW CONFIRMATION
+    this.service.eraseQuestion(q)
   }
 
   public render() {
@@ -53,11 +69,12 @@ class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBan
           this.state.editingIndex === index 
           ? <QuestionEditor 
             question={q} 
-            onSaveQuestion={(updatedQuestion) => this.updateQuestion(updatedQuestion, index)}/> 
+            onSaveQuestion={(updatedQuestion) => this.updateQuestion(updatedQuestion)}/> 
           : <QuestionPreview 
             question={q}
             questionIndex={index} 
-            onEditQuestionClicked={() => this.onEditQuestion(index)} />
+            onEditQuestionClicked={() => this.onEditQuestion(index)}
+            onEraseQuestionClicked={() => this.onEraseQuestion(q)} />
          )}       
          {this.state.addingQuestion && 
           <QuestionEditor onSaveQuestion={this.addQuestion} />}
