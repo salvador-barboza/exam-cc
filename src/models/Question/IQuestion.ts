@@ -1,6 +1,11 @@
 import { IQuestionVariableMap } from './QuestionVariableMap';
 import { Value } from 'slate';
 
+export interface IAnswer {
+  predicate: string,
+  static: boolean
+}
+
 export interface IQuestion {
   id: Number
   difficulty: Difficulty    
@@ -9,8 +14,8 @@ export interface IQuestion {
   variableQuestion: boolean
 
   variableMap?: IQuestionVariableMap
-  choices?: string[]  
-  answer: string
+  distractors?: IAnswer[]  
+  answer: IAnswer
 }
 
 export enum Difficulty {

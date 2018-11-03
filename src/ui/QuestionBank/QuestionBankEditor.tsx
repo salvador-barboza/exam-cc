@@ -7,12 +7,11 @@ import { Container, TitleInput, AddButton } from './Components';
 
 interface QuestionBankEditorProps {}
 interface QuestionBankEditorState {
-  questions: Question[],
-  editingIndex: number,
+  questions: Question[]
+  editingIndex: number
   addingQuestion: boolean
 }
 
-/** Distractores */
 class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBankEditorState> {
   public state : QuestionBankEditorState = {
     questions: [],
@@ -55,8 +54,7 @@ class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBan
           ? <QuestionEditor 
             question={q} 
             onSaveQuestion={(updatedQuestion) => this.updateQuestion(updatedQuestion, index)}/> 
-          : 
-          <QuestionPreview 
+          : <QuestionPreview 
             question={q}
             questionIndex={index} 
             onEditQuestionClicked={() => this.onEditQuestion(index)} />
