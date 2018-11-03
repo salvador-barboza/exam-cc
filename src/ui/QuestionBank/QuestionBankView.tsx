@@ -8,6 +8,7 @@ const Frame= styled('div')({
     width: '50%',
     height: '150px' 
 })
+
 const DeleteButton= styled('button')({
     backgroundColor:'red',
     border: 'none',
@@ -18,6 +19,7 @@ const DeleteButton= styled('button')({
     display: 'inline-block',
     fontSize: '16px'
 })
+
 const EditButton= styled('button')({
     backgroundColor:'blue',
     border: 'none',
@@ -28,12 +30,14 @@ const EditButton= styled('button')({
     display: 'inline-block',
     fontSize: '16px'
 })
-interface QuestionBankViewProps{
+
+interface questionBankViewProps {
     BankTitle: string
     CreationDate: string
     numberOfQuestions: number
 }
-const QuestionBankView= (props:QuestionBankViewProps)=>{
+
+const QuestionBankView = (props: questionBankViewProps) => {
     return(
         <div>
             <Frame>
