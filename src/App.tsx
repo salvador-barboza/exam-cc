@@ -1,17 +1,17 @@
 import * as React from 'react';
 import './App.css';
 //import QuestionBankEditor from './ui/QuestionBank/QuestionBankEditor';
-import VariableEditor from './ui/Editor/VariableEditor'
+//import VariableEditor from './ui/Editor/VariableEditor'
 //import VariableName from './ui/Editor/VariableName'
-//import MateriaName from './ui/MateriaName'
+import MateriaName from './ui/MateriaName'
 
 class App extends React.Component {
   public render() {
     return (
       //<QuestionBankEditor />
-      <VariableEditor show={true} type={2}/>
+      //<VariableEditor show={true} type={2}/>
       //<VariableName show={true}/>
-      //<MateriaName show={true}/>
+      <MateriaName show={true}/>
     );
   }
 }
