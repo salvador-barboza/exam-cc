@@ -1,19 +1,20 @@
-import React, { Component } from 'react'
-import QuestionEditor from '../Editor';
-import Question from 'src/models/Question/Question';
-import QuestionPreview from './QuestionPreview';
-import { Container, TitleInput, AddButton } from './Components';
-import QuestionBankService from '../../services/QuestionBankService'
+import React from 'react'
 
-
-class SubjectsQuestionBanksCount{
-
-public Count(){
-  
+interface SubjectsQuestionBanksCountProps{
+    userArray: number[];
+    dataBaseArray: number[];
 }
 
+class SubjectsQuestionBanksCount extends React.Component <SubjectsQuestionBanksCountProps>{
 
+    constructor(props){
+        super(props)
+    }
 
-
+    private same = () => {
+        return (this.props.userArray[0]==this.props.dataBaseArray[0]&&
+            this.props.userArray[1]==this.props.dataBaseArray[1]&&
+            this.props.userArray[2]==this.props.dataBaseArray[2])
+    }
 
 }
