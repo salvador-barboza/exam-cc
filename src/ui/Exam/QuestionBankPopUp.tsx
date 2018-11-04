@@ -4,7 +4,7 @@ import styled from 'react-emotion';
 
 interface QuestionBankPopUpProps{
     show: boolean;
-    //valueChanged: (values) => void
+
 }
 
 interface QuestionBankPopUpState{
@@ -32,6 +32,8 @@ const Background = styled('div')({
         position: 'relative',
     });
 
+
+
 class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps> {
 
     public state : QuestionBankPopUpState = {
@@ -47,6 +49,17 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps> {
         this.setState({show:false})
     }
 
+    public showSubjects(arr:string[]){
+        this.render(){
+
+            for (let i = 0; i < arr.length; i++) {
+                console.log("ahhhh");
+                <button>test</button>
+            }
+        }
+    
+    }
+
     render(){
         // Render nothing if the "show" prop is false
         
@@ -60,7 +73,7 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps> {
                     {this.props.children}
                     <div className="footer">
                     <button onClick={this.hide} className={css({position:'absolute', right:10,top:10})}>Close</button>
-                    
+                    {this.showSubjects(["test","ass","butt","etc"])}
                     </div>
                 </Popup>
             </Background>
