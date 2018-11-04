@@ -1,11 +1,12 @@
 import * as React from 'react';
 import './App.css';
-import QuestionBankEditor from './ui/QuestionBank/QuestionBankEditor';
-
+//import QuestionBankEditor from './ui/QuestionBank/QuestionBankEditor';
+import QuestionBankPopUp from './ui/Exam/QuestionBankPopUp'
 class App extends React.Component {
   public render() {
     return (
-      <QuestionBankEditor />
+      //<QuestionBankEditor />
+      <QuestionBankPopUp show={true}/>
     );
   }
 }
