@@ -23,6 +23,12 @@ const Background = styled('div')({
     padding: 50,
     });
     
+    const AnswerTextFieldStyle = css({
+        fontSize: 17,
+        padding: 4,
+        borderRadius: 2,
+        border: '1px solid #e7bdff'
+      })
     
     const Popup = styled('div')({
         backgroundColor: '#fff',
@@ -69,7 +75,7 @@ class VariableName extends React.Component <VariableNameProps> {
                     render={() => ( 
                     <Form>
                     <p>Nombre de la variable</p>
-                    <Field placeholder="Nombre" type="text" name="VarName"></Field>
+                    <Field placeholder="Nombre" className={AnswerTextFieldStyle} type="text" name="VarName"></Field>
                     <br></br>
                     <button type="submit">Agregar</button>
                     </Form>

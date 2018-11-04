@@ -23,7 +23,13 @@ const Background = styled('div')({
     padding: 50,
     });
     
-    
+    const AnswerTextFieldStyle = css({
+        fontSize: 17,
+        padding: 4,
+        borderRadius: 2,
+        border: '1px solid #e7bdff'
+      })
+
     const Popup = styled('div')({
         backgroundColor: '#fff',
         borderRadius: 5,
@@ -68,7 +74,7 @@ class MateriaName extends React.Component <MateriaNameProps> {
                     render={() => ( 
                     <Form>
                     <p>Nombre de la materia</p>
-                    <Field placeholder="Nombre" type="text" name="MateriaName"></Field>
+                    <Field placeholder="Nombre" className={AnswerTextFieldStyle} type="text" name="MateriaName"></Field>
                     <br></br>
                     <button type="submit">Agregar</button>
                     </Form>

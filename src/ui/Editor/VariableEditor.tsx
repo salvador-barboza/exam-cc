@@ -18,6 +18,12 @@ backgroundColor: 'rgba(0,0,0,0.3)',
 padding: 50,
 });
 
+const AnswerTextFieldStyle = css({
+    fontSize: 17,
+    padding: 4,
+    borderRadius: 2,
+    border: '1px solid #e7bdff'
+  })
 
 const Popup = styled('div')({
     backgroundColor: '#fff',
@@ -73,9 +79,9 @@ return(
     render={() => (
     <Form>
         <p>De:</p>
-        <Field placeholder="numero" type="text" name="RangeFrom"/>
+        <Field placeholder="numero" className={AnswerTextFieldStyle} type="text" name="RangeFrom"/>
         <p>A:</p>
-        <Field placeholder="numero" type="text" name="RangeTo"/>
+        <Field placeholder="numero" className={AnswerTextFieldStyle} type="text" name="RangeTo"/>
         <br/>
         <button type="submit">Agregar</button>
     </Form>
@@ -93,7 +99,7 @@ private multpleForm = () => {
     render={() => (
         <Form>
             <p>Valores separados por las comas</p>
-            <Field placeholder="1,2,3,4,5" type="text" name="MultipleString"/>
+            <Field placeholder="1,2,3,4,5" className={AnswerTextFieldStyle} type="text" name="MultipleString"/>
             <br/>
             <button type="submit">Agregar</button>
         </Form>
