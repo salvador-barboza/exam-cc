@@ -17,4 +17,10 @@ class SubjectsQuestionBanksCount extends React.Component <SubjectsQuestionBanksC
             this.props.userArray[2]==this.props.dataBaseArray[2])
     }
 
+
+ render(){
+   //
+   return  hola;
+ }
+
 }
