@@ -17,19 +17,25 @@ class SubjectsQuestionBanksCount extends React.Component < SubjectsQuestionBanks
       show: true
     };
     }
-  IncrementItem = () => {
-
+  IncrementItem = (id:number) => {
+  if(id == 1)
     this.setState({ clicks_easy: this.state.clicks_easy + 1 });
+  else if(id == 2)
+   this.setState({clicks_medium:this.state.clicks_medium + 1 });
+   else
+   this.setState({clicks_hard:this.state.clicks_hard + 1});
 
   }
-  DecreaseItem = () => {
-
+  DecreaseItem = (id:number) => {
+    if(id == 1)
     this.setState({ clicks_easy: this.state.clicks_easy - 1 });
+    else if(id == 2)
+    this.setState({clicks_medium: this.state.clicks_medium - 1 });
+    else
+    this.setState({clicks_hard:this.state.clicks_hard - 1 });
+  }
 
-  }
-  ToggleClick = () => {
-    this.setState({ show: !this.state.show });
-  }
+
 
   /*  private same = () => {
         if(this.props.userArray!=null && this.props.dataBaseArray!=null){
@@ -50,20 +56,22 @@ class SubjectsQuestionBanksCount extends React.Component < SubjectsQuestionBanks
     //the gray background
     <div>
     Easy
-    <button onClick={this.IncrementItem}> + </button>
-    { this.state.show ? <h2>{ this.state.clicks_easy }</h2> : '' }
-      <button onClick={this.DecreaseItem}> -</button>
-      <button onClick={this.ToggleClick}>
-        { this.state.show ? 'Hide number' : 'Show number' }
-      </button>
 
+    <button onClick={() => this.IncrementItem(1)}> + </button>
+     <h2>{ this.state.clicks_easy } </h2>
+      <button onClick={()=>this.DecreaseItem(1)}> -</button>
+
+<div />
       Medium
-      <button onClick={this.IncrementItem}> + </button>
-      { this.state.show ? <h2>{ this.state.clicks_medium }</h2> : '' }
-        <button onClick={this.DecreaseItem}> -</button>
-        <button onClick={this.ToggleClick}>
-          { this.state.show ? 'Hide number' : 'Show number' }
-        </button>
+      <button onClick={()=>this.IncrementItem(2)}> + </button>
+        <h2>{ this.state.clicks_medium }</h2>
+        <button onClick={()=>this.DecreaseItem(2)}> -</button>
+<div / >
+        Hard
+        <button onClick={()=>this.IncrementItem(3)}> + </button>
+          <h2>{ this.state.clicks_hard }</h2>
+          <button onClick={()=>this.DecreaseItem(3)}> -</button>
+
 
     </div>
   );
