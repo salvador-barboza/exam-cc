@@ -10,13 +10,17 @@ class SubjectsQuestionBanksCount extends React.Component <SubjectsQuestionBanksC
     constructor(props){
         super(props)
     }
-/*
+
     private same = () => {
+        if(this.props.userArray!=null && this.props.dataBaseArray!=null){
         return (this.props.userArray[0]==this.props.dataBaseArray[0]&&
             this.props.userArray[1]==this.props.dataBaseArray[1]&&
             this.props.userArray[2]==this.props.dataBaseArray[2])
+        }else{
+            return null;
+        }
     }
-*/
+
 
  render(){
    // No  regresa nada
