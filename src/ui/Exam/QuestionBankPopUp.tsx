@@ -66,7 +66,7 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps> {
                     {this.props.children}
                     <div className="footer">
                     <button onClick={this.hide} className={css({position:'absolute', right:10,top:10})}>Close</button>
-                    <button>{listSubjects}</button>
+                    {listSubjects}
                     </div>
                 </Popup>
             </Background>
