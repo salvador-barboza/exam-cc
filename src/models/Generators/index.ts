@@ -3,7 +3,6 @@ export enum GeneratorType {
 }
 
 export interface VariableGenerator {  
-  requiredIterations: number
-  compute: () => number[]
+  compute: () => number
   type: GeneratorType
 }

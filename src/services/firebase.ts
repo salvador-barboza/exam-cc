@@ -5,4 +5,3 @@ import 'firebase/firestore';
 const app = firebase.initializeApp(config);
 
 export default app
-console.log(app)
