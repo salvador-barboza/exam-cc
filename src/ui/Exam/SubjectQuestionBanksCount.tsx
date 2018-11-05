@@ -10,7 +10,7 @@ class SubjectsQuestionBanksCount extends React.Component <SubjectsQuestionBanksC
     constructor(props){
         super(props)
     }
-
+/*
     private same = () => {
         if(this.props.userArray!=null && this.props.dataBaseArray!=null){
         return (this.props.userArray[0]==this.props.dataBaseArray[0]&&
@@ -22,7 +22,7 @@ class SubjectsQuestionBanksCount extends React.Component <SubjectsQuestionBanksC
 
     }
 
-
+*/
  render(){
    // No  regresa nada
 

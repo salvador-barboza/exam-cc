@@ -10,6 +10,7 @@ interface QuestionBankPopUpProps{
 interface QuestionBankPopUpState{
     show: boolean;
     MateriaName: string;
+
 }
 
 const Background = styled('div')({
@@ -32,11 +33,10 @@ const Background = styled('div')({
         position: 'relative',
     });
 
-const subjects = ["1", "2", "3", "4", "5"];
+const subjects = ["sumas", "restas", "multiplicaciones", "divisiones", "test","sumas", "restas", "multiplicaciones", "divisiones", "test","sumas", "restas", "multiplicaciones", "divisiones", "test","sumas", "restas", "multiplicaciones", "divisiones", "test"];
 const listSubjects = subjects.map((subject) =>
-  <button>{subject}</button>
+    <tr><button>{subject}</button></tr>
 );
-
 
 class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps> {
 
@@ -65,8 +65,10 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps> {
                 <Popup>
                     {this.props.children}
                     <div className="footer">
+                    <div className={css({overflowY:'scroll', height:400})}>
                     <button onClick={this.hide} className={css({position:'absolute', right:10,top:10})}>Close</button>
-                    {listSubjects}
+                    <table>{listSubjects}</table>
+                    </div>
                     </div>
                 </Popup>
             </Background>
