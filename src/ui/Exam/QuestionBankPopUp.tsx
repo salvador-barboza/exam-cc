@@ -32,6 +32,10 @@ const Background = styled('div')({
         position: 'relative',
     });
 
+const subjects = ["1", "2", "3", "4", "5"];
+const listSubjects = subjects.map((subject) =>
+  <button>{subject}</button>
+);
 
 
 class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps> {
@@ -49,17 +53,6 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps> {
         this.setState({show:false})
     }
 
-    public showSubjects(arr:string[]){
-        this.render(){
-
-            for (let i = 0; i < arr.length; i++) {
-                console.log("ahhhh");
-                <button>test</button>
-            }
-        }
-    
-    }
-
     render(){
         // Render nothing if the "show" prop is false
         
@@ -73,7 +66,7 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps> {
                     {this.props.children}
                     <div className="footer">
                     <button onClick={this.hide} className={css({position:'absolute', right:10,top:10})}>Close</button>
-                    {this.showSubjects(["test","ass","butt","etc"])}
+                    <button>{listSubjects}</button>
                     </div>
                 </Popup>
             </Background>

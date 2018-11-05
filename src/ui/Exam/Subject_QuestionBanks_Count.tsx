@@ -20,7 +20,8 @@ class SubjectsQuestionBanksCount extends React.Component <SubjectsQuestionBanksC
 
  render(){
    // No  regresa nada
-   return  hola;
+   {this.props.children}
+   return  "hola";
  }
 
 }
