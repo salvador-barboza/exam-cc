@@ -12,9 +12,9 @@ class SubjectsQuestionBanksCount extends React.Component <SubjectsQuestionBanksC
     }
 /*
     private same = () => {
-        return (this.props.userArray[0]==this.props.dataBaseArray[0]&&
-            this.props.userArray[1]==this.props.dataBaseArray[1]&&
-            this.props.userArray[2]==this.props.dataBaseArray[2])
+        return (this.props.userArray[0]<=this.props.dataBaseArray[0]&&
+            this.props.userArray[1]<=this.props.dataBaseArray[1]&&
+            this.props.userArray[2]<=this.props.dataBaseArray[2])
     }
 */
 
