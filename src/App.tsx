@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css';
-import SubjectsQuestionBanksCount from './ui/Exam/Subject_QuestionBanks_Count'
+import SubjectsQuestionBanksCount from './ui/Exam/SubjectQuestionBanksCount'
 
 //import QuestionBankEditor from './ui/QuestionBank/QuestionBankEditor';
 import QuestionBankPopUp from './ui/Exam/QuestionBankPopUp'
@@ -9,7 +9,7 @@ class App extends React.Component {
     return (
       //<QuestionBankEditor />
       <div>
-      
+
       <QuestionBankPopUp show={true}/>
       <SubjectsQuestionBanksCount/>
       </div>
