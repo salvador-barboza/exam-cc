@@ -19,8 +19,10 @@ class SubjectsQuestionBanksCount extends React.Component <SubjectsQuestionBanksC
 
 
  render(){
-   //
+   // No  regresa nada
    return  hola;
  }
 
 }
+
+export default SubjectsQuestionBanksCount 
