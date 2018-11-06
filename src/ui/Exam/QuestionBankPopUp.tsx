@@ -5,12 +5,12 @@ import {IQuestionBankDescription} from 'src/models/QuestionBank/IQuestionBank'
 
 
 interface QuestionBankPopUpProps{
-    show: boolean;
-    subjects?: IQuestionBankDescription[];
+    show: boolean
+    subjects?: IQuestionBankDescription[]
 }
 
 interface QuestionBankPopUpState{
-    show: boolean;
+    show: boolean
     selected:number[]
 }
 
@@ -34,10 +34,14 @@ const Background = styled('div')({
         position: 'relative',
     });
 
-    const ButtonCool = styled('button')((props: selectedProps) =>({
+    interface ButonProp{
+        selected: boolean
+    }
+
+    const ButtonCool = styled('button')((state: ButonProp) =>({
         borderColor: '#6100ED',
         borderRadius: 1,
-        backgroundColor: '#E7DFFB',
+        backgroundColor: state.selected? '#E7DFFB': '#fff',
         borderTopLeftRadius: 4,
         borderTopRightRadius: 4,
         borderBottomLeftRadius: 4,
@@ -50,9 +54,6 @@ const Background = styled('div')({
         fontSize: 17,
     }));
 
-    interface selectedProps{
-        selected: boolean
-    }
 
 class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,QuestionBankPopUpState> {
     public state: QuestionBankPopUpState 
@@ -73,6 +74,8 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
         console.log(this.state.selected)
         }else{
         temp.splice(temp.indexOf(id),1)
+        this.setState({selected:temp})
+        console.log(this.state.selected)
         }
     }
 
@@ -82,18 +85,21 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
       
 
     private listsubject(subjects: IQuestionBankDescription[]){
+        var select = this.state.selected
+        
         return(
-        subjects.map((subject,index) =>
-        <ButtonCool onClick={()=>this.setSelected(index)} selected>{subject.title}</ButtonCool>
+        subjects.map((subject,index) => 
+        <ButtonCool onClick={()=>this.setSelected(index)} selected={this.isInArray(index,select)}>{subject.title}</ButtonCool>
         )
         )
     }
 
-    private showArray(){
+    private showArray = () => {
         if(this.state.selected){
         var temp = this.state.selected
         temp.sort()
-        console.log(temp)
+        this.setState({selected:temp})
+        console.log(this.state.selected)
         }
     }
 
