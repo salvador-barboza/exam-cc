@@ -19,7 +19,10 @@ class ExamGenerator {
         if (q.variableMap) {
           const formulaEvaluator = new FormulaEvaluator(q.variableMap)
 
-          const answer = formulaEvaluator.evaluate(q.answer.predicate)
+          const answer = q.answer.static 
+            ? q.answer.predicate
+            : formulaEvaluator.evaluate(q.answer.predicate)
+
           let distractors: number[] | string[] = []
           
           if (q.distractors) {

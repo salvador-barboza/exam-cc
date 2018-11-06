@@ -6,6 +6,7 @@ import styled from 'react-emotion'
 import * as ReactDOM from 'react-dom'
 import html2pdf from 'html2pdf.js'
 import MultipleChoiceAnswer from 'src/ui/ExamGenerator/MultipleChoiceAnswer';
+import SingleAnswer from './SingleAnswer';
 
 
 const Page = styled('body')({
@@ -35,7 +36,9 @@ class ExamRender {
             }}
           />
           <div>
-            {i.choices.length !== 0 && <MultipleChoiceAnswer answers={i.choices} />}
+            {i.choices.length <= 1
+              ? <SingleAnswer />
+              : <MultipleChoiceAnswer answers={i.choices} />}
           </div>
         </Inciso>        
       ))}

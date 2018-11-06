@@ -26,7 +26,6 @@ export const FormulaError = styled('i')((props: FormulaErrorProps) => ({
   fontSize: 12
 }))
 
-
 interface FormulaToggleButtonProps {
   selected: boolean
 }

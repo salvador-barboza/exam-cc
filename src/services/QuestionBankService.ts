@@ -1,6 +1,6 @@
 import app from './firebase'
 import { IQuestion } from "src/models/Question/IQuestion";
-import { fromCollectionRef } from 'rxfire/firestore'
+import { fromCollectionRef, docData } from 'rxfire/firestore'
 import QuestionSerialization, { ISerializedQuestion } from 'src/serialization/QuestionSerialization';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -8,17 +8,31 @@ import Question from 'src/models/Question/Question';
 
 
 
+export interface IQuestionBankDescription {
+  title?: string,
+}
+
 class QuestionService {
-  private questionRef: firebase.firestore.CollectionReference
+  private questionBankRef: firebase.firestore.DocumentReference
+  private questionCollectionRef: firebase.firestore.CollectionReference
+
   private serialization = new QuestionSerialization()
   constructor(
     private userId: string, 
+    private questionBankId: string,
     private questionParser = new QuestionSerialization()) {
-    this.questionRef = app.firestore().collection(`/test/${this.userId}/questions`);
+    this.questionCollectionRef = app.firestore()
+      .collection(`/test/${this.userId}/questions`)
+
+    this.questionBankRef = app.firestore().doc(`/test/${this.userId}/question_banks/${questionBankId}`)
   }
 
-  get data(): Observable<Question[]> {
-    return fromCollectionRef(this.questionRef).pipe(
+  get description(): Observable<IQuestionBankDescription> {
+    return docData(this.questionBankRef)
+  }
+
+  get questions(): Observable<Question[]> {
+    return fromCollectionRef(this.questionCollectionRef.where('questionBankId', '==', this.questionBankId)).pipe(
       map(
         val => val.docs
           .map(x => ({  id: x.id, data: x.data() }))
@@ -28,16 +42,23 @@ class QuestionService {
 
   public addQuestion = (question: IQuestion) => {
     const serializedQuestion = this.questionParser.serialize(question)
-    this.questionRef.add(serializedQuestion).then(console.log)
+    serializedQuestion.questionBankId = this.questionBankId
+    this.questionCollectionRef.add(serializedQuestion).then(console.log)
   }
 
   public editQuestion = (question: IQuestion) => {
     const serializedQuestion = this.questionParser.serialize(question)
-    this.questionRef.doc(question.id).set(serializedQuestion).then(console.log)
+    this.questionCollectionRef.doc(question.id).set(serializedQuestion).then(console.log)
   }
 
   public eraseQuestion = (question: IQuestion) => {
-    this.questionRef.doc(question.id).delete().then(console.log)
+    this.questionCollectionRef.doc(question.id).delete().then(console.log)
+  }
+
+  public setTitle = (title: string) => {
+    this.questionBankRef.update({
+      title
+    })
   }
 }
 

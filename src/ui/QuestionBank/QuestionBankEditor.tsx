@@ -3,7 +3,7 @@ import QuestionEditor from '../Editor';
 import Question from 'src/models/Question/Question';
 import QuestionPreview from './QuestionPreview';
 import { Container, TitleInput, AddButton } from './Components';
-import QuestionBankService from '../../services/QuestionBankService'
+import QuestionBankService, { IQuestionBankDescription } from '../../services/QuestionBankService'
 
 
 interface QuestionBankEditorProps {}
@@ -11,22 +11,29 @@ interface QuestionBankEditorState {
   questions: Question[]
   editingIndex: number
   addingQuestion: boolean
+  description: IQuestionBankDescription
 }
 
 class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBankEditorState> {
   public state : QuestionBankEditorState = {
     questions: [],
     editingIndex: -1,
-    addingQuestion: false
+    addingQuestion: false,
+    description: {}
   }   
 
-  private service = new QuestionBankService('123')
+  private service = new QuestionBankService('123', 'yihEXP3ewJVV35COsowN')
        
   constructor(props) {
     super(props)
   
-    this.service.data.subscribe(questions => {
-      this.setState({...this.state, questions })
+    this.service.questions.subscribe(questions => {
+      this.setState({ ...this.state, questions })
+    })
+
+    this.service.description.subscribe(description => {
+      console.log(description)
+      this.setState({ ...this.state, description})
     })
   }
 
@@ -61,10 +68,18 @@ class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBan
     this.service.eraseQuestion(q)
   }
 
+  private onTitleChange = (ev) => {
+    const title = ev.target.value
+    this.service.setTitle(title)
+  }
+
   public render() {
     return (
       <Container>
-        <TitleInput placeholder="Titulo del Banco de Preguntas..."></TitleInput>        
+        <TitleInput
+          onChange={this.onTitleChange}
+          value={this.state.description.title}
+          placeholder="Titulo del Banco de Preguntas..." />
         {this.state.questions.map((q, index) => 
           this.state.editingIndex === index 
           ? <QuestionEditor 

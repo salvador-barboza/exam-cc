@@ -13,16 +13,17 @@ interface ExamMakerState {
 // TODO: finsih
 class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
   public state : ExamMakerState
-  private service = new QuestionBankService('123')
+  private service = new QuestionBankService('123', 'yihEXP3ewJVV35COsowN')
 
   constructor(props) {
     super(props)
   
-    this.service.data.subscribe(questions => {
+    this.service.questions.subscribe(questions => {
       this.setState({
         ...this.state, 
         selectedQuestionBanks: questions})
     })
+
   }
 
   public render() {

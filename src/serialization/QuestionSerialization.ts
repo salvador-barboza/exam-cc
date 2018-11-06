@@ -4,12 +4,13 @@ import { Value } from 'slate';
 import QuestionVariableMap from 'src/models/Question/QuestionVariableMap';
 
 
-export interface ISerializedQuestion {
+export interface ISerializedQuestion {  
   answer: IAnswer
   difficulty: Difficulty
   structure: string
-  variableMap?: string,
+  variableMap?: string
   distractors?: IAnswer[]
+  questionBankId?: string
 }
 
 class QuestionSerialization {
