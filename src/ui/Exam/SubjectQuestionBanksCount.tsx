@@ -6,40 +6,40 @@ interface SubjectsQuestionBanksCountProps{
     QuestionNumber?: IQuestionBankNumber[];
 }
 
-class SubjectsQuestionBanksCount extends React.Component < SubjectsQuestionBanksCountProps,{clicks_easy:number, clicks_medium:number,clicks_hard:number , show:boolean} >{
+class SubjectsQuestionBanksCount extends React.Component < SubjectsQuestionBanksCountProps,{questioncount_easy:number, questioncount_medium:number,questioncount_hard:number} >{
 
     constructor(props){
         super(props)
         this.state = {
-      clicks_easy: 0,
-      clicks_medium:0,
-      clicks_hard:0,
-      show: true
-    };
+      questioncount_easy: 0,
+      questioncount_medium:0,
+      questioncount_hard:0,
+
+          };
     }
   IncrementItem = (id:number,banknumber:number) => {
   if(id == 1){
-    if(this.state.clicks_easy+1 <= banknumber)
-    this.setState({ clicks_easy: this.state.clicks_easy + 1 });
+    if(this.state.questioncount_easy+1 <= banknumber)
+    this.setState({ questioncount_easy: this.state.questioncount_easy + 1 });
   }
   else if(id == 2){
-    if(this.state.clicks_medium+1 <= banknumber)
-   this.setState({clicks_medium:this.state.clicks_medium + 1 });}
+    if(this.state.questioncount_medium+1 <= banknumber)
+   this.setState({questioncount_medium:this.state.questioncount_medium + 1 });}
    else{
-    if(this.state.clicks_hard+1 <= banknumber)
-   this.setState({clicks_hard:this.state.clicks_hard + 1});}
+    if(this.state.questioncount_hard+1 <= banknumber)
+   this.setState({questioncount_hard:this.state.questioncount_hard + 1});}
 
   }
   DecreaseItem = (id:number) => {
     if(id == 1) {
-      if(this.state.clicks_easy-1 >= 0)
-    this.setState({ clicks_easy: this.state.clicks_easy - 1 });}
+      if(this.state.questioncount_easy-1 >= 0)
+    this.setState({ questioncount_easy: this.state.questioncount_easy - 1 });}
     else if(id == 2){
-      if(this.state.clicks_medium - 1 >= 0)
-    this.setState({clicks_medium: this.state.clicks_medium - 1 });}
+      if(this.state.questioncount_medium - 1 >= 0)
+    this.setState({questioncount_medium: this.state.questioncount_medium - 1 });}
     else{
-      if(this.state.clicks_hard -1 >= 0)
-    this.setState({clicks_hard:this.state.clicks_hard - 1 });}
+      if(this.state.questioncount_hard -1 >= 0)
+    this.setState({questioncount_hard:this.state.questioncount_hard - 1 });}
   }
 
 
@@ -53,20 +53,20 @@ private questionnumber(questions: IQuestionBankNumber){
     <h3>Easy </h3>
     <h4>
     <button onClick={() => this.IncrementItem(1,questions.easy)}> + </button>
-     <h3>{ this.state.clicks_easy } </h3>
+     <h3>{ this.state.questioncount_easy } </h3>
      <button onClick={()=>this.DecreaseItem(1)}> - </button>
       </h4>
 
       <h3>Medium</h3>
       <h5>
       <button onClick={()=>this.IncrementItem(2,questions.medium)}> + </button>
-        <h3>{ this.state.clicks_medium }</h3>
+        <h3>{ this.state.questioncount_medium }</h3>
          <button onClick={()=>this.DecreaseItem(2)}> -</button>
       </h5>
       <h4>
               <h3>Hard </h3>
               <button onClick={()=>this.IncrementItem(3,questions.hard)}> + </button>
-                <h3>{ this.state.clicks_hard }</h3>
+                <h3>{ this.state.questioncount_hard }</h3>
                 <button onClick={()=>this.DecreaseItem(3)}> -</button>
       </h4>
     </div>
@@ -84,28 +84,7 @@ private questionnumber(questions: IQuestionBankNumber){
     hard:2
   }
   return (
-    //the gray background
-    /*  Easy
-     <h1>
-      <button onClick={() => this.IncrementItem(1)}> + </button>
-       <h2>{ this.state.clicks_easy } </h2>
-        <button onClick={()=>this.DecreaseItem(1)}> - </button>
-      </h1>
-      Medium
-      <h3>
-      <button onClick={()=>this.IncrementItem(2)}> + </button>
-        <h2>{ this.state.clicks_medium }</h2>
-         <button onClick={()=>this.DecreaseItem(2)}> -</button>
-     </h3>
-     <h4>
-             Hard
-             <button onClick={()=>this.IncrementItem(3)}> + </button>
-               <h2>{ this.state.clicks_hard }</h2>
-               <button onClick={()=>this.DecreaseItem(3)}> -</button>
-     </h4>
-       */
 <div>
-
    {this.questionnumber(question)}
     </div>
   );
