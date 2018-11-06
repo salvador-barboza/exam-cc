@@ -10,6 +10,7 @@ class Question implements IQuestion {
   public variableMap: QuestionVariableMap = new QuestionVariableMap(),
   public distractors?: IAnswer[],
   public id?: string,
+  public questionBankId?: string
   ) {}
 }
 

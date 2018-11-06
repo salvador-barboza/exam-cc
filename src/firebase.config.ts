@@ -5,4 +5,4 @@ export default {
   projectId: "exam-cc",
   storageBucket: "exam-cc.appspot.com",
   messagingSenderId: "816944365523"
-};
+}

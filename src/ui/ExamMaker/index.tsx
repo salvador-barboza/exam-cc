@@ -13,7 +13,7 @@ interface ExamMakerState {
 // TODO: finsih
 class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
   public state : ExamMakerState
-  private service = new QuestionBankService('123', 'yihEXP3ewJVV35COsowN')
+  private service = new QuestionBankService( 'yihEXP3ewJVV35COsowN')
 
   constructor(props) {
     super(props)

@@ -2,19 +2,25 @@ import React, { Component } from 'react'
 import QuestionEditor from '../Editor';
 import Question from 'src/models/Question/Question';
 import QuestionPreview from './QuestionPreview';
-import { Container, TitleInput, AddButton } from './Components';
-import QuestionBankService, { IQuestionBankDescription } from '../../services/QuestionBankService'
+import { Container, TitleInput } from './Components';
+import QuestionBankService from '../../services/QuestionBankService'
+import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
+import { AddButton } from '../shared';
 
 
-interface QuestionBankEditorProps {}
+interface QuestionBankEditorProps {
+  questionbBankId: string  
+}
+
 interface QuestionBankEditorState {
   questions: Question[]
   editingIndex: number
   addingQuestion: boolean
-  description: IQuestionBankDescription
+  description: IQuestionBank
 }
 
 class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBankEditorState> {
+  public props: QuestionBankEditorProps
   public state : QuestionBankEditorState = {
     questions: [],
     editingIndex: -1,
@@ -22,19 +28,15 @@ class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBan
     description: {}
   }   
 
-  private service = new QuestionBankService('123', 'yihEXP3ewJVV35COsowN')
+  private service: QuestionBankService
        
   constructor(props) {
     super(props)
-  
-    this.service.questions.subscribe(questions => {
-      this.setState({ ...this.state, questions })
-    })
 
-    this.service.description.subscribe(description => {
-      console.log(description)
-      this.setState({ ...this.state, description})
-    })
+    this.service = new QuestionBankService(this.props.questionbBankId)
+  
+    this.service.questions.subscribe(questions => this.setState({ ...this.state, questions }))
+    this.service.description.subscribe(description => this.setState({ ...this.state, description}))
   }
 
   private onEditQuestion = (index: number) => {
@@ -94,7 +96,10 @@ class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBan
          {this.state.addingQuestion && 
           <QuestionEditor onSaveQuestion={this.addQuestion} />}
          {!this.state.addingQuestion && this.state.editingIndex === -1 && 
-         <AddButton onClick={this.onAddQuestion}>Agregar Pregunta</AddButton> }
+         <AddButton 
+            onClick={this.onAddQuestion}>
+            Agregar Pregunta
+          </AddButton> }
       </Container>
     )
   }  

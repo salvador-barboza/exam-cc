@@ -13,6 +13,7 @@ export interface IQuestion {
   distractors?: IAnswer[]  
   answer: IAnswer
   id?: string
+  questionBankId?: string
 }
 
 export enum Difficulty {

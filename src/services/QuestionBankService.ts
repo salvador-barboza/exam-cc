@@ -5,12 +5,9 @@ import QuestionSerialization, { ISerializedQuestion } from 'src/serialization/Qu
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import Question from 'src/models/Question/Question';
+import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
+import { auth } from 'firebase';
 
-
-
-export interface IQuestionBankDescription {
-  title?: string,
-}
 
 class QuestionService {
   private questionBankRef: firebase.firestore.DocumentReference
@@ -18,8 +15,8 @@ class QuestionService {
 
   private serialization = new QuestionSerialization()
   constructor(
-    private userId: string, 
     private questionBankId: string,
+    private userId = auth().currentUser!!.uid, 
     private questionParser = new QuestionSerialization()) {
     this.questionCollectionRef = app.firestore()
       .collection(`/test/${this.userId}/questions`)
@@ -27,7 +24,7 @@ class QuestionService {
     this.questionBankRef = app.firestore().doc(`/test/${this.userId}/question_banks/${questionBankId}`)
   }
 
-  get description(): Observable<IQuestionBankDescription> {
+  get description(): Observable<IQuestionBank> {
     return docData(this.questionBankRef)
   }
 
@@ -46,7 +43,7 @@ class QuestionService {
     this.questionCollectionRef.add(serializedQuestion).then(console.log)
   }
 
-  public editQuestion = (question: IQuestion) => {
+  public editQuestion = (question: IQuestion) => {    
     const serializedQuestion = this.questionParser.serialize(question)
     this.questionCollectionRef.doc(question.id).set(serializedQuestion).then(console.log)
   }

@@ -24,6 +24,7 @@ interface QuestionEditorState {
   variables: QuestionVariableMap,
   answers: FormValues
   id?: string
+  questionBankId?: string
 }
 
 export default class QuestionEditor extends 
@@ -50,6 +51,7 @@ export default class QuestionEditor extends
     super(props)
     if (props.question) {
       this.state.id = props.question.id
+      this.state.questionBankId = props.question.questionBankId
       this.state.value = props.question.structure
       this.state.variables = props.question.variableMap
       this.state.answers = { answer: props.question.answer, distractors: props.question.distractors }
@@ -101,7 +103,7 @@ export default class QuestionEditor extends
 
   private swapVariablesForValues = () => {
     if (this.props.onSaveQuestion) {
-      const { variables, value, answers, id } = this.state
+      const { variables, value, answers, id, questionBankId } = this.state
       const { answer, distractors } = answers
 
       if (!answer) {
@@ -114,7 +116,8 @@ export default class QuestionEditor extends
         answer, 
         variables, 
         distractors,
-        id)
+        id,
+        questionBankId)
       this.props.onSaveQuestion(q)
     }
   }

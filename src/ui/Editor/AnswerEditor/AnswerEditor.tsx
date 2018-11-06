@@ -63,7 +63,7 @@ class AnswerEditor extends Component<AnswerEditorProps> {
     return (      
         <Formik
           validate={this.validate}
-          onSubmit={console.log}
+          onSubmit={() => {}}
           isInitialValid={true}
           on
           initialValues={{ 

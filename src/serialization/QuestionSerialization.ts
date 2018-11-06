@@ -29,6 +29,10 @@ class QuestionSerialization {
       serializedValue.distractors = question.distractors
     }
 
+    if (question.questionBankId) {
+      serializedValue.questionBankId = question.questionBankId
+    }
+
     return serializedValue
   }
 
@@ -39,9 +43,14 @@ class QuestionSerialization {
     const distractors = serializedQuestion.distractors
 
     let variableMap
+    let questionBankId
     
     if (serializedQuestion.variableMap) {
       variableMap = QuestionVariableMap.fromJSON(serializedQuestion.variableMap)
+    }
+
+    if (serializedQuestion.questionBankId) {
+      questionBankId = serializedQuestion.questionBankId
     }
       
     return new Question(      
@@ -50,7 +59,8 @@ class QuestionSerialization {
       answer,
       variableMap,
       distractors,
-      id)
+      id, 
+      questionBankId)
   }
 }
 
