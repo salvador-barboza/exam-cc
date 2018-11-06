@@ -17,7 +17,7 @@ export interface IQuestion {
 }
 
 export enum Difficulty {
-  LOW,
-  NORMAL,
-  HIGH,
+  EASY='easy',
+  NORMAL='normal',
+  HARD='hard',
 }

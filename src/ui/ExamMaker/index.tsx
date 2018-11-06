@@ -13,7 +13,7 @@ interface ExamMakerState {
 // TODO: finsih
 class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
   public state : ExamMakerState
-  private service = new QuestionBankService( 'yihEXP3ewJVV35COsowN')
+  private service = new QuestionBankService('RpWLrGWSsHFPHCF4OPDo')
 
   constructor(props) {
     super(props)
@@ -37,9 +37,11 @@ class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
 
   private todo = () => {
     const gen = new ExamGenerator(this.state.selectedQuestionBanks)
-    const exam = gen.generate(1)
-    const renderer = new ExamRender(exam)
-    renderer.render()
+    for (let i = 0; i < 3; i++) {
+      const exam = gen.generate()
+      const renderer = new ExamRender(exam)
+      renderer.render(`examen_tipo_${String.fromCharCode(97 + i)}`)
+    }    
   }
 }
 

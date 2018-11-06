@@ -1,12 +1,12 @@
 import app from './firebase'
-import { IQuestion } from "src/models/Question/IQuestion";
+import { IQuestion, Difficulty } from "src/models/Question/IQuestion";
 import { fromCollectionRef, docData } from 'rxfire/firestore'
 import QuestionSerialization, { ISerializedQuestion } from 'src/serialization/QuestionSerialization';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import Question from 'src/models/Question/Question';
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
-import { auth } from 'firebase';
+import { auth, firestore } from 'firebase';
 
 
 class QuestionService {
@@ -37,10 +37,12 @@ class QuestionService {
       ))
   }
 
-  public addQuestion = (question: IQuestion) => {
+  public addQuestion = (question: IQuestion) => {    
     const serializedQuestion = this.questionParser.serialize(question)
     serializedQuestion.questionBankId = this.questionBankId
-    this.questionCollectionRef.add(serializedQuestion).then(console.log)
+    this.questionCollectionRef
+      .add(serializedQuestion)
+      .then(() => this.updateQuestionCount(question.difficulty, true))
   }
 
   public editQuestion = (question: IQuestion) => {    
@@ -49,13 +51,33 @@ class QuestionService {
   }
 
   public eraseQuestion = (question: IQuestion) => {
-    this.questionCollectionRef.doc(question.id).delete().then(console.log)
+    this.questionCollectionRef.doc(question.id)
+      .delete()
+      .then(() => this.updateQuestionCount(question.difficulty, false))
   }
 
+  //TODO: sacar esto a QuestionBankCollectionService
   public setTitle = (title: string) => {
     this.questionBankRef.update({
       title
     })
+  }
+
+  private updateQuestionCount = (value: Difficulty, increment = true) => {
+    return firestore().runTransaction(transaction => {
+      return transaction.get(this.questionBankRef).then((doc) => {
+        if (!doc.exists) {
+          throw 'QuestionBank not Found'
+        }
+
+
+        const data = doc.data()! as IQuestionBank    
+        const questionCount = data.questionCount!
+        questionCount[value] += (increment ? 1 : -1)
+  
+        transaction.update(this.questionBankRef, { questionCount });
+      })
+    }).then(() => console.debug('transaction OK'))
   }
 }
 

@@ -1,26 +1,8 @@
 import QuestionBankCollectionService from "src/services/QuestionBankCollectionService"
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
-import styled from 'react-emotion'
 import { AddButton } from '../shared';
-
-
-const Card = styled('div')({
-  height: 150,
-  width: 200,
-  background: 'linear-gradient(to right, #4568dc, #b06ab3)',
-  padding: 16,
-  margin: 16,
-  boxShadow: '0 0 10px 0px rgba(165, 165, 165, 0.5)',
-  ':hover': {
-    boxShadow: '0 0 20px 6px rgba(165, 165, 165, 0.5)'
-  },
-  transition: 'all .15s ease-in-out',
-  fontSize: 24,
-  color: 'white',
-  borderRadius: 6,
-  display: 'inline-block',
-})
+import { Title, SubjectCard } from './Components';
 
 interface QuestionBankExplorerState {
   subjects: string[]
@@ -58,7 +40,9 @@ class SubjectList extends Component<{}, QuestionBankExplorerState> {
 
     return (
       <div>
-        {this.state.subjects.map(x => <Card onClick={() => this.goToSubject(x)}>{x}</Card>)}
+        <Title>Materias</Title>
+        {this.state.subjects.map(x => 
+          <SubjectCard onClick={() => this.goToSubject(x)}>{x}</SubjectCard>)}
         <AddButton onClick={() => this.createSubject()}>
           Agregar Materia
         </AddButton>

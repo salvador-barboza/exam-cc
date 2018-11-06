@@ -12,9 +12,10 @@ class ExamGenerator {
     private questionList: IQuestion[]
   ) {}    
     
-    public generate = (examCount: number) => {   
+    public generate = () => {   
       const exam : ExamInciso[] = []
-   
+      const clave: any[] = []
+
       for (let q of this.questionList) {
         if (q.variableMap) {
           const formulaEvaluator = new FormulaEvaluator(q.variableMap)
@@ -38,6 +39,8 @@ class ExamGenerator {
           const shuffledAnswers = this.shuffle([...distractors, answer])
           // const indexOfAnswer = shuffledAnswers.indexOf(answer) TODO: Add answersheet
 
+          
+          clave.push(shuffledAnswers.indexOf(answer))
           exam.push({
             choices: shuffledAnswers,
             questionStructure: q.structure,
@@ -45,6 +48,8 @@ class ExamGenerator {
           })
         }                                
     }
+
+    console.log(clave)
 
     return exam
   }

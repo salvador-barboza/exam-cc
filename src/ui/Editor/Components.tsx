@@ -1,21 +1,14 @@
 import styled from 'react-emotion';
 
-export interface ContainerProps {
-  editable?: Boolean
-}
-
-export const Container = styled('div')((props: ContainerProps) => ({
+export const Container = styled('div')((props: { editable?: Boolean }) => ({
   width: '100%',
   minHeight: props.editable ? 300 : 'auto',
   border: '1px solid #E0E0E0',
+  padding: 8,
+  backgroundColor: '#FFF',
 }))
 
-
-export interface PillStyleProps {
-  focused: Boolean
-}
-
-export const Pill = styled('div')((props: PillStyleProps) => ({ 
+export const Pill = styled('div')((props: { focused: Boolean }) => ({ 
   backgroundColor:  'red',
   borderRadius: '12px', 
   display: 'inline-block', 

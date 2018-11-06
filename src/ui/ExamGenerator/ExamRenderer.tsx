@@ -24,7 +24,7 @@ const Title = styled('h1')({
 
 class ExamRender {
   constructor(private incisos: ExamInciso[]) {}
-  public render = () => {
+  public render = (filename: string) => {
     const ph = 
     <Page>
       {this.incisos.map((i, index) => (
@@ -44,14 +44,18 @@ class ExamRender {
       ))}
     </Page>
 
-    this.save(ph)
+    this.save(ph, filename)
   }
   
-  private save(node) {
+  private save(node, filename) {
     const el = document.createElement('div')
     ReactDOM.render(node, el)
     html2pdf()
-      .set({ pagebreak: { mode: 'avoid-all' } })
+      .set({ 
+        pagebreak: { mode: 'avoid-all' }, 
+        html2canvas: { logging: false, allowTaint: true },
+        filename 
+      })
       .from(el)
       .save()
   }
@@ -85,6 +89,5 @@ class ExamRender {
   ])
 
 }
-
 
 export default ExamRender

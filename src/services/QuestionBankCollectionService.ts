@@ -42,9 +42,19 @@ class QuestionBankCollectionService {
     )
   }
   
-  public addQuestionBank = (subject: string) => 
-    this.questionCollectionRef.add({ subject })
+  public addQuestionBank = (subject: string) => { 
+    const questionBank: IQuestionBank = { 
+      subject, 
+      questionCount: {
+        easy: 0,
+        medium: 0,
+        hard: 0
+      }
+    }
+
+    return this.questionCollectionRef.add(questionBank)
       .then(x => x.id)      
+  }
   
   public deleteQuestionBank = (questionBankId: string) => {
     return this.questionCollectionRef.doc(questionBankId).delete()
