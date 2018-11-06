@@ -12,6 +12,7 @@ class App extends React.Component {
       
       <QuestionBankPopUp show={true}/>
       <SubjectsQuestionBanksCount/>
+      <SubjectsQuestionBanksCount/>
       </div>
     );
   }

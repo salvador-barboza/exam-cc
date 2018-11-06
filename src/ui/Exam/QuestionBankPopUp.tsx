@@ -11,6 +11,7 @@ interface QuestionBankPopUpProps{
 
 interface QuestionBankPopUpState{
     show: boolean;
+    selected:number[]
 }
 
 const Background = styled('div')({
@@ -47,7 +48,6 @@ const Background = styled('div')({
         height: 40,
         marginBottom: 10,
         fontSize: 17,
-        select: props.selected,
     }));
 
     interface selectedProps{
@@ -58,19 +58,43 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
     public state: QuestionBankPopUpState 
     constructor(props){
         super(props)
-        this.state = ({show: props.show})
+        this.state = ({show: props.show,selected:[]})
     }
 
     public hide = () => {
         this.setState({show:false})
     }
 
+    public setSelected(id: number){
+        var temp = this.state.selected
+        if(!this.isInArray(id,temp)){
+        temp.push(id)
+        this.setState({selected:temp})
+        console.log(this.state.selected)
+        }else{
+        temp.splice(temp.indexOf(id),1)
+        }
+    }
+
+    private isInArray(value:number, array:number[]) {
+        return array.indexOf(value) > -1;
+      }
+      
+
     private listsubject(subjects: IQuestionBankDescription[]){
         return(
-        subjects.map((subject) =>
-        <ButtonCool>{subject.title}</ButtonCool>
+        subjects.map((subject,index) =>
+        <ButtonCool onClick={()=>this.setSelected(index)} selected>{subject.title}</ButtonCool>
         )
         )
+    }
+
+    private showArray(){
+        if(this.state.selected){
+        var temp = this.state.selected
+        temp.sort()
+        console.log(temp)
+        }
     }
 
     render(){
@@ -88,6 +112,7 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
                     <div className={css({overflowY:'scroll', height:400})}>
                     <button onClick={this.hide} className={css({position:'absolute', right:10,top:10})}>Close</button>
                     {this.listsubject(arr)}
+                    <button onClick={this.showArray}>Agregar</button>
                     </div>
                     </div>
                 </Popup>
