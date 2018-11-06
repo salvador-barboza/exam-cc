@@ -3,7 +3,6 @@ import { css } from 'emotion'
 import styled from 'react-emotion'
 import {IQuestionBank,QuestionCount} from 'src/models/QuestionBank/IQuestionBank'
 
-
 interface QuestionBankPopUpProps{
     show: boolean
     subjects?: IQuestionBank[]
@@ -13,6 +12,19 @@ interface QuestionBankPopUpState{
     show: boolean
     selected:number[]
 }
+
+const EditButton = styled('button')((props: { color: string }) => ({
+    borderRadius:5,
+    borderColor:'green',
+    backgroundColor: 'transparent',
+    padding: 8,
+    fontSize: 14,
+    color: props.color,
+    cursor: 'pointer',
+    textAlign: 'center',
+    width: 438,
+    height: 40,
+  }))
 
 const Background = styled('div')({
     position: 'fixed',
@@ -53,7 +65,6 @@ const Background = styled('div')({
         marginBottom: 10,
         fontSize: 17,
     }));
-
 
 class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,QuestionBankPopUpState> {
     public state: QuestionBankPopUpState 
@@ -109,13 +120,11 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
     }
 
     render(){
-        // Render nothing if the "show" prop is false
         var arr:IQuestionBank[] = [{id:"01",title:"sumas",questionCount:{easy: 1,medium: 2,hard: 3}},{id:"02",title:"restas",questionCount:{easy: 3,medium: 2,hard: 3}},{id:"03",title:"multiplicaciones",questionCount: {easy: 7,medium: 2,hard: 3}}]
         if(!this.state.show) {
             return null;
         }
           return (
-            //the gray background
             <Background>
                 <Popup>
                     {this.props.children}
@@ -123,7 +132,7 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
                     <div className={css({overflowY:'scroll', height:400})}>
                     <button onClick={this.hide} className={css({position:'absolute', right:10,top:10})}>Close</button>
                     {this.listsubject(arr)}
-                    <button onClick={this.showArray}>Agregar</button>
+                    <EditButton color={'green'} onClick={this.showArray}>Confirmar</EditButton>
                     </div>
                     </div>
                 </Popup>
