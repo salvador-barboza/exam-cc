@@ -9,7 +9,7 @@ class App extends React.Component {
     return (
       //<QuestionBankEditor />
       <div>
-
+      
       <QuestionBankPopUp show={true}/>
       <SubjectsQuestionBanksCount/>
       </div>

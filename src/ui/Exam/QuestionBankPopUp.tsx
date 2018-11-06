@@ -1,16 +1,16 @@
 import React from 'react'
 import { css } from 'emotion'
-import styled from 'react-emotion';
+import styled from 'react-emotion'
+import {IQuestionBankDescription} from 'src/models/QuestionBank/IQuestionBank'
+
 
 interface QuestionBankPopUpProps{
     show: boolean;
-
+    subjects?: IQuestionBankDescription[];
 }
 
 interface QuestionBankPopUpState{
     show: boolean;
-    MateriaName: string;
-
 }
 
 const Background = styled('div')({
@@ -33,29 +33,49 @@ const Background = styled('div')({
         position: 'relative',
     });
 
-const subjects = ["sumas", "restas", "multiplicaciones", "divisiones", "test","sumas", "restas", "multiplicaciones", "divisiones", "test","sumas", "restas", "multiplicaciones", "divisiones", "test","sumas", "restas", "multiplicaciones", "divisiones", "test"];
-const listSubjects = subjects.map((subject) =>
-    <tr><button>{subject}</button></tr>
-);
+    const ButtonCool = styled('button')((props: selectedProps) =>({
+        borderColor: '#6100ED',
+        borderRadius: 1,
+        backgroundColor: '#E7DFFB',
+        borderTopLeftRadius: 4,
+        borderTopRightRadius: 4,
+        borderBottomLeftRadius: 4,
+        borderBottomRightRadius: 4,
+        color: '#6100ED',
+        textAlign: 'center',
+        width: 438,
+        height: 40,
+        marginBottom: 10,
+        fontSize: 17,
+        select: props.selected,
+    }));
 
-class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps> {
+    interface selectedProps{
+        selected: boolean
+    }
 
-    public state : QuestionBankPopUpState = {
-        show: this.props.show,
-        MateriaName: ""
-    } 
-    
+class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,QuestionBankPopUpState> {
+    public state: QuestionBankPopUpState 
     constructor(props){
         super(props)
+        this.state = ({show: props.show})
     }
 
     public hide = () => {
         this.setState({show:false})
     }
 
+    private listsubject(subjects: IQuestionBankDescription[]){
+        return(
+        subjects.map((subject) =>
+        <ButtonCool>{subject.title}</ButtonCool>
+        )
+        )
+    }
+
     render(){
         // Render nothing if the "show" prop is false
-        
+        var arr:IQuestionBankDescription[] = [{id:"01",title:"sumas"},{id:"02",title:"restas"},{id:"03",title:"multiplicaciones"}]
         if(!this.state.show) {
             return null;
         }
@@ -67,7 +87,7 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps> {
                     <div className="footer">
                     <div className={css({overflowY:'scroll', height:400})}>
                     <button onClick={this.hide} className={css({position:'absolute', right:10,top:10})}>Close</button>
-                    <table>{listSubjects}</table>
+                    {this.listsubject(arr)}
                     </div>
                     </div>
                 </Popup>
