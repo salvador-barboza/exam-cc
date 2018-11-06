@@ -1,7 +1,7 @@
 import React from 'react'
 import { css } from 'emotion'
 import styled from 'react-emotion'
-import {IQuestionBank} from 'src/models/QuestionBank/IQuestionBank'
+import {IQuestionBank,QuestionCount} from 'src/models/QuestionBank/IQuestionBank'
 
 
 interface QuestionBankPopUpProps{
@@ -83,14 +83,20 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
         return array.indexOf(value) > -1;
       }
       
-
     private listsubject(subjects: IQuestionBank[]){
         var select = this.state.selected
         return(
         subjects.map((subject,index) => 
-        <ButtonCool onClick={()=>this.setSelected(index)} selected={this.isInArray(index,select)}>{subject.title}</ButtonCool>
+        <ButtonCool onClick={()=>this.setSelected(index)} selected={this.isInArray(index,select)}>{subject.title}---{
+            this.formatQuestionBankCount(subject.questionCount!!)
+        }</ButtonCool>
         )
         )
+    }
+
+    private formatQuestionBankCount = ({ easy, medium, hard}: QuestionCount) => {
+        const total = easy + medium + hard
+        return `${total} pregunta${total === 1 ? '' : 's'}.`
     }
 
     private showArray = () => {
@@ -104,7 +110,7 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
 
     render(){
         // Render nothing if the "show" prop is false
-        var arr:IQuestionBank[] = [{id:"01",title:"sumas"},{id:"02",title:"restas"},{id:"03",title:"multiplicaciones"}]
+        var arr:IQuestionBank[] = [{id:"01",title:"sumas",questionCount:{easy: 1,medium: 2,hard: 3}},{id:"02",title:"restas",questionCount:{easy: 3,medium: 2,hard: 3}},{id:"03",title:"multiplicaciones",questionCount: {easy: 7,medium: 2,hard: 3}}]
         if(!this.state.show) {
             return null;
         }
