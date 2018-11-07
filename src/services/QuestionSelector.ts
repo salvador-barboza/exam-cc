@@ -1,6 +1,6 @@
-import { IQuestion } from '../Question/IQuestion'
+import { IQuestion } from '../models/Question/IQuestion'
 
-export class QuestionSet {
+export class QuestionSelector {
     constructor(
         private questionBanks: Map<string, IQuestion[]>,
         private requiredQuestions: Map<string, number>
@@ -8,7 +8,7 @@ export class QuestionSet {
 
     result: IQuestion[] = [];
 
-    public commpute = () => {
+    public compute = () => {
         [...this.questionBanks].forEach(([key, value]) => {
 
             if (this.requiredQuestions.get(key) != undefined) {
