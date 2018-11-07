@@ -9,7 +9,7 @@ import AuthService from './services/AuthService';
 import Login from './ui/Auth/Login';
 import SubjectList from './ui/QuestionBankExplorer/SujectList';
 import QuestionBankExplorer from './ui/QuestionBankExplorer/QuestionBankBySubjectList';
-
+import QuestionsCount from './ui/Exam/QuestionsCount'
 
 const Shell = styled('div')({
   display: 'flex'
@@ -50,45 +50,46 @@ interface AppState {
 }
 
 class App extends React.Component<{}, AppState> {
-  public state: AppState = {} 
+  public state: AppState = {}
   private authService = new AuthService()
 
-  constructor(props) {    
+  constructor(props) {
     super(props)
 
     this.authService.status.subscribe(user => {
-      this.setState({ user })          
+      this.setState({ user })
     })
   }
-  
+
   public render() {
     return (
-      <BrowserRouter>      
+      <BrowserRouter>
         <div>
+         <QuestionsCount/>
           <Toolbar>Exam CC <button onClick={async () => auth().signOut()}>log out</button></Toolbar>
           <Shell>
-            <SidePanel>              
+            <SidePanel>
               <MenuItem to="/question_banks">Banco de Preguntas</MenuItem>
               <MenuItem to="/exam_editor">Crear examen</MenuItem>
             </SidePanel>
             <Switch>
-            {this.state.user && 
+            {this.state.user &&
               <div style={{flexGrow: 1}}>
                 <Route path="/bank_editor/:id" render={props => {
                   const questionBankId = props.match.params.id
-                  return <QuestionBankEditor questionbBankId={questionBankId} /> 
+                  return <QuestionBankEditor questionbBankId={questionBankId} />
                 }} />
-                <Route path="/exam_editor" component={ExamMaker} /> 
-                <Route exact path="/question_banks" component={SubjectList} /> 
+                <Route path="/exam_editor" component={ExamMaker} />
+                <Route exact path="/question_banks" component={SubjectList} />
                 <Route path="/question_banks/:id" render={props => {
                   const subject = props.match.params.id
-                  return <QuestionBankExplorer subject={subject} /> 
+                  return <QuestionBankExplorer subject={subject} />
                 }} />
 
               </div>}
             {!this.state.user && <Login />}
-            </Switch>                  
-          </Shell>          
+            </Switch>
+          </Shell>
         </div>
       </BrowserRouter>
     )
