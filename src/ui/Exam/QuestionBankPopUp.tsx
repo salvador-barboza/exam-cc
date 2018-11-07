@@ -5,7 +5,7 @@ import {IQuestionBank,QuestionCount} from 'src/models/QuestionBank/IQuestionBank
 
 interface QuestionBankPopUpProps{
     show: boolean
-    subjects?: IQuestionBank[]
+    subjects: IQuestionBank[]
 }
 
 interface QuestionBankPopUpState{
@@ -78,7 +78,7 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
     }
 
     public setSelected(id: number){
-        var temp = this.state.selected
+        let temp = this.state.selected
         if(!this.isInArray(id,temp)){
         temp.push(id)
         this.setState({selected:temp})
@@ -95,7 +95,7 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
       }
       
     private listsubject(subjects: IQuestionBank[]){
-        var select = this.state.selected
+        let select = this.state.selected
         return(
         subjects.map((subject,index) => 
         <ButtonCool onClick={()=>this.setSelected(index)} selected={this.isInArray(index,select)}>{subject.title}---{
@@ -112,7 +112,7 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
 
     private showArray = () => {
         if(this.state.selected){
-        var temp = this.state.selected
+        let temp = this.state.selected
         temp.sort()
         this.setState({selected:temp})
         console.log(this.state.selected)
@@ -120,7 +120,6 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
     }
 
     render(){
-        var arr:IQuestionBank[] = [{id:"01",title:"sumas",questionCount:{easy: 1,medium: 2,hard: 3}},{id:"02",title:"restas",questionCount:{easy: 3,medium: 2,hard: 3}},{id:"03",title:"multiplicaciones",questionCount: {easy: 7,medium: 2,hard: 3}}]
         if(!this.state.show) {
             return null;
         }
@@ -131,7 +130,7 @@ class QuestionBankPopUp extends React.Component <QuestionBankPopUpProps,Question
                     <div className="footer">
                     <div className={css({overflowY:'scroll', height:400})}>
                     <button onClick={this.hide} className={css({position:'absolute', right:10,top:10})}>Close</button>
-                    {this.listsubject(arr)}
+                    {this.listsubject(this.props.subjects)}
                     <EditButton color={'green'} onClick={this.showArray}>Confirmar</EditButton>
                     </div>
                     </div>
