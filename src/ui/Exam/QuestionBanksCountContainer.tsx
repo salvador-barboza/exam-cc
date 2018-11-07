@@ -12,16 +12,20 @@ constructor(props){
   super(props)
 }
 
-/*
+
 private Count = (questionbanks:IQuestionBank[]) => {
-  var obj = questionbanks.map(function(questionbank)) {
+
+  var obj = questionbanks.map(function(questionbank) {
     return({
     id:questionbank.id,
     easy:questionbank.easy,
     medium:questionbank.medium,
     hard:questionbank.medium });
-  }
-} */
+  })
+
+  return (obj);
+
+}
 
 
  render(){
