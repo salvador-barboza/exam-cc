@@ -10,7 +10,7 @@ import Login from './ui/Auth/Login';
 import SubjectList from './ui/QuestionBankExplorer/SujectList';
 import QuestionBankExplorer from './ui/QuestionBankExplorer/QuestionBankBySubjectList';
 import QuestionsCount from './ui/Exam/QuestionsCount'
-
+import QuestionBanksCountContainer from './ui/Exam/QuestionBanksCountContainer'
 const Shell = styled('div')({
   display: 'flex'
 })
@@ -66,6 +66,7 @@ class App extends React.Component<{}, AppState> {
       <BrowserRouter>
         <div>
          <QuestionsCount/>
+         <QuestionBanksCountContainer/>
           <Toolbar>Exam CC <button onClick={async () => auth().signOut()}>log out</button></Toolbar>
           <Shell>
             <SidePanel>
