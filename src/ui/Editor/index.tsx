@@ -11,7 +11,6 @@ import AnswerEditor, { FormValues } from './AnswerEditor/AnswerEditor'
 import Question from 'src/models/Question/Question';
 import { Container } from './Components';
 import { css } from 'emotion';
-import { Difficulty } from 'src/models/Question/IQuestion';
 
 interface QuestionEditorProps {
   editable?: boolean,
@@ -23,8 +22,7 @@ interface QuestionEditorState {
   value: Value,
   showingVariableToolbar: boolean,
   variables: QuestionVariableMap,
-  answers: FormValues
-  difficulty: Difficulty
+  answers: FormValues  
   id?: string
   questionBankId?: string,
 }
@@ -41,8 +39,7 @@ export default class QuestionEditor extends
     answers: {
       distractors: [],
       answer: {predicate: '', static: false}
-    }, 
-    difficulty: Difficulty.EASY
+    },
   }
 
   private editor: Editor
@@ -106,7 +103,7 @@ export default class QuestionEditor extends
 
   private swapVariablesForValues = () => {
     if (this.props.onSaveQuestion) {
-      const { variables, value, answers, id, questionBankId, difficulty } = this.state
+      const { variables, value, answers, id, questionBankId } = this.state
       const { answer, distractors } = answers
 
       if (!answer) {
@@ -114,7 +111,6 @@ export default class QuestionEditor extends
       }
 
       const q = new Question(
-        difficulty, 
         value, 
         answer, 
         variables, 

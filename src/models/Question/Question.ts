@@ -1,10 +1,9 @@
-import { IQuestion, Difficulty, IAnswer } from "./IQuestion";
+import { IQuestion, IAnswer } from "./IQuestion";
 import { Value } from 'slate';
 import QuestionVariableMap from './QuestionVariableMap';
 
 class Question implements IQuestion {
   constructor(  
-  public difficulty: Difficulty,
   public structure: Value,
   public answer: IAnswer,
   public variableMap: QuestionVariableMap = new QuestionVariableMap(),

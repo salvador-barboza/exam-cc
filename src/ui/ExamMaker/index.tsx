@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import QuestionBankService from '../../services/QuestionBankService'
+import QuestionBankService from '../../services/QuestionCollectionService'
 import { IQuestion } from 'src/models/Question/IQuestion';
 import ExamGenerator from '../ExamGenerator';
 import ExamRender from '../ExamGenerator/ExamRenderer';

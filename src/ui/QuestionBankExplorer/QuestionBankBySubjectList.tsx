@@ -1,7 +1,7 @@
-import QuestionBankCollectionService from "src/services/QuestionBankCollectionService";
+import QuestionBankService from "src/services/QuestionBankService";
 import React, { Component } from 'react'
 import { Redirect } from 'react-router';
-import { IQuestionBank, QuestionCount } from 'src/models/QuestionBank/IQuestionBank';
+import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
 import { AddButton } from '../shared';
 import { Title, BankCard, ButtonContainer, BankCount } from './Components';
 
@@ -21,7 +21,7 @@ class QuestionBankExplorer extends
     redirectToQuestionBankId: undefined,
     questionBanks: []
   }
-  private questionBankCollectionService = new QuestionBankCollectionService()
+  private questionBankCollectionService = new QuestionBankService()
 
   constructor(props) {
     super(props)    
@@ -45,9 +45,8 @@ class QuestionBankExplorer extends
     this.questionBankCollectionService.deleteQuestionBank(id)
   }
 
-  private formatQuestionBankCount = ({ easy, medium, hard}: QuestionCount) => {
-    const total = easy + medium + hard
-    return `${total} pregunta${total === 1 ? '' : 's'}.`
+  private formatQuestionBankCount = (count: number) => {
+    return `${count} pregunta${count === 1 ? '' : 's'}.`
   }
 
   public render() {
@@ -69,11 +68,10 @@ class QuestionBankExplorer extends
                 <button onClick={() => this.onDeleteQuestionBank(x.id)}>borrar</button>
                 <button onClick={() => this.onEditQuestionBank(x.id)}>editar</button>              
               </ButtonContainer>
-            </BankCard>)
-        }
+            </BankCard>)}
         <AddButton 
           onClick={this.onAddQuestionBank}>
-          Crear Banco de Preguntas 
+          Crear Banco de Preguntass
         </AddButton>
       </div>
     )

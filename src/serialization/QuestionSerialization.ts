@@ -1,4 +1,4 @@
-import { IAnswer, IQuestion, Difficulty } from 'src/models/Question/IQuestion';
+import { IAnswer, IQuestion } from 'src/models/Question/IQuestion';
 import Question from 'src/models/Question/Question';
 import { Value } from 'slate';
 import QuestionVariableMap from 'src/models/Question/QuestionVariableMap';
@@ -6,7 +6,6 @@ import QuestionVariableMap from 'src/models/Question/QuestionVariableMap';
 
 export interface ISerializedQuestion {  
   answer: IAnswer
-  difficulty: Difficulty
   structure: string
   variableMap?: string
   distractors?: IAnswer[]
@@ -17,7 +16,6 @@ class QuestionSerialization {
   public serialize(question: IQuestion) : ISerializedQuestion {
     const serializedValue: ISerializedQuestion =  {
       answer: question.answer,
-      difficulty: question.difficulty,
       structure: JSON.stringify(question.structure.toJSON()),            
     }
 
@@ -37,7 +35,6 @@ class QuestionSerialization {
   }
 
   public parse(serializedQuestion: ISerializedQuestion, id?: string) {
-    const difficulty = serializedQuestion.difficulty
     const structure = Value.fromJSON(JSON.parse(serializedQuestion.structure))
     const answer = serializedQuestion.answer
     const distractors = serializedQuestion.distractors
@@ -54,7 +51,6 @@ class QuestionSerialization {
     }
       
     return new Question(      
-      difficulty, 
       structure, 
       answer,
       variableMap,

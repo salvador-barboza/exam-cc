@@ -3,7 +3,7 @@ import QuestionEditor from '../Editor';
 import Question from 'src/models/Question/Question';
 import QuestionPreview from './QuestionPreview';
 import { Container, TitleInput } from './Components';
-import QuestionBankService from '../../services/QuestionBankService'
+import QuestionBankService from '../../services/QuestionCollectionService'
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
 import { AddButton } from '../shared';
 

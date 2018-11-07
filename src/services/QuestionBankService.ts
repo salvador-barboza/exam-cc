@@ -1,84 +1,61 @@
 import app from './firebase'
-import { IQuestion, Difficulty } from "src/models/Question/IQuestion";
-import { fromCollectionRef, docData } from 'rxfire/firestore'
-import QuestionSerialization, { ISerializedQuestion } from 'src/serialization/QuestionSerialization';
-import { map } from 'rxjs/operators';
+import { fromCollectionRef } from 'rxfire/firestore'
 import { Observable } from 'rxjs';
-import Question from 'src/models/Question/Question';
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
-import { auth, firestore } from 'firebase';
+import { auth } from 'firebase';
+import { map, tap } from 'rxjs/operators';
 
 
-class QuestionService {
-  private questionBankRef: firebase.firestore.DocumentReference
+class QuestionBankService {
   private questionCollectionRef: firebase.firestore.CollectionReference
 
-  private serialization = new QuestionSerialization()
   constructor(
-    private questionBankId: string,
     private userId = auth().currentUser!!.uid, 
-    private questionParser = new QuestionSerialization()) {
+  ) {
     this.questionCollectionRef = app.firestore()
-      .collection(`/test/${this.userId}/questions`)
-
-    this.questionBankRef = app.firestore().doc(`/test/${this.userId}/question_banks/${questionBankId}`)
+      .collection(`/test/${this.userId}/question_banks`)
   }
 
-  get description(): Observable<IQuestionBank> {
-    return docData(this.questionBankRef)
+  get banks(): Observable<Map<string, IQuestionBank[]>> {
+    return fromCollectionRef(this.questionCollectionRef)
+      .pipe(
+        map(
+          val => val.docs
+            .map(x => ({  id: x.id, ...x.data() }) as IQuestionBank)),
+        tap(console.log),
+        map(x => x.reduce((acc, curr) => {
+          if (!acc.has(curr.subject!!)) {
+            acc.set(curr.subject!!, [])
+          }
+
+          const arr = acc.get(curr.subject!!)!!
+            arr.push(curr)
+            return acc
+          }
+        , new Map<string, IQuestionBank[]>()))      
+      )
   }
 
-  get questions(): Observable<Question[]> {
-    return fromCollectionRef(this.questionCollectionRef.where('questionBankId', '==', this.questionBankId)).pipe(
-      map(
-        val => val.docs
-          .map(x => ({  id: x.id, data: x.data() }))
-          .map(({ data, id }) => this.serialization.parse(data as ISerializedQuestion, id))
-      ))
+  get subjects(): Observable<string[]> {
+    return this.banks.pipe(
+      map(x => new Set(x.keys())),
+      map(x => Array.from(x))
+    )
   }
-
-  public addQuestion = (question: IQuestion) => {    
-    const serializedQuestion = this.questionParser.serialize(question)
-    serializedQuestion.questionBankId = this.questionBankId
-    this.questionCollectionRef
-      .add(serializedQuestion)
-      .then(() => this.updateQuestionCount(question.difficulty, true))
-  }
-
-  public editQuestion = (question: IQuestion) => {    
-    const serializedQuestion = this.questionParser.serialize(question)
-    this.questionCollectionRef.doc(question.id).set(serializedQuestion).then(console.log)
-  }
-
-  public eraseQuestion = (question: IQuestion) => {
-    this.questionCollectionRef.doc(question.id)
-      .delete()
-      .then(() => this.updateQuestionCount(question.difficulty, false))
-  }
-
-  //TODO: sacar esto a QuestionBankCollectionService
-  public setTitle = (title: string) => {
-    this.questionBankRef.update({
-      title
-    })
-  }
-
-  private updateQuestionCount = (value: Difficulty, increment = true) => {
-    return firestore().runTransaction(transaction => {
-      return transaction.get(this.questionBankRef).then((doc) => {
-        if (!doc.exists) {
-          throw 'QuestionBank not Found'
-        }
-
-
-        const data = doc.data()! as IQuestionBank    
-        const questionCount = data.questionCount!
-        questionCount[value] += (increment ? 1 : -1)
   
-        transaction.update(this.questionBankRef, { questionCount });
-      })
-    }).then(() => console.debug('transaction OK'))
+  public addQuestionBank = (subject: string) => { 
+    const questionBank: IQuestionBank = { 
+      subject, 
+      questionCount: 0
+    }
+
+    return this.questionCollectionRef.add(questionBank)
+      .then(x => x.id)      
+  }
+  
+  public deleteQuestionBank = (questionBankId: string) => {
+    return this.questionCollectionRef.doc(questionBankId).delete()
   }
 }
 
-export default QuestionService 
+export default QuestionBankService 

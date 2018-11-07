@@ -1,4 +1,4 @@
-import QuestionBankCollectionService from "src/services/QuestionBankCollectionService"
+import QuestionBankService from "src/services/QuestionBankService"
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 import { AddButton } from '../shared';
@@ -13,7 +13,7 @@ class SubjectList extends Component<{}, QuestionBankExplorerState> {
   public state: QuestionBankExplorerState = {
     subjects: []
   }
-  private questionBankCollectionService = new QuestionBankCollectionService()
+  private questionBankCollectionService = new QuestionBankService()
 
   constructor(props) {
     super(props)
