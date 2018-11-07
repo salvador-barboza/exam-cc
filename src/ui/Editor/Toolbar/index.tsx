@@ -1,21 +1,5 @@
 import React from 'react'
-import styled from 'react-emotion'
-
-const BUTTON_SIZE = 40
-
-const Container = styled('div')({
-  height: BUTTON_SIZE,
-  width: '100%',
-  border: '1px solid #FAFAFA'
-})
-
-const Button = styled('button')({
-  width: BUTTON_SIZE,
-  border: 'none',
-  borderRight: '1px solid #F0F0F0',
-  height: BUTTON_SIZE,
-  backgroundColor: 'transparent',
-})
+import {Container, Button} from './Components'
 
 export interface ToolbarProps {
   onBoldClicked: (params) => void,
