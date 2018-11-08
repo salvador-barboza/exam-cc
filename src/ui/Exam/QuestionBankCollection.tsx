@@ -38,14 +38,14 @@ class QuestionBankCollection extends React.Component<QuestionBankCollectionProps
     private removeBank(bank:IQuestionBank){
         let bMap = this.state.bankMap
         let index = this.state.activeBanks.indexOf(bank)
-        bMap.delete(bank.id!!)   
+        bMap.delete(bank.id!!)
         this.setState({bankMap:bMap})
-        console.log(this.state.bankMap)
         let aBanks = this.state.activeBanks
         if (index > -1) {
             aBanks.splice(index, 1);
         }
         this.setState({activeBanks:aBanks})
+        
     }
 
     private AddQuestionCount(questioncount: number, id: string) {
@@ -80,6 +80,8 @@ class QuestionBankCollection extends React.Component<QuestionBankCollectionProps
                 let temparray = this.state.activeBanks
                 temparray.push(temp)
                 this.setState({ activeBanks: temparray })
+            } else {
+
             }
         })
 

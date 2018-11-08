@@ -57,7 +57,6 @@ class QuestionsCount extends
   public render() {
     return (
       <div>
-        {console.log(this.props.currentnumber)}
         {this.questionnumber( this.state.questionCount)}
         <button onClick={this.props.onRemove}>remove</button>
       </div>
