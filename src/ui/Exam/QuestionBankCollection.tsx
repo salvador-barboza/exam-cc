@@ -35,15 +35,17 @@ class QuestionBankCollection extends React.Component<QuestionBankCollectionProps
     }
 
     private AddQuestionCount(questioncount:number,id:string){
-        
         let bMap = this.state.bankMap;
         bMap.set(id,questioncount);
+        this.setState({bankMap:bMap})
+        console.log(this.state.bankMap)
         
     }
-     private AddQuestionBank(id:string){
+     private AddQuestionBank(ids:string[]){
         //let questionColl = this.props.questioncollections;
         //let temp = this.state.activeBanks
         //temp.push(this.props.QuestionBankCollection.find('id' == id))
+        ids.map((id) => { 
         let temp = this.props.questioncollections.find(x=> x.id == id)
         if(temp!=null){
         let temparray = this.state.activeBanks
@@ -53,7 +55,7 @@ class QuestionBankCollection extends React.Component<QuestionBankCollectionProps
 
         }
         console.log(this.state.bankMap)
-        console.log(temp)
+        console.log(temp) })
        //  myArray.find(x => x.id === '45').foo;
      }
                

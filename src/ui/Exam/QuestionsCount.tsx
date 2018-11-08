@@ -26,16 +26,16 @@ class QuestionsCount extends
   incrementItem = (difficulty: number, banknumber: number) => {
     let qCount = this.state.questionCount;
     let checker = this.state.countCheck;
-    if (qCount + 1 <= checker)
+    if (qCount + 1 <= checker){
     this.setState({ questionCount: qCount + 1 });
-    this.props.onClicked(qCount+1)
+    this.props.onClicked(qCount+1) }
   }
 
   decreaseItem = () => {
     let qCount = (this.state.questionCount);
-    if (qCount - 1 >= 0)
+    if (qCount - 1 >= 0){ 
       this.setState({ questionCount: qCount - 1 });
-      this.props.onClicked(qCount-1)
+      this.props.onClicked(qCount - 1) }
   }
 
 
