@@ -59,6 +59,7 @@ class QuestionBankCollection extends React.Component<QuestionBankCollectionProps
         this.setState({ showingpopup: false })
     }
 
+    // refactorizen esto lo deje del recto
     public render() {
         return (
             <div>

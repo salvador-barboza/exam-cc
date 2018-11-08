@@ -27,10 +27,7 @@ class QuestionsCount extends
   }
 
   decreaseItem = () => {
-    // let qCount = (this.state.questionCount);
-    // if (qCount - 1 >= 0){ 
-    //   this.setState({ questionCount: qCount - 1 });
-    //   this.props.onClicked(qCount - 1) }
+    this.props.onClicked(this.props.currentnumber -1) 
   }
 
   private questionnumber( question: number) {
