@@ -7,6 +7,7 @@ interface QuestionBankPopUpProps {
     show: boolean
     subjects: IQuestionBank[]
     onClicked: (id: string[]) => void
+    onHide: () => void
 }
 
 interface QuestionBankPopUpState {
@@ -19,10 +20,6 @@ class QuestionBankPopUp extends React.Component<QuestionBankPopUpProps, Question
     constructor(props) {
         super(props)
         this.state = { show: props.show, selected: []}
-    }
-
-    public hide = () => {
-        this.setState({ show: false })
     }
 
     public setSelected(id: string) {
@@ -51,14 +48,17 @@ class QuestionBankPopUp extends React.Component<QuestionBankPopUpProps, Question
         )
     }
 
-    private showArray = () => {
+    private showArray=()=>{
+        
         if (this.state.selected!=[]) {
             let temp = this.state.selected
             temp.sort()
             this.setState({ selected: temp })
             this.props.onClicked(this.state.selected)
+            
         }
         this.props.onClicked([])
+        this.setState({ selected: [] })
     }
 
     render() {
@@ -71,7 +71,7 @@ class QuestionBankPopUp extends React.Component<QuestionBankPopUpProps, Question
                     {this.props.children}
                     <div className="footer">
                         <div className={css({ overflowY: 'scroll', height: 400 })}>
-                            <button onClick={this.hide} className={css({ position: 'absolute', right: 10, top: 10 })}>Close</button>
+                            <button onClick={this.props.onHide} className={css({ position: 'absolute', right: 10, top: 10 })}>Close</button>
                             {this.listsubject(this.props.subjects)}
                             <EditButton color={'green'} onClick={this.showArray}>Confirmar</EditButton>
                         </div>

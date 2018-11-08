@@ -5,6 +5,7 @@ interface QuestionsCountProps {
   questioncollection: IQuestionBank,
   currentnumber:number
   onClicked: (questioncount: number) => void
+  onRemove: (questioncollection) => void
 }
 
 interface QuestionCountState {
@@ -38,13 +39,7 @@ class QuestionsCount extends
       this.props.onClicked(qCount - 1) }
   }
 
-
-
-
   private questionnumber( question: number) {
-
-
-
     return (
       <div>
         <h2> {this.props.questioncollection.title} </h2>
@@ -60,12 +55,10 @@ class QuestionsCount extends
   }
 
   public render() {
-
-
-
     return (
       <div>
         {this.questionnumber( this.state.questionCount)}
+        <button onClick={this.props.onRemove}>remove</button>
       </div>
     );
   }
