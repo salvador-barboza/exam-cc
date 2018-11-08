@@ -9,7 +9,6 @@ interface QuestionsCountProps {
 }
 
 interface QuestionCountState {
-  questionCount: number;
   countCheck: number;
 }
 
@@ -19,24 +18,19 @@ class QuestionsCount extends
   constructor(props) {
     super(props)
     this.state = {
-      questionCount: this.props.currentnumber,
       countCheck: this.props.questioncollection.questionCount!!
     }
   }
 
-  incrementItem = (difficulty: number, banknumber: number) => {
-    let qCount = this.state.questionCount;
-    let checker = this.state.countCheck;
-    if (qCount + 1 <= checker){
-    this.setState({ questionCount: qCount + 1 });
-    this.props.onClicked(qCount+1) }
+  incrementItem = (difficulty: number, banknumber: number) => {    
+    this.props.onClicked(this.props.currentnumber + 1) 
   }
 
   decreaseItem = () => {
-    let qCount = (this.state.questionCount);
-    if (qCount - 1 >= 0){ 
-      this.setState({ questionCount: qCount - 1 });
-      this.props.onClicked(qCount - 1) }
+    // let qCount = (this.state.questionCount);
+    // if (qCount - 1 >= 0){ 
+    //   this.setState({ questionCount: qCount - 1 });
+    //   this.props.onClicked(qCount - 1) }
   }
 
   private questionnumber( question: number) {
@@ -46,7 +40,7 @@ class QuestionsCount extends
         <h3>  Preguntas  </h3>
         <h4>
           <button onClick={() => this.incrementItem(1, question)}> + </button>
-          <h3>{this.state.questionCount} </h3>
+          <h3>{this.props.currentnumber} </h3>
           <button onClick={() => this.decreaseItem()}> - </button>
         </h4>
       </div>
@@ -57,7 +51,7 @@ class QuestionsCount extends
   public render() {
     return (
       <div>
-        {this.questionnumber( this.state.questionCount)}
+        {this.questionnumber( this.state.countCheck)}
         <button onClick={this.props.onRemove}>remove</button>
       </div>
     );
