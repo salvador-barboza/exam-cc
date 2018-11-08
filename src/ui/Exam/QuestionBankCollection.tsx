@@ -24,8 +24,8 @@ class QuestionBankCollection extends React.Component<QuestionBankCollectionProps
 
     private removeBank(bank: IQuestionBank) {
         let { bankMap } = this.state
-        bankMap.delete(bank.id!!)//estabamos desesperados imsorry
-        this.setState({ bankMap }) // que mierda era esa qye bueno quemuri
+        bankMap.delete(bank.id!!)
+        this.setState({ bankMap })
     }
 
     private AddQuestionCount(questioncount: number, id: string) {
