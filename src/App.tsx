@@ -9,6 +9,7 @@ import AuthService from './services/AuthService';
 import Login from './ui/Auth/Login';
 import SubjectList from './ui/QuestionBankExplorer/SujectList';
 import QuestionBankExplorer from './ui/QuestionBankExplorer/QuestionBankBySubjectList';
+import {css} from 'emotion'
 
 
 const Shell = styled('div')({
@@ -44,6 +45,13 @@ const SidePanel = styled('div')({
   boxShadow: '0 0 8px 1px #dadada',
 })
 
+const LogOut = styled('button')({
+  position: "absolute",
+  right: 20,
+  minWidth: 70,
+  height: 35
+})
+
 
 interface AppState {
   user?: User
@@ -65,7 +73,7 @@ class App extends React.Component<{}, AppState> {
     return (
       <BrowserRouter>      
         <div>
-          <Toolbar>Exam CC <button onClick={async () => auth().signOut()}>log out</button></Toolbar>
+          <Toolbar>Exam CC <LogOut onClick={async () => auth().signOut()}>log out</LogOut></Toolbar>
           <Shell>
             <SidePanel>              
               <MenuItem to="/question_banks">Banco de Preguntas</MenuItem>
@@ -86,7 +94,9 @@ class App extends React.Component<{}, AppState> {
                 }} />
 
               </div>}
-            {!this.state.user && <Login />}
+              <div className={css({marginRight:'80%',marginLeft:'27%',marginTop:'50px'})}>
+                {!this.state.user && <Login />}
+              </div>
             </Switch>                  
           </Shell>          
         </div>
