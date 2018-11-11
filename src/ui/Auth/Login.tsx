@@ -81,7 +81,7 @@ class Login extends Component<LoginProps,LoginState> {
               <div> Contraseña </div>
               <Field name="password" type="password" 
               />
-              <button type="send"> Sign Up </button>
+              <button type="send"> Crear Cuenta </button>
             </Form>)
       } />  </div> 
        )
