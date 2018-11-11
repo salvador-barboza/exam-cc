@@ -22,6 +22,7 @@ class Login extends Component {
 
   public render() {
     return (
+      <div> Bienvenido a Easy Exam porfavor inice sesion
       <Formik
         onSubmit={this.login}
         initialValues={{ email: '', password: '' }}
@@ -34,7 +35,8 @@ class Login extends Component {
               <button type="send">login</button>
             </Form>)
       } />      
-    )
+      </div>
+      )
   }
 }
 
