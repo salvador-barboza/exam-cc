@@ -1,44 +1,25 @@
-import QuestionVariableMap from '../Question/QuestionVariableMap';
-import deepcopy from 'deepcopy'
+import { IQuestionVariableMap } from '../Question/QuestionVariableMap';
 import Math from 'mathjs'
 import RangeVariableGenerator from '../Generators/RangeVariableGenerator';
 
 class FormulaEvaluator {
-  public computedVariableMap
-  constructor(
-    public variableMap: QuestionVariableMap
-  ) {
-    this.computedVariableMap = this.parseVariableMap(variableMap)
+  public computedVariableScope
+  public variableValues
+  constructor(variableMap: IQuestionVariableMap) {
+    this.computedVariableScope = this.parseVariableMap(variableMap)
   }
 
-  public evaluateFormulas = (formulas: string[] | string) => {
-    if (Array.isArray(formulas)) {
-      return formulas.map(f => this.computeFormulaValues(f))
-    }
-
-    return this.computeFormulaValues(formulas)
-  }
-
-  private computeFormulaValues = (formula: string) => {
+  public evaluate = (formula: string) => {
     const compiledExpression = Math.parse(formula).compile()
-    const cop = deepcopy(this.computedVariableMap)
-    const exprMap = [] as any[]
-
-    for (let i = 0; i < 5; i++) {
-      exprMap.push({})
-      for (let k in cop) {
-        exprMap[i][k] = cop[k].shift()        
-      }
-    }
-
-    return exprMap.map(x => compiledExpression.eval(x))
+    return compiledExpression.eval(this.computedVariableScope)
   }
 
-  private parseVariableMap = (variableMap: QuestionVariableMap) => {
+  private parseVariableMap = (variableMap: IQuestionVariableMap) => {
     const varMap = {}
-    for (let i of variableMap.variableMap.entries()) {    
+    
+    for (let i of variableMap.descriptorMap.entries()) {
       const [key, descriptor] = i    
-      const gen = new RangeVariableGenerator(5, descriptor.params)
+      const gen = new RangeVariableGenerator(descriptor.params)
       varMap[key] = gen.compute()
     }
     

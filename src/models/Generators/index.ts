@@ -1,9 +1,9 @@
 export enum GeneratorType {
-  RANGE
+  RANGE,
+  ARRAY
 }
 
 export interface VariableGenerator {  
-  requiredIterations: number
-  compute: () => number[]
+  compute: () => number
   type: GeneratorType
 }

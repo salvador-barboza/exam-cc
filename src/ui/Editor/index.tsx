@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Value } from 'slate'
 import { Editor } from 'slate-react'
 
@@ -7,9 +7,10 @@ import VariableToolbar from './VariableToolbar'
 import { BlockTypes } from './BlockTypes'
 import EditorNodeRenderer from './Rendering/EditorNodeRenderer';
 import QuestionVariableMap from '../../models/Question/QuestionVariableMap'
-import AnswerEditor, { FormValues } from './AnswerEditor'
+import AnswerEditor, { FormValues } from './AnswerEditor/AnswerEditor'
 import Question from 'src/models/Question/Question';
 import { Container } from './Components';
+import { css } from 'emotion';
 
 interface QuestionEditorProps {
   editable?: boolean,
@@ -21,7 +22,9 @@ interface QuestionEditorState {
   value: Value,
   showingVariableToolbar: boolean,
   variables: QuestionVariableMap,
-  answers: FormValues
+  answers: FormValues  
+  id?: string
+  questionBankId?: string,
 }
 
 export default class QuestionEditor extends 
@@ -34,9 +37,9 @@ export default class QuestionEditor extends
     showingVariableToolbar: false,
     variables: new QuestionVariableMap(),
     answers: {
-      distractors: undefined,
-      formula: undefined
-    }
+      distractors: [],
+      answer: {predicate: '', static: false}
+    },
   }
 
   private editor: Editor
@@ -47,14 +50,17 @@ export default class QuestionEditor extends
   constructor(props: QuestionEditorProps) {
     super(props)
     if (props.question) {
+      this.state.id = props.question.id
+      this.state.questionBankId = props.question.questionBankId
       this.state.value = props.question.structure
       this.state.variables = props.question.variableMap
+      this.state.answers = { answer: props.question.answer, distractors: props.question.distractors }
     }    
   }
   
   render() {    
     return (
-      <Fragment>
+      <div className={css({ maxWidth: 600, margin: 'auto' })}>
       <Container editable={this.props.editable}>
         {this.props.editable && <Toolbar 
           onAddImageClicked={this.addImage}
@@ -83,12 +89,12 @@ export default class QuestionEditor extends
     {this.props.editable && 
         <AnswerEditor
           answer={this.props.question && this.props.question.answer}
-          distractors={this.props.question && this.props.question.choices}
+          distractors={this.props.question && this.props.question.distractors}
           valueChanged={this.handleAnswerChange}
           variableQuestionRenameMe={false}
           availableVariables={[...this.state.variables.variableKeys]} />
       }
-     </Fragment>
+     </div>
     )
   }
 
@@ -97,20 +103,20 @@ export default class QuestionEditor extends
 
   private swapVariablesForValues = () => {
     if (this.props.onSaveQuestion) {
-      const { variables, value, answers } = this.state
-      const { formula, distractors } = answers
-      if (!formula) {
+      const { variables, value, answers, id, questionBankId } = this.state
+      const { answer, distractors } = answers
+
+      if (!answer) {
         return
       }
 
       const q = new Question(
-        1, 
-        1, 
         value, 
-        false, 
-        formula, 
+        answer, 
         variables, 
-        distractors)
+        distractors,
+        id,
+        questionBankId)
       this.props.onSaveQuestion(q)
     }
   }
@@ -158,7 +164,7 @@ export default class QuestionEditor extends
       showingVariableToolbar: !this.state.showingVariableToolbar 
     }) 
 
-  private handleAnswerChange = (answers: any) => {
+  private handleAnswerChange = (answers: any, valid: boolean) => {
     this.setState({ 
       ...this.state, 
       answers

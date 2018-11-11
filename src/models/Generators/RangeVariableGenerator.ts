@@ -3,29 +3,22 @@ import { GeneratorType } from './index';
 
 export interface RangeVariableGeneratorParams {
   start: number,
-  end: number,  
+  end: number,
 }
 
-class RangeVariableGenerator implements VariableGenerator {  
+class RangeVariableGenerator implements VariableGenerator {
   constructor(
-    public requiredIterations: number,
     private params: RangeVariableGeneratorParams
   ) {}
 
   type = GeneratorType.RANGE
 
   compute = () => {
-    const values: number[] = []
-    const { params, requiredIterations } = this
+    const { params } = this
+    const diference =params.end-params.start
 
-    for (let i = 0; i < requiredIterations; i++) {      
-      const generatedValue = Math.floor(
-        Math.random() * params.end) + params.start
-
-      values.push(generatedValue)
-    }
-
-    return values
+    return Math.floor(
+        Math.random() * (diference+1)) + params.start
   }
 }
 
