@@ -4,80 +4,78 @@ import QuestionBankPopUp from './QuestionBankPopUp'
 import QuestionCount from './QuestionsCount'
 
 interface QuestionBankCollectionProps {
-    questioncollections: IQuestionBank[]
+  questioncollections: IQuestionBank[]
+  onChange: (count: Map<string, number>) => void
 }
 
 interface QuestionBankCollectionState {
-    showingpopup: boolean,
-    bankMap: Map<string, number>
+  showingpopup: boolean,
+  questionBankSelectedCount: Map<string, number>
 }
 
 class QuestionBankCollection extends React.Component<QuestionBankCollectionProps, QuestionBankCollectionState>{
+  public state = {
+    showingpopup: false,
+    questionBankSelectedCount: new Map<string, number>()
+  }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            showingpopup: false,
-            bankMap: new Map<string, number>()
-        }
-    }
+  private removeBank(bank: IQuestionBank) {
+    let { questionBankSelectedCount } = this.state
+    questionBankSelectedCount.delete(bank.id!!)
+    this.setState({ questionBankSelectedCount })
+  }
 
-    private removeBank(bank: IQuestionBank) {
-        let { bankMap } = this.state
-        bankMap.delete(bank.id!!)
-        this.setState({ bankMap })
-    }
+  private addQuestionCount(questioncount: number, id: string) {
+    let { questionBankSelectedCount } = this.state
+    questionBankSelectedCount.set(id, questioncount)
+    
+    this.setState(
+      { questionBankSelectedCount }, 
+      () => this.props.onChange(this.state.questionBankSelectedCount))    
+  }
 
-    private AddQuestionCount(questioncount: number, id: string) {
-        let bMap = this.state.bankMap
-        bMap.set(id, questioncount)
-        this.setState({ bankMap: bMap })
-    }
+  private get nonSelectedQuestionBanks(): IQuestionBank[] {
+    let qBanks = this.props.questioncollections
+    let bMap = this.state.questionBankSelectedCount
 
-    private CheckQuestionBank(): IQuestionBank[] {
-        let temp: IQuestionBank[] = []
-        let qBanks = this.props.questioncollections
-        let bMap = this.state.bankMap
-        qBanks.map((bank) => {
-            if (!bMap.has(bank.id!!)) {
-                temp.push(bank);
-            }
-        }
-        )
-        return temp
-    }
+    return qBanks
+      .filter(b => !bMap.has(b.id!))
+  }
 
-    private AddQuestionBank(ids: string[]) {
-        let bMap = this.state.bankMap;
-        ids.map((id) => {
+  private get selectedQuestionBanks(): IQuestionBank[] {
+    let qBanks = this.props.questioncollections
+    let bMap = this.state.questionBankSelectedCount
 
-            if (!bMap.has(id)) {
-                bMap.set(id, 0)
-            }
-        })
+    return qBanks
+      .filter(b => bMap.has(b.id!))
+  }
 
-        this.setState({ showingpopup: false })
-    }
+  private onQuestionBankSubmited = (ids: string[]) => {
+    let bMap = this.state.questionBankSelectedCount
+    ids.forEach(id => !bMap.has(id) && bMap.set(id, 0))        
 
-    // refactorizen esto lo deje del recto
-    public render() {
-        return (
-            <div>
-                {this.state.showingpopup && <QuestionBankPopUp onHide={() => this.setState({ showingpopup: false })}
-                    show={this.state.showingpopup} subjects={this.CheckQuestionBank()} onClicked={(id) => this.AddQuestionBank(id)} />}
-                {this.props.questioncollections
-                    .filter(x => this.state.bankMap.has(x.id!!))
-                    .map((bank) =>
-                        (
-                            <QuestionCount
-                                onRemove={() => this.removeBank(bank)}
-                                questioncollection={bank}
-                                currentnumber={this.state.bankMap.get(bank.id!!)!!}
-                                onClicked={(questioncount) => this.AddQuestionCount(questioncount, bank.id!!)} />))}
-                <button onClick={() => this.setState({ showingpopup: true })}>Add bank</button>
-            </div>
-        );
-    }
+    this.setState({ questionBankSelectedCount: bMap, showingpopup: false })
+  }
+
+  public render() {
+    return (
+      <div>
+        {this.state.showingpopup &&
+          <QuestionBankPopUp
+            subjects={this.nonSelectedQuestionBanks}
+            onSubmit={this.onQuestionBankSubmited} />}
+        {this.selectedQuestionBanks.map((bank) => ( 
+          <QuestionCount
+            onRemove={() => this.removeBank(bank)}
+            questioncollection={bank}
+            currentnumber={this.state.questionBankSelectedCount.get(bank.id!!)!!}
+            onClicked={questioncount => this.addQuestionCount(questioncount, bank.id!!)} />
+          )
+        )}
+        <button onClick={() => this.setState({ showingpopup: true })}>Add bank</button>
+      </div>
+    );
+  }
 
 
 
