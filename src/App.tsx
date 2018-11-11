@@ -87,7 +87,7 @@ class App extends React.Component<{}, AppState> {
                 }} />
 
               </div>}
-            {!this.state.user && <Login />}
+            {!this.state.user && <Login showLogin ={true} showSignUp ={false}/>}
             </Switch>                  
           </Shell>          
         </div>
