@@ -95,7 +95,7 @@ class App extends React.Component<{}, AppState> {
 
               </div>}
               <div className={css({marginRight:'80%',marginLeft:'27%',marginTop:'50px'})}>
-                {!this.state.user && <Login />}
+                {!this.state.user && <Login showLogin = {true } showSignUp={false} />}
               </div>
             </Switch>                  
           </Shell>          
