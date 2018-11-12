@@ -23,13 +23,17 @@ class QuestionsCount extends
   }
 
   incrementItem = (difficulty: number, banknumber: number) => {
-    if(this.props.currentnumber +1 < this.state.countCheck)
-    this.props.onClicked(this.props.currentnumber + 1) 
+    if (this.props.currentnumber < this.state.countCheck) {
+      this.props.onClicked(this.props.currentnumber + 1) 
+
+    }
   }
 
   decreaseItem = () => {
-    if(this.props.currentnumber - 1 >= 0)
-    this.props.onClicked(this.props.currentnumber -1) 
+    if(this.props.currentnumber > 0) {
+      this.props.onClicked(this.props.currentnumber - 1) 
+
+    }
   }
 
   private questionnumber( question: number) {
