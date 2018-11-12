@@ -10,7 +10,7 @@ export interface IQuestionVariableMap {
   descriptorMap: Map<string, VariableDescriptor>
   variableKeys: string[]
   serialize:() => string
-  addRangeVariable: (id: string, params: RangeVariableGeneratorParams) => void  
+  addVariable: (id: string, generator: GeneratorType, params: RangeVariableGeneratorParams) => void  
 }
 
 class QuestionVariableMap implements IQuestionVariableMap {
@@ -26,10 +26,7 @@ class QuestionVariableMap implements IQuestionVariableMap {
     return JSON.stringify([...this.descriptorMap])
   }
 
-  public addRangeVariable = (id: string, params: RangeVariableGeneratorParams) => 
-    this.addVariable(id, GeneratorType.RANGE, params)
-  
-  private addVariable (id: string, generator: GeneratorType, params: object) {
+  public addVariable (id: string, generator: GeneratorType, params: object) {
     if (this.descriptorMap.get(id)) {
       throw Error('Duplicate key entry not allowed')
     }    

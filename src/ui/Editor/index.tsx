@@ -11,6 +11,8 @@ import AnswerEditor, { FormValues } from './AnswerEditor/AnswerEditor'
 import Question from 'src/models/Question/Question';
 import { Container } from './Components';
 import { css } from 'emotion';
+import VariableEditor from './VariableEditor';
+import { GeneratorType } from 'src/models/Generators';
 
 interface QuestionEditorProps {
   editable?: boolean,
@@ -25,6 +27,7 @@ interface QuestionEditorState {
   answers: FormValues  
   id?: string
   questionBankId?: string,
+  showingVariablePopup: boolean
 }
 
 export default class QuestionEditor extends 
@@ -40,6 +43,7 @@ export default class QuestionEditor extends
       distractors: [],
       answer: {predicate: '', static: false}
     },
+    showingVariablePopup: false,
   }
 
   private editor: Editor
@@ -49,6 +53,7 @@ export default class QuestionEditor extends
 
   constructor(props: QuestionEditorProps) {
     super(props)
+
     if (props.question) {
       this.state.id = props.question.id
       this.state.questionBankId = props.question.questionBankId
@@ -61,6 +66,11 @@ export default class QuestionEditor extends
   render() {    
     return (
       <div className={css({ maxWidth: 600, margin: 'auto' })}>
+      {this.state.showingVariablePopup && 
+        <VariableEditor 
+          onSubmit={this.addVariable}
+          type={GeneratorType.RANGE}
+      />}
       <Container editable={this.props.editable}>
         {this.props.editable && <Toolbar 
           onAddImageClicked={this.addImage}
@@ -73,7 +83,7 @@ export default class QuestionEditor extends
         {this.state.showingVariableToolbar && 
           <VariableToolbar 
             variableIds={this.state.variables.variableKeys}
-            onAddVariableClicked={this.addVariable}
+            onAddVariableClicked={this.showVariablePopup}
             onExistingVariableClicked={this.insertVariableBlock}
           />
         }
@@ -121,13 +131,10 @@ export default class QuestionEditor extends
     }
   }
 
-  private addVariable = () => {
-    const tag = window.prompt('tag?') || 'x'
-    const start = Number(window.prompt('start?'))
-    const end = Number(window.prompt('end?'))
-
-    this.state.variables.addRangeVariable(tag, { start, end })
+  private addVariable = (tag: string, type: GeneratorType, params: any) => {        
+    this.state.variables.addVariable(tag, type, params)
     this.insertVariableBlock(tag)    
+    this.setState({ showingVariablePopup: false })
   }
 
   private addImage = () => {
@@ -144,6 +151,10 @@ export default class QuestionEditor extends
   
   private toggleItalics = () => {
 
+  }
+
+  private showVariablePopup = () => {
+    this.setState({ showingVariablePopup: true })
   }
 
   private insertVariableBlock = (tag: string) => {

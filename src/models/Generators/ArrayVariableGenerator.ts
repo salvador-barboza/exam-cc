@@ -13,10 +13,10 @@ class ArrayVariableGenerator implements VariableGenerator {
   type = GeneratorType.ARRAY
 
   compute = () => {
-    const { params } = this    
-    const generatedPosition=Math.random()*params.array.length
+    const { array } = this.params 
+    const generatedPosition = Math.floor(Math.random() * array.length)
     
-    return params.array[generatedPosition]
+    return array[generatedPosition]
   }
 }
 
