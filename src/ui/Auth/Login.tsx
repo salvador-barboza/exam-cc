@@ -57,13 +57,16 @@ class Login extends Component<LoginProps,LoginState> {
 
        
         <div>  Crear nueva cuenta </div>
-        <button onClick={this.SignUpState}>  Crear Nueva Cuenta  </button>
+        <button onClick={() => this.SignUpState(1)}>  Crear Nueva Cuenta  </button>
       </div>
       )
    }
 
-    private SignUpState = () =>{
-      this.setState({showSignUp:true});
+    private SignUpState = (id:number) =>{
+      if(id == 1)
+      this.setState({showSignUp:true})
+      else 
+        this.setState({showSignUp:false})
     }
 
     private ShowSignUp = () => {
@@ -83,7 +86,9 @@ class Login extends Component<LoginProps,LoginState> {
               />
               <button type="send"> Crear Cuenta </button>
             </Form>)
-      } />  </div> 
+      } />  
+        <button onClick={() => this.SignUpState(2)}>  Cancelar  </button>
+        </div> 
        )
     }
 
