@@ -2,6 +2,7 @@ import React from 'react'
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank'
 import QuestionBankPopUp from './QuestionBankPopUp'
 import QuestionCount from './QuestionsCount'
+import { css } from 'emotion'
 
 interface QuestionBankCollectionProps {
   questioncollections: IQuestionBank[]
@@ -72,7 +73,8 @@ class QuestionBankCollection extends React.Component<QuestionBankCollectionProps
             onClicked={questioncount => this.addQuestionCount(questioncount, bank.id!!)} />
           )
         )}
-        <button onClick={() => this.setState({ showingpopup: true })}>Add bank</button>
+        <button className={css({borderRadius:5, borderColor:'#03db00', fontSize:20, marginTop:20})} 
+        onClick={() => this.setState({ showingpopup: true })}>Add bank</button>
       </div>
     );
   }
