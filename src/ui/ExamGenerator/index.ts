@@ -16,14 +16,12 @@ class ExamGenerator {
       const exam : ExamInciso[] = []
       const clave: any[] = []
 
-      for (let q of this.questionList) {
+      for (let q of this.questionList) {        
         if (q.variableMap) {
-          const formulaEvaluator = new FormulaEvaluator(q.variableMap)
-
+          const formulaEvaluator = new FormulaEvaluator(q.variableMap)          
           const answer = q.answer.static 
             ? q.answer.predicate
             : formulaEvaluator.evaluate(q.answer.predicate)
-
           let distractors: number[] | string[] = []
           
           if (q.distractors) {
@@ -37,9 +35,8 @@ class ExamGenerator {
           }
 
           const shuffledAnswers = this.shuffle([...distractors, answer])
-          // const indexOfAnswer = shuffledAnswers.indexOf(answer) TODO: Add answersheet
+          // const indexOfAnswer = shuffledAnswers.indexOf(answer)
 
-          
           clave.push(shuffledAnswers.indexOf(answer))
           exam.push({
             choices: shuffledAnswers,
@@ -48,8 +45,6 @@ class ExamGenerator {
           })
         }                                
     }
-
-    console.log(clave)
 
     return exam
   }

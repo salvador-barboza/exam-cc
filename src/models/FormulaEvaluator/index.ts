@@ -1,6 +1,8 @@
 import { IQuestionVariableMap } from '../Question/QuestionVariableMap';
 import Math from 'mathjs'
 import RangeVariableGenerator from '../Generators/RangeVariableGenerator';
+import { VariableGenerator, GeneratorType } from '../Generators';
+import ArrayVariableGenerator from '../Generators/ArrayVariableGenerator';
 
 class FormulaEvaluator {
   public computedVariableScope
@@ -19,8 +21,18 @@ class FormulaEvaluator {
     
     for (let i of variableMap.descriptorMap.entries()) {
       const [key, descriptor] = i    
-      const gen = new RangeVariableGenerator(descriptor.params)
-      varMap[key] = gen.compute()
+      let gen: VariableGenerator
+
+      switch (descriptor.generator) {
+        case GeneratorType.ARRAY:
+          gen = new ArrayVariableGenerator(descriptor.params)
+          break
+        case GeneratorType.RANGE:
+          gen = new RangeVariableGenerator(descriptor.params)
+          break
+      }
+
+      varMap[key] = gen!.compute()            
     }
     
     return varMap

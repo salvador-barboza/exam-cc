@@ -1,174 +1,168 @@
 import React from 'react';
-import { Formik, Field, Form }  from 'formik';
+import { Formik, Field, Form, FormikProps } from 'formik';
 import styled from 'react-emotion';
-import {css} from 'emotion';
-interface VariableEditorProps{
-    show: boolean;
-    type: number;
-    //valueChanged: (values) => void
-}
+import { css } from 'emotion'
+import { GeneratorType } from 'src/models/Generators';
+import { RangeVariableGeneratorParams } from 'src/models/Generators/RangeVariableGenerator';
+import { ArrayVariableGeneratorParams } from 'src/models/Generators/ArrayVariableGenerator';
 
 const Background = styled('div')({
-position: 'fixed',
-top: 0,
-bottom: 0,
-left: 0,
-right: 0,
-backgroundColor: 'rgba(0,0,0,0.3)',
-padding: 50,
+  position: 'fixed',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  backgroundColor: 'rgba(0,0,0,0.3)',
+  padding: 50,
+  zIndex: 1
 });
 
 const AnswerTextFieldStyle = css({
-    fontSize: 17,
-    padding: 4,
-    borderRadius: 2,
-    border: '1px solid #e7bdff'
-  })
+  fontSize: 17,
+  padding: 4,
+  borderRadius: 2,
+  border: '1px solid #e7bdff'
+})
 
 const Popup = styled('div')({
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    maxWidth: 500,
-    minHeight: 300,
-    margin: '0 auto',
-    padding: 30,
-    position: 'relative',
+  backgroundColor: '#fff',
+  borderRadius: 5,
+  maxWidth: 500,
+  minHeight: 300,
+  margin: '0 auto',
+  padding: 30,
+  position: 'relative',
 });
 
 
-interface VariableEditorState{
-    show: boolean;
-    type: number;
-    RangeFrom?: number;
-    RangeTo?: number;
-    MultipleNums?: number[];
-    MultipleString?: string;
+interface VariableEditorProps {
+  type: GeneratorType
+  onSubmit: (variableIdentifier: string, type: GeneratorType, params: any) => void
 }
 
-interface FormValues{
-    RangeFrom?: number;
-    RangeTo?: number;
-    MultipleString?: string;
+interface VariableEditorState {
+  type: number;
+  RangeFrom?: number;
+  RangeTo?: number;
+  MultipleNums?: number[];
+  fromArrayInputString?: string;
 }
 
-class VariableEditor extends React.Component <VariableEditorProps> {
+interface FormValues {
+  rangeFrom?: number
+  rangeTo?: number
+  fromArrayInputString?: string
+  generatorType: GeneratorType
+  variableIdentifier: string
+}
 
-public state : VariableEditorState = {
-    show: this.props.show,
+class VariableEditor extends React.Component<VariableEditorProps, VariableEditorState> {
+  public state: VariableEditorState = {
     type: this.props.type,
     RangeFrom: 0,
     RangeTo: 0,
     MultipleNums: [],
-    MultipleString: ""
-} 
+    fromArrayInputString: ""
+  }
 
-constructor(props){
-    super(props)
-}
+  static defaultProps = {
+    onSubmit: (...params) => console.log(params)
+  }
 
-public hide = (): void => {
-    this.setState({show:false})
-}
-
-private rangeForm = () => {
-//probs some css
-return(
-    <Formik
-    onSubmit={this.onSubmitClicked}
-    initialValues={{}}
-    render={() => (
-    <Form>
+  private rangeForm = () => {
+    return (
+      <Form>
         <p>De:</p>
-        <Field placeholder="numero" className={AnswerTextFieldStyle} type="text" name="RangeFrom"/>
+        <Field 
+          placeholder="numero" 
+          className={AnswerTextFieldStyle} 
+          type="text" 
+          name="rangeFrom" />
         <p>A:</p>
-        <Field placeholder="numero" className={AnswerTextFieldStyle} type="text" name="RangeTo"/>
-        <br/>
-        <button type="submit">Agregar</button>
-    </Form>
-    )}
-    />
-)
-}
-
-private multpleForm = () => {
-    //probs some css
-    return(
-    <Formik
-    onSubmit={this.onSubmitClicked}
-    initialValues={{}}
-    render={() => (
-        <Form>
-            <p>Valores separados por las comas</p>
-            <Field placeholder="1,2,3,4,5" className={AnswerTextFieldStyle} type="text" name="MultipleString"/>
-            <br/>
-            <button type="submit">Agregar</button>
-        </Form>
-    )}
-    />
+        <Field 
+          placeholder="numero" 
+          className={AnswerTextFieldStyle} 
+          type="text" 
+          name="rangeTo" />
+        <br />
+      </Form>
     )
-}
+  }
+
+  private multpleForm = () => {
+    return (
+      <Form>
+        <p>Valores separados por las comas</p>
+        <Field placeholder="1,2,3,4,5" className={AnswerTextFieldStyle} type="text" name="fromArrayInputString" />
+        <br />
+      </Form>
+    )
+  }
 
 
-private multipleSplitter = (value:string) =>{
-
-    if(value!=undefined){
-        return value.split(',').map(n => Number(n))
-    }else{
-        return [0]
+  private multipleSplitter = (value?: string) => {
+    if (value) {
+      return value.split(',').map(n => Number(n))
+    } else {
+      return [0]
     }
-}
+  }
 
-
-
-private setRange = (): void => {
-    this.setState({type:1})
-
-}
-
-private setMultiple = (): void => {
-    this.setState({type:2})
-}
-
-private setArray = (value:number[]): void => {
-    this.setState({MultipleNums:value})
-}
-private onSubmitClicked = (values: FormValues) => { 
-    if(this.state.type==1){
-        values.MultipleString='';
-    }else{
-        values.RangeFrom=0;
-        values.RangeTo=0;
-        if(values.MultipleString!=undefined){
-        this.setArray(this.multipleSplitter(values.MultipleString));
-        console.log(this.state.MultipleNums)
-        }
+  private onSubmitClicked = (values: FormValues) => {
+    switch (Number(values.generatorType) as GeneratorType) {
+      case GeneratorType.RANGE: 
+        this.props.onSubmit(
+          values.variableIdentifier,
+          GeneratorType.RANGE, 
+          { 
+            start: values.rangeFrom, 
+            end: values.rangeTo 
+          } as RangeVariableGeneratorParams)
+        break
+      case GeneratorType.ARRAY:
+          this.props.onSubmit(
+            values.variableIdentifier,
+            GeneratorType.ARRAY,
+            {
+              array: this.multipleSplitter(values.fromArrayInputString)
+            } as ArrayVariableGeneratorParams
+          )
     }
-}
+  }
 
-render(){
-    // Render nothing if the "show" prop is false
-    
-    if(!this.state.show) {
-        return null;
-    }
-      return (
-        //the gray background
-        //<div className={backgroundDiv})}>
-        //<div className='backgroundDiv'>
-        <Background>
-            <Popup>
-            {this.props.children}
-            <div className="footer">
-            <button onClick={this.hide} className={css({position:'absolute', right:10,top:10})}>Close</button>
-            <p>Como se va a generar el valor de esta variable?</p>
-            <input type="radio" name="type" value="rango" checked={this.state.type==1?true:false} onClick={this.setRange}/>Rango<br/>
-            <input type="radio" name="type" value="varios" checked={!(this.state.type==1)?true:false} onClick={this.setMultiple}/>Varios valores<br/>
-            <p>aqui va el switch</p>
-            {this.state.type==1 ? this.rangeForm():this.multpleForm()}  
-            </div>
-            </Popup>
-        </Background>
-      );
-}
+  render() {
+    return (
+      <Background>
+        <Popup>
+          {this.props.children}
+          <div className="footer">
+            <Formik
+              onSubmit={this.onSubmitClicked}
+              initialValues={{ }}
+              render={({values} :FormikProps<FormValues>) => (
+                <Form>
+                  <p>Letra de la variable:</p>
+                  <Field name="variableIdentifier" type="text" />
+                  <p>Como se va a generar el valor de esta variable?</p>
+                  <Field 
+                    type="radio" 
+                    name="generatorType" 
+                    value={GeneratorType.RANGE} />   
+                  <p>Dentro de un rango</p>                                   
+                  <Field 
+                    type="radio" 
+                    name="generatorType" 
+                    value={GeneratorType.ARRAY} />
+                  <p>Dentro de una lista de valores</p>
+                  {Number(values.generatorType) === GeneratorType.RANGE && this.rangeForm()}
+                  {Number(values.generatorType) === GeneratorType.ARRAY && this.multpleForm()}
+                  <button type="submit">Agregar</button>
+                </Form>
+              )} />
+          </div>        
+        </Popup>
+      </Background>
+    )
+  }
 }
 export default VariableEditor
