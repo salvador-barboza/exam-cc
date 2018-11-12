@@ -16,6 +16,10 @@ const rules = [
             )
           case 'paragraph':
             return <span className={obj.data.get('className')}>{children}</span>
+          case 'image':
+            return <img 
+              style={{height: 100, display: 'block' }} 
+              src={obj.data.get('url')} />
           case 'quote':
             return <blockquote>{children}</blockquote>
           }

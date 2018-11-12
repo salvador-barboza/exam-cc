@@ -15,7 +15,7 @@ const Toolbar = (props: ToolbarProps) => (
     <Button>B</Button>
     <Button>U</Button>
     <Button>I</Button>
-    <Button>Image</Button>
+    <Button onClick={props.onAddImageClicked}>Image</Button>
     <Button onClick={props.magicTime}>save</Button>
     <Button onClick={props.onToggleVariablesClicked}>Variables</Button>
   </Container>

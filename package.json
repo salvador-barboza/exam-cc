@@ -21,7 +21,8 @@
     "rxjs": "^6.3.3",
     "slate": "^0.42.4",
     "slate-html-serializer": "^0.7.14",
-    "slate-react": "^0.19.6"
+    "slate-react": "^0.19.6",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",

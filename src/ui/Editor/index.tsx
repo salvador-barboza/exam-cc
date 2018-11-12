@@ -13,6 +13,8 @@ import { Container } from './Components';
 import { css } from 'emotion';
 import VariableEditor from './VariableEditor';
 import { GeneratorType } from 'src/models/Generators';
+import ImageDialog from './ImageDialog';
+
 
 interface QuestionEditorProps {
   editable?: boolean,
@@ -21,13 +23,14 @@ interface QuestionEditorProps {
 }
 
 interface QuestionEditorState {
-  value: Value,
-  showingVariableToolbar: boolean,
-  variables: QuestionVariableMap,
+  value: Value
+  showingVariableToolbar: boolean
+  variables: QuestionVariableMap
   answers: FormValues  
   id?: string
-  questionBankId?: string,
+  questionBankId?: string
   showingVariablePopup: boolean
+  showingAddImageDialog: boolean
 }
 
 export default class QuestionEditor extends 
@@ -44,6 +47,7 @@ export default class QuestionEditor extends
       answer: {predicate: '', static: false}
     },
     showingVariablePopup: false,
+    showingAddImageDialog: false
   }
 
   private editor: Editor
@@ -71,9 +75,11 @@ export default class QuestionEditor extends
           onSubmit={this.addVariable}
           type={GeneratorType.RANGE}
       />}
+        {this.state.showingAddImageDialog && 
+          <ImageDialog onSuccess={this.addImage}/>}
       <Container editable={this.props.editable}>
         {this.props.editable && <Toolbar 
-          onAddImageClicked={this.addImage}
+          onAddImageClicked={this.showAddImagePopup}
           onBoldClicked={this.toggleBold}
           onUnderlineClicked={this.toggleUnderline}
           onItalicsClicked={this.toggleItalics}
@@ -137,7 +143,18 @@ export default class QuestionEditor extends
     this.setState({ showingVariablePopup: false })
   }
 
-  private addImage = () => {
+  private addImage = (url: string) => {
+    this.editor.change((change) =>  
+      change.insertBlock({
+        type: BlockTypes.IMAGE,
+        data: { url },
+      })
+        .moveToEndOfBlock()
+        .insertBlock('paragraph') 
+        .focus()
+    )
+
+    this.setState({ showingAddImageDialog: false })
 
   }
 
@@ -155,6 +172,10 @@ export default class QuestionEditor extends
 
   private showVariablePopup = () => {
     this.setState({ showingVariablePopup: true })
+  }
+
+  private showAddImagePopup = () => {
+    this.setState({ showingAddImageDialog: true })
   }
 
   private insertVariableBlock = (tag: string) => {
@@ -193,5 +214,10 @@ export default class QuestionEditor extends
         isVoid: true,
       },
     },
+    blocks: {
+      [BlockTypes.IMAGE]: {
+        isVoid: true,
+      }
+    }
   }  
 }

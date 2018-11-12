@@ -53,7 +53,7 @@ class ExamRender {
     html2pdf()
       .set({ 
         pagebreak: { mode: 'avoid-all' }, 
-        html2canvas: { logging: false, allowTaint: true },
+        html2canvas: { logging: false, useCORS: true },
         filename 
       })
       .from(el)
@@ -72,7 +72,12 @@ class ExamRender {
           switch (obj.type) {            
             case 'paragraph':
               return <span className={obj.data.get('className')}>{children}</span>            
-            }
+            
+            case 'image':
+              return <img 
+                style={{height: 200, display: 'block' }} 
+                src={obj.data.get('url')} />
+          }
         } else {
           switch(obj.type) {
             case BlockTypes.VARIABLE:
