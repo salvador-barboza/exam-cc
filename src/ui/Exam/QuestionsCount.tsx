@@ -43,9 +43,10 @@ class QuestionsCount extends
         <h2 className={css({marginBottom:0,marginTop:20})}> {this.props.questioncollection.title} </h2>
         <div className={css({display:'flex'})}>
         <h3 className={css({marginBottom:0,marginTop:0})}>  Preguntas:  </h3>
-          <button className={css({maxHeight:20,marginTop:0})} onClick={() => this.incrementItem(1, question)}> + </button>
+        <button className={css({maxHeight:20,marginTop:0})} onClick={() => this.decreaseItem()}> - </button>
           <h3 className={css({marginBottom:0,marginTop:0})}>{this.props.currentnumber} </h3>
-          <button className={css({maxHeight:20,marginTop:0})} onClick={() => this.decreaseItem()}> - </button>
+          <button className={css({maxHeight:20,marginTop:0})} onClick={() => this.incrementItem(1, question)}> + </button>
+          
         </div>
       </div>
     )
@@ -56,7 +57,7 @@ class QuestionsCount extends
     return (
       <div>
         {this.questionnumber( this.state.countCheck)}
-        <button className={css({borderRadius:5, borderColor:'#ff001d'})} onClick={this.props.onRemove}>remove</button>
+        <button className={css({borderRadius:5, borderColor:'#ff001d'})} onClick={this.props.onRemove}>Eliminar</button>
       </div>
     );
   }

@@ -92,7 +92,7 @@ class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
         </select>
         </Card>
         <Card2>
-        <h2>Selectionar temas</h2>
+        <h2>Seleccionar temas</h2>
         <QuestionBankCollection 
           onChange={this.onCountChange}
           questioncollections={this.subjects} />

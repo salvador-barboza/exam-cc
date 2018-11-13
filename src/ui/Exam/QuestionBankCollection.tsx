@@ -74,7 +74,7 @@ class QuestionBankCollection extends React.Component<QuestionBankCollectionProps
           )
         )}
         <button className={css({borderRadius:5, borderColor:'#03db00', fontSize:20, marginTop:20})} 
-        onClick={() => this.setState({ showingpopup: true })}>Add bank</button>
+        onClick={() => this.setState({ showingpopup: true })}>Añadir Tema</button>
       </div>
     );
   }
