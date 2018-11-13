@@ -3,6 +3,7 @@ import { AnswerContainer, FormulaError, FormulaToggleButton, Styles } from './Co
 import { Field } from 'formik';
 import { R } from 'src/Resources';
 import { css } from 'emotion';
+import CloseIcon from './close.png'
 
 
 interface IAnswerProps {
@@ -10,13 +11,15 @@ interface IAnswerProps {
   error: boolean
   name: string
   onStaticToggleClicked: () => void
+  onDeleteClicked: () => void
 }
 
 const Answer = (props: IAnswerProps) => (
   <AnswerContainer>   
+    <input type="image" onClick={props.onDeleteClicked} src={CloseIcon}/>
     <div className={`
       ${R.Styles.FLEX_HORIZONTAL}
-      ${css({ margin: '8px 0', flexGrow: 1 })}`}>               
+      ${css({ margin: '8px 0', flexGrow: 1 })}`}>     
       <Field 
         placeholder={props.static 
           ? R.Text.STATIC_PLACEHOLDER

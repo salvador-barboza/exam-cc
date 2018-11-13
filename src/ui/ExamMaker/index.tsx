@@ -7,9 +7,39 @@ import QuestionCollectionService from 'src/services/QuestionCollectionService';
 import ExamGenerator from '../ExamGenerator';
 import ExamRender from '../ExamGenerator/ExamRenderer';
 import { Title } from '../QuestionBankExplorer/Components';
+import styled from 'react-emotion'
+import { css } from 'emotion'
 
 interface ExamMakerProps {
 }
+
+const AnswerTextFieldStyle = css({
+  fontSize: 17,
+  padding: 4,
+  borderRadius: 2,
+  border: '1px solid #e7bdff',
+  maxWidth:200,
+})
+
+const Card = styled('div')({
+  boxShadow: '0 0 5px 1px #e2e2e2',
+  padding: 16,
+  display: 'flex', flexDirection: 'row',
+  marginBottom: 8,
+  alignItems: 'center',
+  backgroundColor: '#FFF'
+ })
+
+ const Card2 = styled('div')({
+  boxShadow: '0 0 5px 1px #e2e2e2',
+  padding: 16,
+  display: 'flex', flexDirection: 'column',
+  marginBottom: 8,
+  alignItems: 'left',
+  backgroundColor: '#FFF'
+ })
+
+ 
 
 interface ExamMakerState {
   subjects: string[]
@@ -54,19 +84,24 @@ class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
   public render() {
     return (      
       <div>
-        <Title>Generar Examen</Title>        
+        <Title>Generar Examen</Title>      
+        <Card>
         <h2>Materia del examen:</h2>
         <select onChange={this.onSubjectSelected}>
           {this.state.subjects.map(s =><option value={s}>{s}</option>)}
         </select>
-        <h2>Selectionar temas</h2>
+        </Card>
+        <Card2>
+        <h2>Seleccionar temas</h2>
         <QuestionBankCollection 
           onChange={this.onCountChange}
           questioncollections={this.subjects} />
-
-        <h2>Cuantos tipos de examenes se necesitan</h2>
-        <input placeholder="1" onChange={this.onExamCountChanged} value={this.state.examCount}></input>
-        <button onClick={this.generateExams}>Generar examenes</button>        
+        </Card2>
+        <Card2>
+        <h2>Cuantos tipos de examenes se necesitan? </h2>
+        <input className={AnswerTextFieldStyle} placeholder="1" onChange={this.onExamCountChanged} value={this.state.examCount}></input>
+        <button className={AnswerTextFieldStyle} onClick={this.generateExams}>Generar examenes</button>    
+        </Card2>    
       </div>
     )
   }

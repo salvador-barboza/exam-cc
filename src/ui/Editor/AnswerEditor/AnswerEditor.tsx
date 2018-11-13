@@ -77,6 +77,7 @@ class AnswerEditor extends Component<AnswerEditorProps> {
                 static={!!values.answer && !!values.answer.static}
                 error={!!errors.answer}
                 onStaticToggleClicked={() => setFieldValue('answer.static', !values.answer.static)}
+                onDeleteClicked={()=>{}}
               />                                                 
               <Fragment>
                 <Title>{R.Text.DISTRACTOR_INPUT_LABEL}</Title>
@@ -90,6 +91,7 @@ class AnswerEditor extends Component<AnswerEditorProps> {
                             static={distractor.static}
                             error={!!errors.distractors && !!errors.distractors[i]}
                             onStaticToggleClicked={() => replace(i, { ...distractor, static: !distractor.static})}
+                            onDeleteClicked={()=>remove(i)}
                           />                                                   
                           ) )}
                           <button onClick={() => insert(4, { static: true, predicate: '' } as IAnswer)}>add</button>

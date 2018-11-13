@@ -28,7 +28,7 @@ class SubjectList extends Component<{}, QuestionBankExplorerState> {
   }
 
   private createSubject = () => {
-    const subject = window.prompt("subject")!!
+    const subject = window.prompt("Porfavor ingrese el nombre de la nueva materia")!!
     this.setState({ goToSubject: subject })
   }
 
