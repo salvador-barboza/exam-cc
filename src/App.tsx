@@ -73,7 +73,7 @@ class App extends React.Component<{}, AppState> {
     return (
       <BrowserRouter>      
         <div>
-          <Toolbar>Exam CC <LogOut onClick={async () => auth().signOut()}>log out</LogOut></Toolbar>
+          <Toolbar>Exam CC <LogOut onClick={async () => auth().signOut()}>Cerrar Sesion</LogOut></Toolbar>
           <Shell>
             <SidePanel>              
               <MenuItem to="/question_banks">Materias</MenuItem>

@@ -104,7 +104,7 @@ class Login extends Component<LoginProps,LoginState> {
               <p>Contraseña</p>
               <Field name="password" className={Password} type="password"/>
               <br/>
-              <button type="send" className={Log_In_Button}>Login</button>
+              <button type="send" className={Log_In_Button}>Iniciar Sesion</button>
             </Form>)
       } />
         <button  className={Signup_Button} onClick={() => this.signUpState(1)}>   Nueva Cuenta  </button>
