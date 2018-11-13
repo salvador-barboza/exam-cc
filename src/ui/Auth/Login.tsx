@@ -9,10 +9,7 @@ interface FormValues {
   confirmpassword:string
 }
 
-interface LoginProps{
-  showSignUp:boolean,
-  showLogin:boolean
-}
+interface LoginProps { }
 interface LoginState {
   showSignUp:boolean,
   showLogin:boolean
@@ -61,11 +58,10 @@ const Cancel_Button = css({
 })
 
 class Login extends Component<LoginProps,LoginState> {
-  
   public state: LoginState
     constructor(props) {
         super(props)
-        this.state = { showLogin: props.showLogin, showSignUp:props.showSignUp}
+        this.state = { showLogin: true , showSignUp:false }
     }
   private authService = new AuthService()
 

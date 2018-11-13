@@ -3,15 +3,19 @@ import styled from 'react-emotion';
 export const BUTTON_SIZE = 58
 
 export const Container = styled('div')({
-  height: BUTTON_SIZE-20,
   width: '100%',
-  border: '1px solid #bfbfbf'
+  borderBottom: '1px solid #d4d4d4',
+  padding: 8,
+  backgroundColor: '#f7f7f7',
+  display: 'flex',
 })
 
 export const Button = styled('button')({
-  width: BUTTON_SIZE,
   border: 'none',
   borderRight: '1px solid #bfbfbf',
   height: BUTTON_SIZE-20,
   backgroundColor: 'transparent',
+  display: 'inline-flex',
+  alignItems: 'center',
+  color: '#7c7c7c',
 })

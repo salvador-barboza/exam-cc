@@ -58,6 +58,8 @@ class ExamRender {
       })
       .from(el)
       .save()
+      .then(console.log)
+      .catch(console.error)
   }
 
   private serialize  = (variables, structure) => {

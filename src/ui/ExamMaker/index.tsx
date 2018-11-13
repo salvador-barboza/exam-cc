@@ -118,7 +118,8 @@ class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
       for (let i = 0; i < this.state.examCount; i++) {
         const exam = gen.generate()
         const renderer = new ExamRender(exam)
-        renderer.render(`examen_tipo_${String.fromCharCode(97 + i)}`)
+        renderer.render(`examen_tipo`)
+        console.log('done')
       }    
     }))
   }

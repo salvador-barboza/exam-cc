@@ -7,6 +7,7 @@ export interface ExamInciso {
   choices: string[],
   variables: any
 }
+// TODO(salvador-barboza) sacar a models
 class ExamGenerator {
   constructor(
     private questionList: IQuestion[]

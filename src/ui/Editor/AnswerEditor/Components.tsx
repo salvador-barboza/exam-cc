@@ -12,6 +12,7 @@ export const Title = styled('h2')({
   borderBottom: '2px solid #c96dff',
   width: 'fit-content',
   paddingBottom: 8,
+  margin: 4,
 })
 
 interface FormulaErrorProps {

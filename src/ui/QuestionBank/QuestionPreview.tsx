@@ -5,12 +5,11 @@ import Question from 'src/models/Question/Question';
 
 
 const Card = styled('div')({
- boxShadow: '0 0 5px 1px #e2e2e2',
- padding: 16,
- display: 'flex', flexDirection: 'row',
- marginBottom: 8,
- alignItems: 'center',
- backgroundColor: '#FFF'
+  borderBottom: '1px solid #c3c3c3',
+  padding: 16,
+  display: 'flex', flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#FFF'
 })
 
 const HeaderContainer = styled('div')({

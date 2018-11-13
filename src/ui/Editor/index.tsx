@@ -9,7 +9,7 @@ import EditorNodeRenderer from './Rendering/EditorNodeRenderer';
 import QuestionVariableMap from '../../models/Question/QuestionVariableMap'
 import AnswerEditor, { FormValues } from './AnswerEditor/AnswerEditor'
 import Question from 'src/models/Question/Question';
-import { Container } from './Components';
+import { Container, SaveButton } from './Components';
 import { css } from 'emotion';
 import VariableEditor from './VariableEditor';
 import { GeneratorType } from 'src/models/Generators';
@@ -69,12 +69,12 @@ export default class QuestionEditor extends
   
   render() {    
     return (
-      <div className={css({ maxWidth: 600, margin: 'auto' })}>
-      {this.state.showingVariablePopup && 
-        <VariableEditor 
-          onSubmit={this.addVariable}
-          type={GeneratorType.RANGE}
-      />}
+      <div className={css({ display: 'flex', margin: '16px 0' })}>
+        {this.state.showingVariablePopup && 
+          <VariableEditor 
+            onSubmit={this.addVariable}
+            type={GeneratorType.RANGE}
+        />}
         {this.state.showingAddImageDialog && 
           <ImageDialog onSuccess={this.addImage}/>}
       <Container editable={this.props.editable}>
@@ -83,7 +83,6 @@ export default class QuestionEditor extends
           onBoldClicked={this.toggleBold}
           onUnderlineClicked={this.toggleUnderline}
           onItalicsClicked={this.toggleItalics}
-          magicTime={this.swapVariablesForValues}
           onToggleVariablesClicked={this.toggleVariableToolbar}
         />}
         {this.state.showingVariableToolbar && 
@@ -94,6 +93,7 @@ export default class QuestionEditor extends
           />
         }
         <Editor 
+          style={{padding: 8}}
           readOnly={!this.props.editable}
           autoFocus={false}
           schema={QuestionEditor.schema}
@@ -103,12 +103,18 @@ export default class QuestionEditor extends
           renderNode={EditorNodeRenderer.render} />         
       </Container>      
     {this.props.editable && 
+      <div className={css({ boxShadow: '0 0 6px 0px #b7b7b7', marginLeft: 16, background: '#FFF', padding: 16, position: 'relative' })}>
         <AnswerEditor
           answer={this.props.question && this.props.question.answer}
           distractors={this.props.question && this.props.question.distractors}
           valueChanged={this.handleAnswerChange}
           variableQuestionRenameMe={false}
           availableVariables={[...this.state.variables.variableKeys]} />
+
+          <SaveButton enabled onClick={this.swapVariablesForValues}>
+            Guardar Pregunta
+          </SaveButton>
+        </div>
       }
      </div>
     )
