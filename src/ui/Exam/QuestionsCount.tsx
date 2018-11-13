@@ -1,5 +1,6 @@
 import React from 'react'
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank'
+import {css} from 'emotion'
 
 interface QuestionsCountProps {
   questioncollection: IQuestionBank,
@@ -39,13 +40,14 @@ class QuestionsCount extends
   private questionnumber( question: number) {
     return (
       <div>
-        <h2> {this.props.questioncollection.title} </h2>
-        <h3>  Preguntas  </h3>
-        <h4>
-          <button onClick={() => this.incrementItem(1, question)}> + </button>
-          <h3>{this.props.currentnumber} </h3>
-          <button onClick={() => this.decreaseItem()}> - </button>
-        </h4>
+        <h2 className={css({marginBottom:0,marginTop:20})}> {this.props.questioncollection.title} </h2>
+        <div className={css({display:'flex'})}>
+        <h3 className={css({marginBottom:0,marginTop:0})}>  Preguntas:  </h3>
+        <button className={css({maxHeight:20,marginTop:0})} onClick={() => this.decreaseItem()}> - </button>
+          <h3 className={css({marginBottom:0,marginTop:0})}>{this.props.currentnumber} </h3>
+          <button className={css({maxHeight:20,marginTop:0})} onClick={() => this.incrementItem(1, question)}> + </button>
+          
+        </div>
       </div>
     )
 
@@ -55,7 +57,7 @@ class QuestionsCount extends
     return (
       <div>
         {this.questionnumber( this.state.countCheck)}
-        <button onClick={this.props.onRemove}>remove</button>
+        <button className={css({borderRadius:5, borderColor:'#ff001d'})} onClick={this.props.onRemove}>Eliminar</button>
       </div>
     );
   }

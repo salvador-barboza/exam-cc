@@ -9,13 +9,15 @@ export const Container = styled('div')((props: { editable?: Boolean }) => ({
 }))
 
 export const Pill = styled('div')((props: { focused: Boolean }) => ({ 
-  backgroundColor:  'red',
+  backgroundColor: props.focused ? '#AD91F5' : '#E7DFFB',
+  borderColor: '#6100ED',
   borderRadius: '12px', 
   display: 'inline-block', 
   padding: '0 12px', 
   fontWeight: 'bold', 
-  color: 'rgba(255,255,255,0.85)', 
+  color: '#6100ED', 
   margin: '0 2px',
+  marginTop: '5px',
   boxSizing: 'border-box',
-  border: props.focused ? '1px solid blue' : 'none', 
+  border:'1px solid blue', 
 }))
