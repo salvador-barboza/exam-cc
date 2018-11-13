@@ -71,7 +71,7 @@ class QuestionBankExplorer extends
             </BankCard>)}
         <AddButton 
           onClick={this.onAddQuestionBank}>
-          Crear Banco de Preguntass
+          Crear Tema
         </AddButton>
       </div>
     )
