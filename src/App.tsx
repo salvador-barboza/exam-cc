@@ -76,7 +76,7 @@ class App extends React.Component<{}, AppState> {
           <Toolbar>Exam CC <LogOut onClick={async () => auth().signOut()}>log out</LogOut></Toolbar>
           <Shell>
             <SidePanel>              
-              <MenuItem to="/question_banks">Banco de Preguntas</MenuItem>
+              <MenuItem to="/question_banks">Materias</MenuItem>
               <MenuItem to="/exam_editor">Crear examen</MenuItem>
             </SidePanel>
             <Switch>
