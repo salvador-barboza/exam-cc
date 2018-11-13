@@ -77,7 +77,7 @@ class App extends React.Component<{}, AppState> {
           <Shell>
             <SidePanel>              
               <MenuItem to="/question_banks">Materias</MenuItem>
-              <MenuItem to="/exam_editor">Crear examen</MenuItem>
+              <MenuItem to="/exam_editor">Crear Examen</MenuItem>
             </SidePanel>
             <Switch>
             {this.state.user && 
