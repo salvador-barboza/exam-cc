@@ -69,7 +69,7 @@ class Login extends Component<LoginProps,LoginState> {
    private showSignUp = () => {
     return (
      
-        <div className={css({position:"absolute"})}>
+        <Container>
         <h2> Nueva Cuenta </h2> 
       <Formik
       onSubmit={this.signup}
@@ -89,7 +89,7 @@ class Login extends Component<LoginProps,LoginState> {
           </Form>)
     } />  
       <button  className = {Cancel_Button} onClick={() => this.signUpState(2)}>  Cancelar  </button>
-      </div> 
+      </Container> 
      )
   }
 
