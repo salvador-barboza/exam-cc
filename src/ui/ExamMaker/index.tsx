@@ -64,14 +64,14 @@ class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
     examCount: 1
   }
 
-  private service = new QuestionBankService()
-  private servic2 = new QuestionCollectionService('asdf')
+  private questionBankService = new QuestionBankService()
+  private questionCollectionService = new QuestionCollectionService('')
 
 
   constructor(props) {
     super(props)
   
-    this.service.banks.subscribe(banks => { 
+    this.questionBankService.banks.subscribe(banks => { 
       const subjects = Array.from(banks.keys())      
       const newState: ExamMakerState = {
         ...this.state,
@@ -118,7 +118,7 @@ class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
   private generateExams = () => {
     const banks = Array.from(this.state.questionCount.keys())
 
-    this.servic2.getQuestionsForBank(banks).then((banks => {
+    this.questionCollectionService.getQuestionsForBank(banks).then((banks => {
       const a = new QuestionSelector(banks, this.state.questionCount)
       const questions = a.compute()
       const gen = new ExamGenerator(questions)
