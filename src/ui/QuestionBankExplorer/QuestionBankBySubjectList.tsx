@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
 import { AddButton } from '../shared';
 import { Title, BankCard, ButtonContainer, BankCount } from './Components';
+import { css } from 'emotion';
 
 
 interface QuestionBankExplorerProps {
@@ -55,11 +56,11 @@ class QuestionBankExplorer extends
     }    
 
     return (
-      <div>
+      <div> 
         <Title>{this.props.subject}</Title>
         {this.state.questionBanks.map(x => 
             <BankCard>
-              <div>              
+              <div className={css({textOverflow:'Ellipsis',overflow:'hidden',whiteSpace:'nowrap'})}>              
                 {x.title}
                 {x.questionCount &&
                      <BankCount>{this.formatQuestionBankCount(x.questionCount)}</BankCount>}

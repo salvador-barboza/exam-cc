@@ -5,6 +5,7 @@ import { R } from 'src/Resources';
 import { IAnswer } from 'src/models/Question/IQuestion';
 import { Title } from './Components';
 import Answer from './Answer';
+import { css } from 'emotion';
 
 interface AnswerEditorProps {
   answer?: IAnswer
@@ -94,7 +95,7 @@ class AnswerEditor extends Component<AnswerEditorProps> {
                             onDeleteClicked={()=>remove(i)}
                           />                                                   
                           ) )}
-                          <button onClick={() => insert(4, { static: true, predicate: '' } as IAnswer)}>add</button>
+                          <button className={css({marginBottom:20})} onClick={() => insert(4, { static: true, predicate: '' } as IAnswer)}>add</button>
                       </Fragment>                      
                     )} />
                   </Fragment>         
