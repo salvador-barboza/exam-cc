@@ -1,14 +1,7 @@
 import React from 'react'
 import { BlockTypes } from '../BlockTypes'
 import { Pill } from '../Components'
-import styled from 'react-emotion';
-
-const Image = styled('img')((props: { selected }) => ({
-  maxWidth: '100%',
-  maxHeight: 100,
-  display: 'block',
-  boxShadow: props.selected ? '0 0 0 2px blue;' : 'none'
-}))
+import {Image} from './Components'
 
 export default class EditorNodeRenderer {
   static render(props, next) {

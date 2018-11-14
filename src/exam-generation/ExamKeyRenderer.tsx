@@ -1,16 +1,7 @@
 import React from 'react'
-import styled from 'react-emotion'
 import * as ReactDOM from 'react-dom'
+import {Page, Inciso} from './Components'
 import html2pdf from 'html2pdf.js'
-
-const Page = styled('body')({
-  padding: 64,
-  backgroundColor: '#FFF',
-  color: '#000'
-})
-
-const Inciso = styled('section')({
-})
 
 class ExamKeyRenderer {
   constructor(private examsKeys: string[][]) {}

@@ -58,11 +58,9 @@ class QuestionBankExplorer extends
         <Title>{this.props.subject}</Title>
         {this.state.questionBanks.map(x => 
             <BankCard onClick={() => this.onEditQuestionBank(x.id)}>
-              <div style={{ flexGrow: 1 }}>              
-                {x.title}
+                <span style={{textOverflow: 'ellipsis', overflow: 'auto'}}>{x.title}</span>
                 {x.questionCount &&
                      <BankCount>{this.formatQuestionBankCount(x.questionCount)}</BankCount>}
-              </div>
               <ButtonContainer onClick={(e) => { e.stopPropagation(); this.onDeleteQuestionBank(x.id) }} />
             </BankCard>)}
         <AddButton 

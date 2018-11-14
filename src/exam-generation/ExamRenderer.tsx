@@ -2,24 +2,12 @@ import React from 'react'
 import { BlockTypes } from "../ui/QuestionEditor/BlockTypes"
 import Html from 'slate-html-serializer'
 import { ExamInciso } from '../exam-generation'
-import styled from 'react-emotion'
 import * as ReactDOM from 'react-dom'
 import html2pdf from 'html2pdf.js'
 import MultipleChoiceAnswer from '../exam-generation/MultipleChoiceAnswer';
 import SingleAnswer from './SingleAnswer';
+import {Page, Inciso, Title} from './Components'
 
-
-const Page = styled('body')({
-  padding: 64,
-  backgroundColor: '#FFF',
-  color: '#000'
-})
-
-const Inciso = styled('section')({
-})
-
-const Title = styled('h4')({
-})
 
 const Header = () => (
   <div>

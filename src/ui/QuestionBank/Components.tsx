@@ -28,3 +28,60 @@ export const TitleInput = styled('input')({
     color: 'rgba(255, 255, 255, .6)',
   }
 })
+
+export const Background = styled('div')({
+  position: 'fixed',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  backgroundColor: 'rgba(0,0,0,0.3)',
+  padding: 50,
+});
+  
+  
+export const Popup = styled('div')({
+      backgroundColor: '#fff',
+      borderRadius: 5,
+      maxWidth: 500,
+      minHeight: 300,
+      margin: '0 auto',
+      padding: 30,
+      position: 'relative',
+});
+
+export const Card = styled('div')({
+  borderBottom: '1px solid #c3c3c3',
+  padding: 16,
+  display: 'flex', flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#FFF'
+})
+
+export const HeaderContainer = styled('div')({
+  display: 'flex', justifyContent:'space-between' 
+})
+
+export const EditButton = styled('button')((props: { color: string }) => ({
+  border: 'none',
+  backgroundColor: 'transparent',
+  padding: 8,
+  marginLeft: 8,
+  fontSize: 14,
+  color: props.color,
+  cursor: 'pointer',
+}))
+
+export const Number = styled('div')({
+  flexGrow: 0,
+  fontSize: 25,
+  fontWeight: 600,
+  color: '#737373',
+  marginRight: 19,
+  borderRight: '2px solid #c3c3c3',
+  paddingRight: 16,
+})
+
+export const Preview = styled('div')({
+  flexGrow: 1
+})

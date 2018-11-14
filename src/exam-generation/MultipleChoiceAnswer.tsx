@@ -1,15 +1,9 @@
 import React from 'react'
-import styled from 'react-emotion'
+import {List, ListElement} from './Components'
 
 interface MultipleChoiceAnswerProps {
   answers: string[]
 }
-
-const List = styled('ol')({  
-})
-
-const ListElement = styled('li')({
-})
 
 const MultipleChoiceAnswer = (props: MultipleChoiceAnswerProps) => (
   <List type="a">

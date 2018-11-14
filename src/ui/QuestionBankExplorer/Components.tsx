@@ -42,7 +42,10 @@ export const SubjectCard = styled('div')({
 export const BankCard = styled('div')({
   ...BaseCardStyle,  
   flexDirection: "column",
-  position: 'relative'
+  position: 'relative',  
+  textOverflow: 'ellipsis',
+  overflow: 'auto',
+  whiteSpace: 'normal',
 })
 
 

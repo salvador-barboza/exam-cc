@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from 'emotion'
-import styled from 'react-emotion';
+import {Background, Popup} from './Components'
 
 interface DeleteQuestionProps{
     show: boolean;
@@ -10,27 +10,6 @@ interface DeleteQuestionProps{
 interface DeleteQuestionState{
     show: boolean;
 }
-
-const Background = styled('div')({
-    position: 'fixed',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    padding: 50,
-    });
-    
-    
-    const Popup = styled('div')({
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        maxWidth: 500,
-        minHeight: 300,
-        margin: '0 auto',
-        padding: 30,
-        position: 'relative',
-    });
 
 class DeleteQuestion extends React.Component <DeleteQuestionProps> {
     public state : DeleteQuestionState = {
