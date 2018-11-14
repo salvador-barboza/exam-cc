@@ -1,7 +1,7 @@
 import React from 'react'
 import { Formik, Field, Form }  from 'formik' 
 import { css } from 'emotion'
-import styled from 'react-emotion';
+import {Background, AnswerTextFieldStyle, Popup} from './Components'
 
 interface VariableNameProps{
     show: boolean;
@@ -11,35 +11,7 @@ interface VariableNameProps{
 interface VariableNameState{
     show: boolean;
     varName: string;
-}
-
-const Background = styled('div')({
-    position: 'fixed',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    padding: 50,
-    });
-    
-    const AnswerTextFieldStyle = css({
-        fontSize: 17,
-        padding: 4,
-        borderRadius: 2,
-        border: '1px solid #e7bdff'
-      })
-    
-    const Popup = styled('div')({
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        maxWidth: 500,
-        minHeight: 300,
-        margin: '0 auto',
-        padding: 30,
-        position: 'relative',
-    });
-    
+}   
 
 class VariableName extends React.Component <VariableNameProps> {
 

@@ -2,25 +2,12 @@ import React from 'react'
 import { BlockTypes } from "../Editor/BlockTypes"
 import Html from 'slate-html-serializer'
 import { ExamInciso } from 'src/ui/ExamGenerator'
-import styled from 'react-emotion'
 import * as ReactDOM from 'react-dom'
 import html2pdf from 'html2pdf.js'
 import MultipleChoiceAnswer from 'src/ui/ExamGenerator/MultipleChoiceAnswer';
 import SingleAnswer from './SingleAnswer';
+import {Page, Inciso, Title} from './Components'
 
-
-const Page = styled('body')({
-  padding: 64,
-  backgroundColor: '#FFF',
-  color: '#000'
-})
-
-const Inciso = styled('section')({
-})
-
-const Title = styled('h1')({
-
-})
 
 class ExamRender {
   constructor(private incisos: ExamInciso[]) {}

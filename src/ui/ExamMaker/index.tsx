@@ -7,39 +7,10 @@ import QuestionCollectionService from 'src/services/QuestionCollectionService';
 import ExamGenerator from '../ExamGenerator';
 import ExamRender from '../ExamGenerator/ExamRenderer';
 import { Title } from '../QuestionBankExplorer/Components';
-import styled from 'react-emotion'
-import { css } from 'emotion'
+import {AnswerTextFieldStyle, Card, Card2} from './Components'
 
 interface ExamMakerProps {
 }
-
-const AnswerTextFieldStyle = css({
-  fontSize: 17,
-  padding: 4,
-  borderRadius: 2,
-  border: '1px solid #e7bdff',
-  maxWidth:200,
-})
-
-const Card = styled('div')({
-  boxShadow: '0 0 5px 1px #e2e2e2',
-  padding: 16,
-  display: 'flex', flexDirection: 'row',
-  marginBottom: 8,
-  alignItems: 'center',
-  backgroundColor: '#FFF'
- })
-
- const Card2 = styled('div')({
-  boxShadow: '0 0 5px 1px #e2e2e2',
-  padding: 16,
-  display: 'flex', flexDirection: 'column',
-  marginBottom: 8,
-  alignItems: 'left',
-  backgroundColor: '#FFF'
- })
-
- 
 
 interface ExamMakerState {
   subjects: string[]

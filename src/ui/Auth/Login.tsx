@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import AuthService from 'src/services/AuthService';
 import { Form, Field, Formik } from 'formik';
+import {Email, Password, Log_In_Button, Signup_Button, Cancel_Button} from './Components'
 import {css} from 'emotion';
 
 interface FormValues {
-  email: string,
+  email: string
   password: string,
   confirmpassword:string
 }
@@ -14,48 +15,6 @@ interface LoginState {
   showSignUp:boolean,
   showLogin:boolean
 }
-
-const Email = css({
-  fontSize: 17,
-  padding: 4,
-  borderRadius: 2,
-  border: '1px solid #e7bdff',
-  marginBottom:15
-})
-
-const Password = css({
-  fontSize: 17,
-  padding: 4,
-  borderRadius: 2,
-  border: '1px solid #e7bdff',
-  marginBottom:15
-})
-
-const Log_In_Button = css({
-  textAlign:"center",
-  width:'40%',
-  justifyContent:"center",
-  height: 35,
-  float:"left",
-
-})
-
-const Signup_Button = css({
-  textAlign:"center",
-  width:'40%',
-  justifyContent:"center",
-  height: 35,
-  float: "right",
-})
-
-const Cancel_Button = css({
-  textAlign:"center",
-  width:'40%',
-  justifyContent:"center",
-  height: 35,
-  float:"right",
-
-})
 
 class Login extends Component<LoginProps,LoginState> {
   public state: LoginState

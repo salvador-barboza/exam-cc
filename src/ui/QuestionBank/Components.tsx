@@ -28,3 +28,39 @@ export const TitleInput = styled('input')({
     color: 'rgba(255, 255, 255, .6)',
   }
 })
+
+export const Card = styled('div')({
+  borderBottom: '1px solid #c3c3c3',
+  padding: 16,
+  display: 'flex', flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#FFF'
+})
+
+export const HeaderContainer = styled('div')({
+  display: 'flex', justifyContent:'space-between' 
+})
+
+export const EditButton = styled('button')((props: { color: string }) => ({
+  border: 'none',
+  backgroundColor: 'transparent',
+  padding: 8,
+  marginLeft: 8,
+  fontSize: 14,
+  color: props.color,
+  cursor: 'pointer',
+}))
+
+export const Number = styled('div')({
+  flexGrow: 0,
+  fontSize: 25,
+  fontWeight: 600,
+  color: '#737373',
+  marginRight: 19,
+  borderRight: '2px solid #c3c3c3',
+  paddingRight: 16,
+})
+
+export const Preview = styled('div')({
+  flexGrow: 1
+})

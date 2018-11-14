@@ -1,44 +1,7 @@
 import React from 'react'
 import StaticPreviewRenderer from '../Editor/Rendering/StaticPreviewRenderer'
-import styled from 'react-emotion';
+import {Card, HeaderContainer, EditButton, Number, Preview} from './Components'
 import Question from 'src/models/Question/Question';
-
-
-const Card = styled('div')({
-  borderBottom: '1px solid #c3c3c3',
-  padding: 16,
-  display: 'flex', flexDirection: 'row',
-  alignItems: 'center',
-  backgroundColor: '#FFF'
-})
-
-const HeaderContainer = styled('div')({
-  display: 'flex', justifyContent:'space-between' 
-})
-
-const EditButton = styled('button')((props: { color: string }) => ({
-  border: 'none',
-  backgroundColor: 'transparent',
-  padding: 8,
-  marginLeft: 8,
-  fontSize: 14,
-  color: props.color,
-  cursor: 'pointer',
-}))
-
-const Number = styled('div')({
-  flexGrow: 0,
-  fontSize: 25,
-  fontWeight: 600,
-  color: '#737373',
-  marginRight: 19,
-  borderRight: '2px solid #c3c3c3',
-  paddingRight: 16,
-})
-
-const Preview = styled('div')({
-  flexGrow: 1
-})
 
 interface QuestionPreviewProps {
   questionIndex: number

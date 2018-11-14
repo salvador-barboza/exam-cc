@@ -1,15 +1,5 @@
 import React from 'react'
-import styled from 'react-emotion';
-
-const Container = styled('div')({
-  marginTop: 24,
-})
-
-const Decoration = styled('div')({
-  borderBottom: '1px solid black',
-  width: 150,
-  display: 'inline-block'
-})
+import {Container, Decoration} from './Components'
 
 export default () => (
   <Container>
