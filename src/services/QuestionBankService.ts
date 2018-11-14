@@ -3,7 +3,7 @@ import { fromCollectionRef } from 'rxfire/firestore'
 import { Observable } from 'rxjs';
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
 import { auth } from 'firebase';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { toast } from 'react-toastify';
 
 
@@ -23,7 +23,6 @@ class QuestionBankService {
         map(
           val => val.docs
             .map(x => ({  id: x.id, ...x.data() }) as IQuestionBank)),
-        tap(console.log),
         map(x => x.reduce((acc, curr) => {
           if (!acc.has(curr.subject!!)) {
             acc.set(curr.subject!!, [])
