@@ -95,7 +95,7 @@ class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
         const exam = gen.generate()
         claves.push(exam.clave)
         const renderer = new ExamRender(exam.incisos)
-        renderer.render(`examen_tipo`)
+        renderer.render(`examen_tipo${String.fromCharCode(97 + i)}`)
       }    
 
       const keyRenderer = new ExamKeyRenderer(claves)
