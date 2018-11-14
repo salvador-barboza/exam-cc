@@ -81,7 +81,7 @@ class QuestionBankEditor extends Component <QuestionBankEditorProps, QuestionBan
         <TitleInput
           onChange={this.onTitleChange}
           value={this.state.description.title}
-          placeholder="Titulo del Banco de Preguntas..." />
+          placeholder="Nombre del Tema..." />
         {this.state.questions.map((q, index) => 
           this.state.editingIndex === index 
           ? <QuestionEditor 
