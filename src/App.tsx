@@ -67,7 +67,7 @@ class App extends React.Component<{}, AppState> {
           <Toolbar>
             <LeftContainer>
               Exam CC 
-              <MenuItem to="/question_banks">Banco de Preguntas</MenuItem>
+              <MenuItem to="/question_banks">Materias</MenuItem>
               <MenuItem to="/exam_editor">Crear examen</MenuItem>
             </LeftContainer>
             <button onClick={async () => auth().signOut()}>Cerrar Sesion</button>
