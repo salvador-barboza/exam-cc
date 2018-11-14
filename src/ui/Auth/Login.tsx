@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AuthService from 'src/services/AuthService';
 import { Form, Field, Formik } from 'formik';
 import {css} from 'emotion';
+import styled from 'react-emotion';
 
 interface FormValues {
   email: string,
@@ -14,6 +15,22 @@ interface LoginState {
   showSignUp:boolean,
   showLogin:boolean
 }
+
+
+export const Container = styled('div')({
+  padding: 16,
+  lineHeight: 1.5, 
+  position: 'absolute', 
+  left: 0,
+  right: 0,
+  width: 400,
+  margin: 'auto',
+  top: 100,
+  backgroundColor: '#FFF',
+  borderRadius: 6,
+  boxShadow: '0 0 15px 2px #808080'
+})
+
 
 const Email = css({
   fontSize: 17,
@@ -84,27 +101,26 @@ class Login extends Component<LoginProps,LoginState> {
 
    private showLogin = () => {
     return (
-      <div> 
-      <div className={css({position:"absolute"})}>
-       <h2> Iniciar sesion </h2> 
-       
-      <Formik
-        onSubmit={this.login}
-        initialValues={{ email: '', password: '' }}
-        render={
-          () => (
-            <Form>
-              <p>Email</p>
-              <Field name="email" className={Email} type="email" />
-              <br/>
-              <p>Contraseña</p>
-              <Field name="password" className={Password} type="password"/>
-              <br/>
-              <button type="send" className={Log_In_Button}>Iniciar Sesion</button>
-            </Form>)
-      } />
-        <button  className={Signup_Button} onClick={() => this.signUpState(1)}>   Nueva Cuenta  </button>
-        </div> </div>
+        <Container>
+        <h2> Iniciar sesion </h2> 
+        
+        <Formik
+          onSubmit={this.login}
+          initialValues={{ email: '', password: '' }}
+          render={
+            () => (
+              <Form>
+                <p>Email</p>
+                <Field name="email" className={Email} type="email" />
+                <br/>
+                <p>Contraseña</p>
+                <Field name="password" className={Password} type="password"/>
+                <br/>
+                <button type="send" className={Log_In_Button}>Iniciar Sesion</button>
+              </Form>)
+        } />
+          <button  className={Signup_Button} onClick={() => this.signUpState(1)}>   Nueva Cuenta  </button>
+        </Container>
       )
    }
 
