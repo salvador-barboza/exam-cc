@@ -18,18 +18,27 @@ const Page = styled('body')({
 const Inciso = styled('section')({
 })
 
-const Title = styled('h1')({
-
+const Title = styled('h4')({
 })
+
+const Header = () => (
+  <div>
+    <p>Nombre: </p>
+    <p>Matricula: </p>
+    <p>Grupo: </p>
+  </div>
+)
 
 class ExamRender {
   constructor(private incisos: ExamInciso[]) {}
   public render = (filename: string) => {
     const ph = 
     <Page>
+      <Header></Header>
+      <h2>Examen Tipo: </h2>
       {this.incisos.map((i, index) => (
         <Inciso>
-          <Title>{index+1})</Title>
+          <Title>Pregunta {index+1}:</Title>
           <div 
             dangerouslySetInnerHTML={{
               __html: this.serialize(i.variables, i.questionStructure)

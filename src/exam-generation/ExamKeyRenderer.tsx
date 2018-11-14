@@ -12,17 +12,15 @@ const Page = styled('body')({
 const Inciso = styled('section')({
 })
 
-// const Title = styled('h1')({
-
-// })
-
 class ExamKeyRenderer {
   constructor(private examsKeys: string[][]) {}
   public render = () => {
     const ph = 
     <Page>
-      {this.examsKeys.map((i, index) => (
+      <h1>Clave de Revisión</h1>
+      {this.examsKeys.map((i, index) => (        
         <Inciso>
+          <h3>Examen tipo {index+1}</h3>
           <ol>
             {i.map(c => <li>{c}</li>)}
           </ol>
