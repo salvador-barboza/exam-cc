@@ -54,6 +54,7 @@ export const EditButton = styled('button')((props: { color: string }) => ({
     margin: '0 auto',
     padding: 30,
     position: 'relative',
+    zIndex: 2,
   });
   
   interface ButonProp {
