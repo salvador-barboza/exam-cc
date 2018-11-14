@@ -56,7 +56,7 @@ class QuestionBankExplorer extends
     }    
 
     return (
-      <div className={css({textOverflow:'ellipsis'})}> 
+      <div> 
         <Title>{this.props.subject}</Title>
         {this.state.questionBanks.map(x => 
             <BankCard>
