@@ -16,14 +16,17 @@ class QuestionCollectionService {
 
   private serialization = new QuestionSerialization()
   constructor(
-    private questionBankId: string,
+    private questionBankId?: string,
     private userId = auth().currentUser!!.uid, 
     private questionParser = new QuestionSerialization()) {
 
+
+    if (questionBankId) {
+      this.questionBankRef = app.firestore().doc(`/test/${this.userId}/question_banks/${questionBankId}`)    
+    }
+
     this.questionCollectionRef = app.firestore()
       .collection(`/test/${this.userId}/questions`)
-
-    this.questionBankRef = app.firestore().doc(`/test/${this.userId}/question_banks/${questionBankId}`)    
   }
 
   get description(): Observable<IQuestionBank> {

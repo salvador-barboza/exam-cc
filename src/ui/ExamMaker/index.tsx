@@ -65,7 +65,7 @@ class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
   }
 
   private questionBankService = new QuestionBankService()
-  private questionCollectionService = new QuestionCollectionService('')
+  private questionCollectionService = new QuestionCollectionService()
 
 
   constructor(props) {
