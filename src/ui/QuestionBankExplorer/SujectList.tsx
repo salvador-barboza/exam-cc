@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 import { AddButton } from '../shared';
 import { Title, SubjectCard } from './Components';
+import { css } from 'emotion';
 
 interface QuestionBankExplorerState {
   subjects: string[]
@@ -42,7 +43,11 @@ class SubjectList extends Component<{}, QuestionBankExplorerState> {
       <div>
         <Title>Materias</Title>
         {this.state.subjects.map(x => 
-          <SubjectCard onClick={() => this.goToSubject(x)}>{x}</SubjectCard>)}
+          <SubjectCard onClick={() => this.goToSubject(x)}>
+          <div className={css({textOverflow:'Ellipsis',overflow:'hidden',whiteSpace:'nowrap'})}>
+          {x}
+          </div>
+          </SubjectCard>)}
         <AddButton onClick={() => this.createSubject()}>
           Agregar Materia
         </AddButton>
