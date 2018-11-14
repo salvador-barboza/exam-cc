@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import AuthService from 'src/services/AuthService';
 import { Form, Field, Formik } from 'formik';
-import {css} from 'emotion';
 import {Email, Password, Log_In_Button, Signup_Button, Cancel_Button, Container} from './Components'
 
 interface FormValues {
