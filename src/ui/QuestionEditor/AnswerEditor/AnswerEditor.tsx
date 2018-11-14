@@ -94,7 +94,7 @@ class AnswerEditor extends Component<AnswerEditorProps> {
                             onDeleteClicked={()=>remove(i)}
                           />                                                   
                           ) )}
-                          <button onClick={() => insert(4, { static: true, predicate: '' } as IAnswer)}>add</button>
+                          <button onClick={() => insert(4, { static: true, predicate: '' } as IAnswer)}>Agregar distractor</button>
                       </Fragment>                      
                     )} />
                   </Fragment>         

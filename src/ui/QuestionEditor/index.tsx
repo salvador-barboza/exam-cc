@@ -103,7 +103,7 @@ export default class QuestionEditor extends
           renderNode={EditorNodeRenderer.render} />         
       </Container>      
     {this.props.editable && 
-      <div className={css({ boxShadow: '0 0 6px 0px #b7b7b7', marginLeft: 16, background: '#FFF', padding: 16, position: 'relative' })}>
+      <div className={css({ boxShadow: '0 0 6px 0px #b7b7b7', marginLeft: 16, background: '#FFF', padding: 16, position: 'relative', paddingBottom: 40 })}>
         <AnswerEditor
           answer={this.props.question && this.props.question.answer}
           distractors={this.props.question && this.props.question.distractors}
