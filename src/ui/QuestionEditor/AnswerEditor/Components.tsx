@@ -45,6 +45,7 @@ export const FormulaToggleButton = styled('div')((props: FormulaToggleButtonProp
 export const AnswerContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
+  zIndex:-1,
 })
 
 
