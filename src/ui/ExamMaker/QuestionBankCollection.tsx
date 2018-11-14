@@ -1,7 +1,7 @@
 import React from 'react'
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank'
 import QuestionBankPopUp from './QuestionBankPopUp'
-import QuestionCount from './QuestionsCount'
+import QuestionCount from './QuestionCount'
 import { css } from 'emotion'
 
 interface QuestionBankCollectionProps {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank'
 import {css} from 'emotion'
-import DeleteIcon from '../../icons/delete.png'
+import DeleteIcon from '../../../icons/delete.png'
 import {Container, Name, Count, DeleteButton, ChangeButton} from './Components'
 
 interface QuestionsCountProps {

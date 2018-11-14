@@ -7,16 +7,12 @@ import QuestionCollectionService from 'src/services/QuestionCollectionService';
 import ExamGenerator from '../../exam-generation';
 import ExamKeyRenderer from '../../exam-generation/ExamKeyRenderer';
 import ExamRender from '../../exam-generation/ExamRenderer';
-import { Container, Title, Subtitle } from './Components'
+import { Container, Title, Subtitle, AnswerTextFieldStyle, DeleteButton, Card } from './Components'
 import { toast } from 'react-toastify';
-import {DeleteButton, AnswerTextFieldStyle, Card}
 
 
 interface ExamMakerProps {
 }
-
-
- 
 
 interface ExamMakerState {
   subjects: string[]

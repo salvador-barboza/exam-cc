@@ -1,5 +1,5 @@
 import styled from 'react-emotion';
-import DeleteIcon from '../../icons/delete.png'
+import DeleteIcon from '../../../icons/delete.png'
 
 export const Container = styled('div')({
     display: 'flex',
