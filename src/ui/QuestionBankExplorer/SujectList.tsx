@@ -2,7 +2,7 @@ import QuestionBankService from "src/services/QuestionBankService"
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 import { AddButton } from '../shared';
-import { Title, SubjectCard } from './Components';
+import { Title, SubjectCard, Container } from './Components';
 
 interface QuestionBankExplorerState {
   subjects: string[]
@@ -39,14 +39,14 @@ class SubjectList extends Component<{}, QuestionBankExplorerState> {
     }    
 
     return (
-      <div>
+      <Container>
         <Title>Materias</Title>
         {this.state.subjects.map(x => 
           <SubjectCard onClick={() => this.goToSubject(x)}>{x}</SubjectCard>)}
         <AddButton onClick={() => this.createSubject()}>
           Agregar Materia
         </AddButton>
-      </div>
+      </Container>
     )
   }
 }

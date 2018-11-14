@@ -1,5 +1,28 @@
 import styled  from 'react-emotion';
 
+export const Container = styled('div')({
+  padding: 16,
+  lineHeight: 1.5, 
+  position: 'absolute', 
+  left: 0,
+  right: 0,
+  width: 900,
+  margin: 'auto',
+  top: 100,
+})
+
+export const Title = styled('h1')({
+  margin: '32px 0 16px 16px',
+  color: '#FFF',
+})
+
+export const Subtitle = styled('h2')({
+  fontSize: 20,
+  color: '#444444',
+  fontWeight: 400,
+})
+
+
 export const EditButton = styled('button')((props: { color: string }) => ({
     borderRadius: 5,
     borderColor: 'green',

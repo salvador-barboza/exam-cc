@@ -17,6 +17,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "3.1.0",
+    "react-toastify": "^4.4.3",
     "rxfire": "^3.0.9",
     "rxjs": "^6.3.3",
     "slate": "^0.42.4",

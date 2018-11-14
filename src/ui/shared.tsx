@@ -7,7 +7,7 @@ export const AddButton = styled('button')({
   border: 'none',
   borderRadius: 30,
   padding: 10,
-  fontSize: 15,
+  fontSize: 25,
   color: '#c96dff',
   boxShadow: '#dadada 0px 2px 2px 0px',
   ':hover': {

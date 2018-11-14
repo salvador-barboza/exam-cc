@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import Question from 'src/models/Question/Question';
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
 import { auth, firestore } from 'firebase';
+import { toast } from 'react-toastify';
 
 
 class QuestionCollectionService {
@@ -44,17 +45,20 @@ class QuestionCollectionService {
     this.questionCollectionRef
       .add(serializedQuestion)
       .then(() => this.updateQuestionCount(true))
+      .then(() => toast.success("Pregunta añadida correctamente"))
   }
 
   public editQuestion = (question: IQuestion) => {    
     const serializedQuestion = this.questionParser.serialize(question)
-    this.questionCollectionRef.doc(question.id).set(serializedQuestion).then(console.log)
+    this.questionCollectionRef.doc(question.id).set(serializedQuestion)
+    .then(() => toast.success("Pregunta actualizada correctamente"))
   }
 
   public eraseQuestion = (question: IQuestion) => {
     this.questionCollectionRef.doc(question.id)
       .delete()
       .then(() => this.updateQuestionCount(false))
+      .then(() => toast.success("Pregunta eliminada correctamente"))
   }
 
   //TODO: sacar esto a QuestionBankCollectionService

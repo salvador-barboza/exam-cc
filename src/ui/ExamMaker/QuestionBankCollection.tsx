@@ -67,6 +67,7 @@ class QuestionBankCollection extends React.Component<QuestionBankCollectionProps
             onSubmit={this.onQuestionBankSubmited} />}
         {this.selectedQuestionBanks.map((bank) => ( 
           <QuestionCount
+            key={bank.id}
             onRemove={() => this.removeBank(bank)}
             questioncollection={bank}
             currentnumber={this.state.questionBankSelectedCount.get(bank.id!!)!!}

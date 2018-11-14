@@ -1,21 +1,29 @@
-import { IQuestion } from '../../models/Question/IQuestion';
-import FormulaEvaluator from '../../models/FormulaEvaluator';
+import { IQuestion } from '../models/Question/IQuestion';
+import FormulaEvaluator from '../models/FormulaEvaluator';
 import { Value } from 'slate';
+
+export interface Exam {
+  incisos: ExamInciso[]
+  clave: string[]
+}
 
 export interface ExamInciso {
   questionStructure: Value,
   choices: string[],
   variables: any
 }
-// TODO(salvador-barboza) sacar a models
+
 class ExamGenerator {
   constructor(
     private questionList: IQuestion[]
   ) {}    
     
-    public generate = () => {   
-      const exam : ExamInciso[] = []
-      const clave: any[] = []
+    public generate = (): Exam => {   
+      const exam: Exam = {
+        clave: [],
+        incisos: []
+      }
+
 
       for (let q of this.questionList) {        
         if (q.variableMap) {
@@ -36,10 +44,15 @@ class ExamGenerator {
           }
 
           const shuffledAnswers = this.shuffle([...distractors, answer])
-          // const indexOfAnswer = shuffledAnswers.indexOf(answer)
 
-          clave.push(shuffledAnswers.indexOf(answer))
-          exam.push({
+          if (distractors) {
+            const letterOption = String.fromCharCode(97 + shuffledAnswers.indexOf(answer))
+            exam.clave.push(`${letterOption})`)
+          } else {
+            exam.clave.push(`"${answer}"`)
+          }
+
+          exam.incisos.push({
             choices: shuffledAnswers,
             questionStructure: q.structure,
             variables: formulaEvaluator.computedVariableScope

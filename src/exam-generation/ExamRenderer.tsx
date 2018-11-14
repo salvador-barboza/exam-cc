@@ -1,11 +1,11 @@
 import React from 'react'
-import { BlockTypes } from "../Editor/BlockTypes"
+import { BlockTypes } from "../ui/QuestionEditor/BlockTypes"
 import Html from 'slate-html-serializer'
-import { ExamInciso } from 'src/ui/ExamGenerator'
+import { ExamInciso } from '../exam-generation'
 import styled from 'react-emotion'
 import * as ReactDOM from 'react-dom'
 import html2pdf from 'html2pdf.js'
-import MultipleChoiceAnswer from 'src/ui/ExamGenerator/MultipleChoiceAnswer';
+import MultipleChoiceAnswer from '../exam-generation/MultipleChoiceAnswer';
 import SingleAnswer from './SingleAnswer';
 
 

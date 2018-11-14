@@ -1,5 +1,5 @@
 import React from 'react'
-import StaticPreviewRenderer from '../Editor/Rendering/StaticPreviewRenderer'
+import StaticPreviewRenderer from '../QuestionEditor/Rendering/StaticPreviewRenderer'
 import styled from 'react-emotion';
 import Question from 'src/models/Question/Question';
 

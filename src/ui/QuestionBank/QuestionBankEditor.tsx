@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import QuestionEditor from '../Editor';
+import QuestionEditor from '../QuestionEditor';
 import Question from 'src/models/Question/Question';
 import QuestionPreview from './QuestionPreview';
 import { Container, TitleInput } from './Components';

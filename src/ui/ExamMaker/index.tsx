@@ -1,17 +1,30 @@
 import React, { Component } from 'react'
 import QuestionBankService from '../../services/QuestionBankService'
-import QuestionBankCollection from '../Exam/QuestionBankCollection';
+import QuestionBankCollection from './QuestionBankCollection';
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
 import { QuestionSelector } from 'src/services/QuestionSelector';
 import QuestionCollectionService from 'src/services/QuestionCollectionService';
-import ExamGenerator from '../ExamGenerator';
-import ExamRender from '../ExamGenerator/ExamRenderer';
-import { Title } from '../QuestionBankExplorer/Components';
+import ExamGenerator from '../../exam-generation';
+import ExamKeyRenderer from '../../exam-generation/ExamKeyRenderer';
+import ExamRender from '../../exam-generation/ExamRenderer';
+import { Container, Title, Subtitle } from './Components'
 import styled from 'react-emotion'
 import { css } from 'emotion'
+import { toast } from 'react-toastify';
+
 
 interface ExamMakerProps {
 }
+
+const EditButton = styled('button')({
+  border: 'none',
+  backgroundColor: 'transparent',
+  padding: 8,
+  marginLeft: 8,
+  fontSize: 14,
+  color: 'red',
+  cursor: 'pointer',
+})
 
 const AnswerTextFieldStyle = css({
   fontSize: 17,
@@ -24,20 +37,13 @@ const AnswerTextFieldStyle = css({
 const Card = styled('div')({
   boxShadow: '0 0 5px 1px #e2e2e2',
   padding: 16,
-  display: 'flex', flexDirection: 'row',
+  display: 'flex',
+  flexDirection: 'column',
   marginBottom: 8,
-  alignItems: 'center',
+  alignItems: 'stretch',
   backgroundColor: '#FFF'
  })
 
- const Card2 = styled('div')({
-  boxShadow: '0 0 5px 1px #e2e2e2',
-  padding: 16,
-  display: 'flex', flexDirection: 'column',
-  marginBottom: 8,
-  alignItems: 'left',
-  backgroundColor: '#FFF'
- })
 
  
 
@@ -83,26 +89,28 @@ class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
 
   public render() {
     return (      
-      <div>
+      <Container>
         <Title>Generar Examen</Title>      
         <Card>
-        <h2>Materia del examen:</h2>
-        <select onChange={this.onSubjectSelected}>
-          {this.state.subjects.map(s =><option value={s}>{s}</option>)}
-        </select>
-        </Card>
-        <Card2>
-        <h2>Seleccionar temas</h2>
-        <QuestionBankCollection 
-          onChange={this.onCountChange}
-          questioncollections={this.subjects} />
-        </Card2>
-        <Card2>
-        <h2>Cuantos tipos de examenes se necesitan? </h2>
+        <div>
+          <Subtitle>Materia del examen:</Subtitle>
+          <select onChange={this.onSubjectSelected}>
+            {this.state.subjects.map(s =><option value={s}>{s}</option>)}
+          </select>
+
+        </div>
+        <div>
+          <Subtitle>Seleccionar temas</Subtitle>
+          <QuestionBankCollection 
+            onChange={this.onCountChange}
+            questioncollections={this.subjects} />
+        </div>        
+        
+        <Subtitle>Cuantos tipos de examenes se necesitan? </Subtitle>
         <input className={AnswerTextFieldStyle} placeholder="1" onChange={this.onExamCountChanged} value={this.state.examCount}></input>
-        <button className={AnswerTextFieldStyle} onClick={this.generateExams}>Generar examenes</button>    
-        </Card2>    
-      </div>
+        <EditButton className={AnswerTextFieldStyle} onClick={this.generateExams}>Generar examenes</EditButton>    
+        </Card>    
+      </Container>
     )
   }
 
@@ -114,13 +122,18 @@ class ExamMaker extends Component<ExamMakerProps, ExamMakerState> {
       const a = new QuestionSelector(banks, this.state.questionCount)
       const questions = a.compute()
       const gen = new ExamGenerator(questions)
+      const claves: string[][] = []
       
       for (let i = 0; i < this.state.examCount; i++) {
         const exam = gen.generate()
-        const renderer = new ExamRender(exam)
+        claves.push(exam.clave)
+        const renderer = new ExamRender(exam.incisos)
         renderer.render(`examen_tipo`)
-        console.log('done')
       }    
+
+      const keyRenderer = new ExamKeyRenderer(claves)
+      keyRenderer.render()
+      toast.info("Estamos procesando los examenes. Al finalizar, el archivo se guardara automaticamente.")
     }))
   }
 

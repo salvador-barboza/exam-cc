@@ -1,6 +1,8 @@
 import * as React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import 'react-toastify/dist/ReactToastify.css';
+
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import QuestionBankEditor from './ui/QuestionBank/QuestionBankEditor';
 import ExamMaker from './ui/ExamMaker';
 import styled from 'react-emotion';
@@ -9,6 +11,7 @@ import AuthService from './services/AuthService';
 import Login from './ui/Auth/Login';
 import SubjectList from './ui/QuestionBankExplorer/SujectList';
 import QuestionBankExplorer from './ui/QuestionBankExplorer/QuestionBankBySubjectList';
+import { ToastContainer } from 'react-toastify';
 
 const Shell = styled('div')({
   display: 'flex'
@@ -28,21 +31,17 @@ const Toolbar = styled('div')({
   padding: 16,
 })
 
+const LeftContainer = styled('div')({
+  flexGrow: 1
+})
 
-// const MenuItem = styled(Link)({
-//   display: 'flex',
-//   alignItems: 'center',
-//   justifyContent: 'center',
-//   height: 64,
-//   fontWeight: 500
-// })
+const MenuItem = styled(Link)({
+  height: 64,
+  fontWeight: 500,
+  marginLeft: 24,
+  fontSize: 20,
+})
 
-// const SidePanel = styled('div')({
-//   backgroundColor: '#FFF',
-//   height: '100vh',
-//   minWidth: 200,
-//   boxShadow: '0 0 8px 1px #dadada',
-// })
 
 interface AppState {
   user?: User
@@ -64,12 +63,16 @@ class App extends React.Component<{}, AppState> {
     return (
       <BrowserRouter>      
         <React.Fragment>
-          <Toolbar>Exam CC <button onClick={async () => auth().signOut()}>Cerrar Sesion</button></Toolbar>
-          <Shell>
-            {/* <SidePanel>              
+          <ToastContainer />
+          <Toolbar>
+            <LeftContainer>
+              Exam CC 
               <MenuItem to="/question_banks">Banco de Preguntas</MenuItem>
               <MenuItem to="/exam_editor">Crear examen</MenuItem>
-            </SidePanel> */}
+            </LeftContainer>
+            <button onClick={async () => auth().signOut()}>Cerrar Sesion</button>
+            </Toolbar>
+          <Shell>            
             <Switch>
             {this.state.user && 
               <React.Fragment>

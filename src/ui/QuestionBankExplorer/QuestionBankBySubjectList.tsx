@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router';
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
 import { AddButton } from '../shared';
-import { Title, BankCard, ButtonContainer, BankCount } from './Components';
-
+import { Title, BankCard, ButtonContainer, BankCount, Container } from './Components';
 
 interface QuestionBankExplorerProps {
   subject: string
@@ -55,25 +54,22 @@ class QuestionBankExplorer extends
     }    
 
     return (
-      <div>
+      <Container>
         <Title>{this.props.subject}</Title>
         {this.state.questionBanks.map(x => 
-            <BankCard>
-              <div>              
+            <BankCard onClick={() => this.onEditQuestionBank(x.id)}>
+              <div style={{ flexGrow: 1 }}>              
                 {x.title}
                 {x.questionCount &&
                      <BankCount>{this.formatQuestionBankCount(x.questionCount)}</BankCount>}
               </div>
-              <ButtonContainer>
-                <button onClick={() => this.onDeleteQuestionBank(x.id)}>borrar</button>
-                <button onClick={() => this.onEditQuestionBank(x.id)}>editar</button>              
-              </ButtonContainer>
+              <ButtonContainer onClick={(e) => { e.stopPropagation(); this.onDeleteQuestionBank(x.id) }} />
             </BankCard>)}
         <AddButton 
           onClick={this.onAddQuestionBank}>
           Crear Tema
         </AddButton>
-      </div>
+      </Container>
     )
   }
 }

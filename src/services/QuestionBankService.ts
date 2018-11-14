@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IQuestionBank } from 'src/models/QuestionBank/IQuestionBank';
 import { auth } from 'firebase';
 import { map, tap } from 'rxjs/operators';
+import { toast } from 'react-toastify';
 
 
 class QuestionBankService {
@@ -55,6 +56,8 @@ class QuestionBankService {
   
   public deleteQuestionBank = (questionBankId: string) => {
     return this.questionCollectionRef.doc(questionBankId).delete()
+    .then(() => toast.success("Tema eliminado correctamente"))
+
   }
 }
 
