@@ -1,4 +1,5 @@
-import styled  from 'react-emotion';
+import styled from 'react-emotion'
+import { css } from 'emotion'
 
 export const Container = styled('div')({
   padding: 16,
@@ -75,3 +76,33 @@ export const EditButton = styled('button')((props: { color: string }) => ({
     marginBottom: 10,
     fontSize: 17,
   }));
+
+  export const DeleteButton = styled('button')({
+    border: 'none',
+    backgroundColor: 'transparent',
+    padding: 8,
+    marginLeft: 8,
+    fontSize: 14,
+    color: 'red',
+    cursor: 'pointer',
+  })
+  
+  export const AnswerTextFieldStyle = css({
+    fontSize: 17,
+    padding: 4,
+    borderRadius: 2,
+    border: '1px solid #e7bdff',
+    maxWidth:200,
+  })
+  
+  export const Card = styled('div')({
+    boxShadow: '0 0 5px 1px #e2e2e2',
+    padding: 16,
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: 8,
+    alignItems: 'stretch',
+    backgroundColor: '#FFF'
+  })
+
+  
